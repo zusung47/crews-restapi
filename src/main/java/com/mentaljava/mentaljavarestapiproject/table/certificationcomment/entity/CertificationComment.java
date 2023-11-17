@@ -35,4 +35,30 @@ public class CertificationComment {
 
     @Column(name = "DELETE_STATUS")
     private int deleteStatus;
+
+    public CertificationComment() {}
+
+    public void setCommentId(int commentId) {
+        this.commentId = commentId;
+    }
+
+    public void setCommentContent(String commentContent) {
+        this.commentContent = commentContent;
+    }
+
+    public void setPostId(CertificationPost postId) {
+        this.postId = postId;
+    }
+
+    public void setUserId(User userId) {
+        this.userId = userId;
+    }
+
+    public void setWriteDate(Date writeDate) {
+        this.writeDate = writeDate;
+    }
+
+    public void setDeleteStatus(int deleteStatus) {
+        this.deleteStatus = deleteStatus;
+    }
 }

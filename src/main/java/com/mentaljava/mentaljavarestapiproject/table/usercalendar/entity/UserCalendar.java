@@ -40,4 +40,38 @@ public class UserCalendar {
 
     @Column(name = "TIME")
     private Time time;
+
+    public UserCalendar() {}
+
+    public void setUserCalendarId(int userCalendarId) {
+        this.userCalendarId = userCalendarId;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setCalendarContent(String calendarContent) {
+        this.calendarContent = calendarContent;
+    }
+
+    public void setDeleteStatus(int deleteStatus) {
+        this.deleteStatus = deleteStatus;
+    }
+
+    public void setUserId(User userId) {
+        this.userId = userId;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
+    }
 }

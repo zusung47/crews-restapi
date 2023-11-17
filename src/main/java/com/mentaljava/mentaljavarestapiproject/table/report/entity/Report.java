@@ -34,4 +34,34 @@ public class Report {
 
     @Column(name = "REPORT_STATUS")
     private int reportStatus;
+
+    public Report() {}
+
+    public void setReportId(int reportId) {
+        this.reportId = reportId;
+    }
+
+    public void setReportTarget(String reportTarget) {
+        this.reportTarget = reportTarget;
+    }
+
+    public void setReportReason(String reportReason) {
+        this.reportReason = reportReason;
+    }
+
+    public void setReportContent(String reportContent) {
+        this.reportContent = reportContent;
+    }
+
+    public void setReporter(User reporter) {
+        this.reporter = reporter;
+    }
+
+    public void setReportCategory(int reportCategory) {
+        this.reportCategory = reportCategory;
+    }
+
+    public void setReportStatus(int reportStatus) {
+        this.reportStatus = reportStatus;
+    }
 }

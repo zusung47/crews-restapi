@@ -29,4 +29,26 @@ public class NoticeFile {
     @ManyToOne
     @JoinColumn(name = "NOTICE_ID")
     private Notice noticeId;
+
+    public NoticeFile() {}
+
+    public void setAttachmentId(int attachmentId) {
+        this.attachmentId = attachmentId;
+    }
+
+    public void setOriginFileName(String originFileName) {
+        this.originFileName = originFileName;
+    }
+
+    public void setNewFileName(String newFileName) {
+        this.newFileName = newFileName;
+    }
+
+    public void setUploadDate(Date uploadDate) {
+        this.uploadDate = uploadDate;
+    }
+
+    public void setNoticeId(Notice noticeId) {
+        this.noticeId = noticeId;
+    }
 }

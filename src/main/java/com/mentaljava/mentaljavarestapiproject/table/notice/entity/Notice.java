@@ -32,4 +32,30 @@ public class Notice {
     @ManyToOne
     @JoinColumn(name = "ADMIN_ID")
     private Admin adminId;
+
+    public Notice() {}
+
+    public void setNoticeId(Integer noticeId) {
+        this.noticeId = noticeId;
+    }
+
+    public void setNoticeTitle(String noticeTitle) {
+        this.noticeTitle = noticeTitle;
+    }
+
+    public void setNoticeContent(String noticeContent) {
+        this.noticeContent = noticeContent;
+    }
+
+    public void setNoticeDate(Date noticeDate) {
+        this.noticeDate = noticeDate;
+    }
+
+    public void setDeleteStatus(int deleteStatus) {
+        this.deleteStatus = deleteStatus;
+    }
+
+    public void setAdminId(Admin adminId) {
+        this.adminId = adminId;
+    }
 }
