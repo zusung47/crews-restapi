@@ -1,5 +1,6 @@
 package com.mentaljava.mentaljavarestapiproject.table.crewlist.entity;
 
+import com.mentaljava.mentaljavarestapiproject.table.crewlistid.entity.CrewListId;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,13 +12,19 @@ import javax.persistence.*;
 @ToString
 public class CrewList {
 
-    //복합키이이이이이이이이이이어캐해해해해해
-    @Column(name = "USER_ID")
-    private String userId;
-
-    @Column(name = "CREW__ID")
-    private Integer crewId;
+    @EmbeddedId
+    private CrewListId CrewListid;
 
     @Column(name = "APPROVAL_STATUS")
     private Integer approvalStatus;
+
+    public CrewList() {}
+
+    public void setCrewListid(CrewListId crewListid) {
+        CrewListid = crewListid;
+    }
+
+    public void setApprovalStatus(Integer approvalStatus) {
+        this.approvalStatus = approvalStatus;
+    }
 }

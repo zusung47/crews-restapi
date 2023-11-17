@@ -23,5 +23,15 @@ public class Admin {
 
     public Admin() {}
 
+    public void setAdminId(String adminId) {
+        this.adminId = adminId;
+    }
 
+    public void setAdminPw(String adminPw) {
+        this.adminPw = adminPw;
+    }
+
+    public void setPermissionName(String permissionName) {
+        this.permissionName = permissionName;
+    }
 }

@@ -35,4 +35,30 @@ public class CertificationPost {
     @ManyToOne
     @JoinColumn(name = "CREW_ID")
     private Crew crewId;
+
+    public CertificationPost() {}
+
+    public void setPostId(int postId) {
+        this.postId = postId;
+    }
+
+    public void setPostTitle(String postTitle) {
+        this.postTitle = postTitle;
+    }
+
+    public void setPostContent(String postContent) {
+        this.postContent = postContent;
+    }
+
+    public void setPostDate(Date postDate) {
+        this.postDate = postDate;
+    }
+
+    public void setUserId(User userId) {
+        this.userId = userId;
+    }
+
+    public void setCrewId(Crew crewId) {
+        this.crewId = crewId;
+    }
 }

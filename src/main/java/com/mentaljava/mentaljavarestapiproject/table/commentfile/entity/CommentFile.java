@@ -32,4 +32,30 @@ public class CommentFile {
     @ManyToOne
     @JoinColumn(name = "COMMENT_ID")
     private CertificationComment commnetId;
+
+    public CommentFile() {}
+
+    public void setCommentId(int commentId) {
+        this.commentId = commentId;
+    }
+
+    public void setUploadDate(Date uploadDate) {
+        this.uploadDate = uploadDate;
+    }
+
+    public void setOriginName(String originName) {
+        this.originName = originName;
+    }
+
+    public void setRenameName(String renameName) {
+        this.renameName = renameName;
+    }
+
+    public void setDeleteStatus(int deleteStatus) {
+        this.deleteStatus = deleteStatus;
+    }
+
+    public void setCommnetId(CertificationComment commnetId) {
+        this.commnetId = commnetId;
+    }
 }

@@ -49,4 +49,50 @@ public class Crew {
 
     @Column(name = "CREATION_DATE")
     private Date creationDate;
+
+    public Crew() {}
+
+    public void setCrewId(int crewId) {
+        this.crewId = crewId;
+    }
+
+    public void setCrewName(String crewName) {
+        this.crewName = crewName;
+    }
+
+    public void setCaptain(User captain) {
+        this.captain = captain;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
+
+    public void setCrewCategoryCode(CrewCategory crewCategoryCode) {
+        this.crewCategoryCode = crewCategoryCode;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setCrewRecruitmentPost(String crewRecruitmentPost) {
+        this.crewRecruitmentPost = crewRecruitmentPost;
+    }
+
+    public void setCrewRecruitmentContent(String crewRecruitmentContent) {
+        this.crewRecruitmentContent = crewRecruitmentContent;
+    }
+
+    public void setRecruitmentStatus(String recruitmentStatus) {
+        this.recruitmentStatus = recruitmentStatus;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
 }

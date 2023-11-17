@@ -17,4 +17,14 @@ public class CrewCategory {
 
     @Column(name = "CATEGORY_NAME")
     private String categoryName;
+
+    public CrewCategory() {}
+
+    public void setCategoryCode(int categoryCode) {
+        this.categoryCode = categoryCode;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
 }

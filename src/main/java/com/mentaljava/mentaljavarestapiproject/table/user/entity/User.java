@@ -30,4 +30,32 @@ public class User {
 
     @Column(name = "PERMISSION_TYPE")
     private String permissionType;
+
+    public User() {}
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public void setDiamondCount(int diamondCount) {
+        this.diamondCount = diamondCount;
+    }
+
+    public void setJoinDate(Date joinDate) {
+        this.joinDate = joinDate;
+    }
+
+    public void setOutDate(Date outDate) {
+        this.outDate = outDate;
+    }
+
+    public void setPermissionType(String permissionType) {
+        this.permissionType = permissionType;
+    }
+
+
 }

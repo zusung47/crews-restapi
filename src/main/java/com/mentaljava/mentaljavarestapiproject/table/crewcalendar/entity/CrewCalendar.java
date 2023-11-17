@@ -35,4 +35,34 @@ public class CrewCalendar {
     @ManyToOne
     @JoinColumn(name = "CREW_ID")
     private Crew crewId;
+
+    public CrewCalendar() {}
+
+    public void setCrewCalendarId(int crewCalendarId) {
+        this.crewCalendarId = crewCalendarId;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setDeleteStatus(int deleteStatus) {
+        this.deleteStatus = deleteStatus;
+    }
+
+    public void setCrewId(Crew crewId) {
+        this.crewId = crewId;
+    }
 }
