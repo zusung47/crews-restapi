@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form th:object="${form}" method="post">
+<label for="noticeId">공지사항 아이디:</label>
+<input type="text" id="noticeId" th:field="*{noticeId}" readonly>
+<br>
+
+<label for="noticeTitle">공지사항 제목:</label>
+<input type="text" id="noticeTitle" th:field="*{noticeTitle}">
+<br>
+
+<label for="noticeContent">내용:</label>
+<textarea id="noticeContent" th:field="*{noticeContent}" rows="4" cols="50"></textarea>
+<br>
+
+<label for="adminId">관리자 아이디:</label>
+<input type="text" id="adminId" th:field="*{adminId}" readonly>
+<br>
+
+<!--<label for="noticeDate">작성일자:</label>-->
+<!--<input type="text" id="noticeDate" th:field="*{noticeDate}" readonly>-->
+<!--<br>-->
+
+<input type="submit" value="수정">
+<input type="submit" value="삭제">
+</form>
+
+</body>
+</html>
