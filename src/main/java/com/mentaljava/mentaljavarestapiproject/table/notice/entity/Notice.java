@@ -58,4 +58,6 @@ public class Notice {
     public void setAdminId(Admin adminId) {
         this.adminId = adminId;
     }
+
+
 }

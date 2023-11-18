@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form role="form" action="/notice/regist" method="post">
+
+    <label for="admin">관리자id</label>
+    <select name="adminId" id="admin">
+        <option value="">관리자 선택</option>
+        <option th:each="admin : ${admins}"
+                th:value="${admin.adminId}"
+                th:text="${admin.adminId}"
+                />
+    </select>
+
+    <label for="title">제목</label>
+    <input type="text" name="count" id="title" placeholder="제목을 입력하세요">
+
+
+    <label for="content">내용</label>
+    <textarea id="content" rows="4" cols="50" placeholder="공지사항 내용을 입력하세요"></textarea>
+
+    <button type="submit">등록</button>
+</form>
+
+</body>
+</html>
