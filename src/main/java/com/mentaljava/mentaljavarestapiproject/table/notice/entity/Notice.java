@@ -14,7 +14,7 @@ import java.util.Date;
 public class Notice {
 
     @Id
-    @Column(name = "NOTICE_ID")
+    @Column(name = "NOTICE_ID") @GeneratedValue
     private Integer noticeId;
 
     @Column(name = "NOTICE_TITLE")

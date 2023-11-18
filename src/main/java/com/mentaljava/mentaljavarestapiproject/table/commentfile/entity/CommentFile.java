@@ -29,9 +29,9 @@ public class CommentFile {
     @Column(name = "DELETE_STATUS")
     private int deleteStatus;
 
-    @ManyToOne
-    @JoinColumn(name = "COMMENT_ID")
-    private CertificationComment commnetId;
+//    @ManyToOne
+//    @JoinColumn(name = "COMMENT_ID")
+//    private CertificationComment commnetId;
 
     public CommentFile() {}
 
@@ -55,7 +55,7 @@ public class CommentFile {
         this.deleteStatus = deleteStatus;
     }
 
-    public void setCommnetId(CertificationComment commnetId) {
-        this.commnetId = commnetId;
-    }
+//    public void setCommnetId(CertificationComment commnetId) {
+//        this.commnetId = commnetId;
+//    }
 }
