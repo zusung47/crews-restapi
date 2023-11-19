@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<tr th:each="postlist : ${postList}">
+  <td th:text="${postlist.postTitle}"></td>
+  <td th:text="${postlist.postContent}"></td>
+  <td th:text="${postlist.postDate}"></td>
+  <td th:text="${postlist.crewId.crewName}"></td>
+  <td th:text="${postlist.userId.nickname}"></td>
+  <td>
+    <a href="#" th:href="@{/certificationPost/list/{postId}/detail (postId=${postlist.postId})}" role="button">상세정보</a>
+    <a href="#" th:href="@{/certificationPost/list/{postId}/edit (noticeId=${postlist.postId})}" role="button">수정</a>
+  </td>
+</tr>
+
+</body>
+</html>

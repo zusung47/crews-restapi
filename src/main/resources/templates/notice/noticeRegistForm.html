@@ -10,13 +10,8 @@
 <form role="form" action="/notice/regist" method="post">
 
     <label for="admin">관리자id</label>
-    <select name="adminId" id="admin">
-        <option value="">관리자 선택</option>
-        <option th:each="admin : ${admins}"
-                th:value="${admin.adminId}"
-                th:text="${admin.adminId}"
-                />
-    </select>
+    <input type="text" name="adminId" id="admin" placeholder="관리자 id를 입력하세요">
+
 
     <label for="title">제목</label>
     <input type="text" name="noticeTitle" id="title" placeholder="제목을 입력하세요">

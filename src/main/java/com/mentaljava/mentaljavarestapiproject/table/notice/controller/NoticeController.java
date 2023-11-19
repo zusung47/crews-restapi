@@ -71,8 +71,6 @@ public class NoticeController {
 
     @GetMapping("/regist")
     public String noticeAdd(Model model) {
-        List<Admin> adminList = adminService.findAdmin();
-        model.addAttribute("admins", adminList);
         return "notice/noticeRegistForm";
     }
 
