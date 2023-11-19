@@ -17,7 +17,7 @@ public class CertificationPost {
 
     @Id
     @Column(name = "POST_ID")
-    private int postId;
+    private Integer postId;
 
     @Column(name = "POST_TITLE")
     private String postTitle;

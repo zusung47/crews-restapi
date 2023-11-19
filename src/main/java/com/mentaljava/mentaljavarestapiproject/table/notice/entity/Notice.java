@@ -60,4 +60,6 @@ public class Notice {
     }
 
 
+    public void setAdminId(String adminId) {
+    }
 }

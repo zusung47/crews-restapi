@@ -52,7 +52,7 @@ public class NoticeService {
         Notice notice = new Notice();
         notice.setNoticeTitle(noticeTitle);
         notice.setNoticeContent(noticeContent);
-        notice.setAdminId(admin);
+        notice.setAdminId(admin.getAdminId());
         notice.setNoticeDate(new Date(System.currentTimeMillis()));
         noticeRepository.save(notice);
     }
