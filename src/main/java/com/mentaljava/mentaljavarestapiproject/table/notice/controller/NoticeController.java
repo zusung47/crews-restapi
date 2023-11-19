@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
@@ -72,22 +73,16 @@ public class NoticeController {
     public String noticeAdd(Model model) {
         List<Admin> adminList = adminService.findAdmin();
         model.addAttribute("admins", adminList);
-        model.addAttribute("form", new NoticeDTO());
         return "notice/noticeRegistForm";
     }
 
 
     // 이부분이 작동되지 않음.
     @PostMapping("/regist")
-    public String Create(NoticeDTO form) {
-        Notice notice = new Notice();
-        notice.setNoticeTitle(form.getNoticeTitle());
-        notice.setNoticeContent(form.getNoticeContent());
-        LocalDate currentDate = LocalDate.now();
-        Date sqlDate = Date.valueOf(currentDate);
-        notice.setNoticeDate(sqlDate);
-        notice.setAdminId(adminService.findOne(form.getAdminId()));
-        noticeService.saveNotice(notice);
+    public String Create(@RequestParam("adminId") String adminId,
+                         @RequestParam("noticeTitle") String noticeTitle,
+                         @RequestParam("noticeContent") String noticeContent) {
+        noticeService.registNotice(adminId,noticeTitle,noticeContent);
         return "redirect:/notice";
     }
 
