@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:object="${postDetail}">
+    <h2 th:text="${postDetail.postContent}"></h2>
+    <h1 th:text="${postDetail.postTitle}"></h1>
+</div>
+<div>
+<tr th:each="postComments : ${postComment}">
+    <td th:text="${postComments.userId}"></td>
+    <td th:text="${postComments.commentContent}"></td>
+    <td th:text="${postComments.writeDate}"></td>
+</tr>
+</div>
+</body>
+</html>

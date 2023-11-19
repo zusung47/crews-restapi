@@ -4,10 +4,6 @@ import com.mentaljava.mentaljavarestapiproject.table.crew.entity.Crew;
 import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -15,7 +11,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class certificationpostDTO {
+public class CertificationPostDTO {
 
     private int postId;
 

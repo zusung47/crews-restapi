@@ -17,7 +17,7 @@ public class CertificationComment {
 
     @Id
     @Column(name = "COMMENT_ID")
-    private int commentId;
+    private Integer commentId;
 
     @Column(name = "COMMENT_CONTENT")
     private String commentContent;
