@@ -18,7 +18,11 @@ public class CertificationPostService {
     }
 
 
-    public Optional<CertificationPost> findPostDetail(Integer postId) {
+    public CertificationPost findPostDetail(Integer postId) {
         return certificationPostRepository.findByPostId(postId);
     }
+
+//    public Optional<CertificationPost> findPostDetails(Integer postId) {
+//        return certificationPostRepository.findByPostId(postId);
+//    }
 }

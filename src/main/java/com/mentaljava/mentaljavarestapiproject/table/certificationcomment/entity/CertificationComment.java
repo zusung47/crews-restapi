@@ -2,8 +2,9 @@ package com.mentaljava.mentaljavarestapiproject.table.certificationcomment.entit
 
 import com.mentaljava.mentaljavarestapiproject.table.certificationpost.entity.CertificationPost;
 
+import java.time.LocalDate;
+import java.util.Optional;
 import javax.persistence.*;
-import java.util.Date;
 
 import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
 import lombok.*;
@@ -32,7 +33,7 @@ public class CertificationComment {
     private User userId;
 
     @Column(name = "WRITE_DATE")
-    private Date writeDate;
+    private LocalDate writeDate;
 
     @Column(name = "DELETE_STATUS")
     private Integer deleteStatus;
@@ -55,7 +56,7 @@ public class CertificationComment {
         this.userId = userId;
     }
 
-    public void setWriteDate(Date writeDate) {
+    public void setWriteDate(LocalDate writeDate) {
         this.writeDate = writeDate;
     }
 
