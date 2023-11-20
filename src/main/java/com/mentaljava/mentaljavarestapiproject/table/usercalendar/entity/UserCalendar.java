@@ -17,6 +17,7 @@ public class UserCalendar {
 
     @Id
     @Column(name = "USER_CALENDAR_ID")
+    @GeneratedValue
     private int userCalendarId;
 
     @Column(name = "START_DATE")

@@ -15,6 +15,7 @@ public class NoticeFile {
 
     @Id
     @Column(name = "ATTACHMENT_ID")
+    @GeneratedValue
     private Integer attachmentId;
 
     @Column(name = "ORIGIN_FILE_NAME")

@@ -15,6 +15,7 @@ public class CrewCalendar {
 
     @Id
     @Column(name = "CREW_CALENDAR_ID")
+    @GeneratedValue
     private int crewCalendarId;
 
     @Column(name = "START_DATE")
