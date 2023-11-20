@@ -15,7 +15,7 @@ import java.util.Date;
 @ToString
 public class crewcalendarDTO {
 
-    private int crewCalendarId;
+    private Integer crewCalendarId;
 
     private Date startDate;
 
@@ -25,7 +25,7 @@ public class crewcalendarDTO {
 
     private String content;
 
-    private int deleteStatus;
+    private Integer deleteStatus;
 
     private Crew crewId;
 }

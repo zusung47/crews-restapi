@@ -15,7 +15,7 @@ import java.util.Date;
 @ToString
 public class noticefileDTO {
 
-    private int attachmentId;
+    private Integer attachmentId;
 
     private String originFileName;
 

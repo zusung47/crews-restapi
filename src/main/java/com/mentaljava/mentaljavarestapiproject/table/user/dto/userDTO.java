@@ -16,7 +16,7 @@ public class userDTO {
 
     private String nickname;
 
-    private int diamondCount;
+    private Integer diamondCount;
 
     private Date joinDate;
 

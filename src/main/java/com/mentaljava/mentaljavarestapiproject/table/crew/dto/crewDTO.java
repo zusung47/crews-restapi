@@ -16,7 +16,7 @@ import java.util.Date;
 @ToString
 public class crewDTO {
 
-    private int crewId;
+    private Integer crewId;
 
     private String crewName;
 

@@ -33,7 +33,7 @@ public class NoticeFile {
 
     public NoticeFile() {}
 
-    public void setAttachmentId(int attachmentId) {
+    public void setAttachmentId(Integer attachmentId) {
         this.attachmentId = attachmentId;
     }
 

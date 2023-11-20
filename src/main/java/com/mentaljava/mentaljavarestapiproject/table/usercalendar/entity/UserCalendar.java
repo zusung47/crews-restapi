@@ -18,7 +18,7 @@ public class UserCalendar {
     @Id
     @Column(name = "USER_CALENDAR_ID")
     @GeneratedValue
-    private int userCalendarId;
+    private Integer userCalendarId;
 
     @Column(name = "START_DATE")
     private Date startDate;
@@ -33,7 +33,7 @@ public class UserCalendar {
     private String calendarContent;
 
     @Column(name = "DELETE_STATUS")
-    private int deleteStatus;
+    private Integer deleteStatus;
 
     @ManyToOne
     @JoinColumn(name = "USER_ID")
@@ -44,7 +44,7 @@ public class UserCalendar {
 
     public UserCalendar() {}
 
-    public void setUserCalendarId(int userCalendarId) {
+    public void setUserCalendarId(Integer userCalendarId) {
         this.userCalendarId = userCalendarId;
     }
 
@@ -64,7 +64,7 @@ public class UserCalendar {
         this.calendarContent = calendarContent;
     }
 
-    public void setDeleteStatus(int deleteStatus) {
+    public void setDeleteStatus(Integer deleteStatus) {
         this.deleteStatus = deleteStatus;
     }
 

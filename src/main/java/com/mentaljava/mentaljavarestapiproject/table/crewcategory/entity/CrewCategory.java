@@ -13,14 +13,14 @@ public class CrewCategory {
 
     @Id
     @Column(name = "CATEGORY_CODE")
-    private int categoryCode;
+    private Integer categoryCode;
 
     @Column(name = "CATEGORY_NAME")
     private String categoryName;
 
     public CrewCategory() {}
 
-    public void setCategoryCode(int categoryCode) {
+    public void setCategoryCode(Integer categoryCode) {
         this.categoryCode = categoryCode;
     }
 

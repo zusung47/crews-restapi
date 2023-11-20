@@ -16,7 +16,7 @@ import java.util.Date;
 @ToString
 public class commentfileDTO {
 
-    private int commentId;
+    private Integer commentId;
 
     private Date uploadDate;
 
@@ -24,7 +24,7 @@ public class commentfileDTO {
 
     private String renameName;
 
-    private int deleteStatus;
+    private Integer deleteStatus;
 
     private CertificationComment commnetId;
 }

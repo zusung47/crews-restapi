@@ -17,7 +17,7 @@ import java.util.Date;
 @ToString
 public class usercalendarDTO {
 
-    private int userCalendarId;
+    private Integer userCalendarId;
 
     private Date startDate;
 
@@ -27,7 +27,7 @@ public class usercalendarDTO {
 
     private String calendarContent;
 
-    private int deleteStatus;
+    private Integer deleteStatus;
 
     private User userId;
 

@@ -35,11 +35,11 @@ public class CertificationComment {
     private Date writeDate;
 
     @Column(name = "DELETE_STATUS")
-    private int deleteStatus;
+    private Integer deleteStatus;
 
     public CertificationComment() {}
 
-    public void setCommentId(int commentId) {
+    public void setCommentId(Integer commentId) {
         this.commentId = commentId;
     }
 
@@ -59,7 +59,7 @@ public class CertificationComment {
         this.writeDate = writeDate;
     }
 
-    public void setDeleteStatus(int deleteStatus) {
+    public void setDeleteStatus(Integer deleteStatus) {
         this.deleteStatus = deleteStatus;
     }
 }

@@ -20,7 +20,7 @@ public class NoticeDTO {
 
     private Date noticeDate;
 
-    private int deleteStatus;
+    private Integer deleteStatus;
 
     private Admin adminId;
 }

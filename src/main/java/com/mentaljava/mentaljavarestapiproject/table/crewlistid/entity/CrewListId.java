@@ -19,6 +19,6 @@ public class CrewListId implements Serializable {
     private String userId;
 
     @Column(name = "CREW_ID")
-    private int crewId;
+    private Integer crewId;
 
 }

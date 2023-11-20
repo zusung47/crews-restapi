@@ -13,7 +13,7 @@ import java.util.Date;
 @ToString
 public class CertificationPostDTO {
 
-    private int postId;
+    private Integer postId;
 
     private String postTitle;
 
