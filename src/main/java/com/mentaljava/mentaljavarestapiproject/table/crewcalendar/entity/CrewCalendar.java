@@ -16,7 +16,7 @@ public class CrewCalendar {
     @Id
     @Column(name = "CREW_CALENDAR_ID")
     @GeneratedValue
-    private int crewCalendarId;
+    private Integer crewCalendarId;
 
     @Column(name = "START_DATE")
     private Date startDate;
@@ -31,7 +31,7 @@ public class CrewCalendar {
     private String content;
 
     @Column(name = "DELETE_STATUS")
-    private int deleteStatus;
+    private Integer deleteStatus;
 
     @ManyToOne
     @JoinColumn(name = "CREW_ID")
@@ -39,7 +39,7 @@ public class CrewCalendar {
 
     public CrewCalendar() {}
 
-    public void setCrewCalendarId(int crewCalendarId) {
+    public void setCrewCalendarId(Integer crewCalendarId) {
         this.crewCalendarId = crewCalendarId;
     }
 
@@ -59,7 +59,7 @@ public class CrewCalendar {
         this.content = content;
     }
 
-    public void setDeleteStatus(int deleteStatus) {
+    public void setDeleteStatus(Integer deleteStatus) {
         this.deleteStatus = deleteStatus;
     }
 

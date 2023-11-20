@@ -12,7 +12,7 @@ import javax.persistence.Id;
 @ToString
 public class crewcategoryDTO {
 
-    private int categoryCode;
+    private Integer categoryCode;
 
     private String categoryName;
 

@@ -28,7 +28,7 @@ public class Notice {
     private Date noticeDate;
 
     @Column(name = "DELETE_STATUS")
-    private int deleteStatus;
+    private Integer deleteStatus;
 
     @ManyToOne
     @JoinColumn(name = "ADMIN_ID")
@@ -52,7 +52,7 @@ public class Notice {
         this.noticeDate = noticeDate;
     }
 
-    public void setDeleteStatus(int deleteStatus) {
+    public void setDeleteStatus(Integer deleteStatus) {
         this.deleteStatus = deleteStatus;
     }
 

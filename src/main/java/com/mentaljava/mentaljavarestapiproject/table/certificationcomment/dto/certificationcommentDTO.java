@@ -16,7 +16,7 @@ import java.util.Date;
 @ToString
 public class certificationcommentDTO {
 
-    private int commentId;
+    private Integer commentId;
 
     private String commentContent;
 
@@ -26,5 +26,5 @@ public class certificationcommentDTO {
 
     private Date writeDate;
 
-    private int deleteStatus;
+    private Integer deleteStatus;
 }

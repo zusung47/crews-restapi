@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 @ToString
 public class reportDTO {
 
-    private int reportId;
+    private Integer reportId;
 
     private String reportTarget;
 
@@ -24,7 +24,7 @@ public class reportDTO {
 
     private User reporter;
 
-    private int reportCategory;
+    private Integer reportCategory;
 
-    private int reportStatus;
+    private Integer reportStatus;
 }

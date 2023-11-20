@@ -39,7 +39,7 @@ public class CertificationPost {
 
     public CertificationPost() {}
 
-    public void setPostId(int postId) {
+    public void setPostId(Integer postId) {
         this.postId = postId;
     }
 

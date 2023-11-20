@@ -17,7 +17,7 @@ public class Crew {
     @Id
     @Column(name = "CREW_ID")
     @GeneratedValue
-    private int crewId;
+    private Integer crewId;
 
     @Column(name = "CREW_NAME")
     private String crewName;
@@ -53,7 +53,7 @@ public class Crew {
 
     public Crew() {}
 
-    public void setCrewId(int crewId) {
+    public void setCrewId(Integer crewId) {
         this.crewId = crewId;
     }
 

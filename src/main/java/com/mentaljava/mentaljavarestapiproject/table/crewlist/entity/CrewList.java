@@ -30,7 +30,7 @@ public class CrewList {
     private Crew crew;
 
     @Column(name = "APPROVAL_STATUS")
-    private int approvalStatus;
+    private Integer approvalStatus;
 
 
 }

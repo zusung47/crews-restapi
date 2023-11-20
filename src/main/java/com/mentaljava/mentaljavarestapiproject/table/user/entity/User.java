@@ -20,7 +20,7 @@ public class User {
     private String nickname;
 
     @Column(name = "DIAMOND_COUNT")
-    private int diamondCount;
+    private Integer diamondCount;
 
     @Column(name = "JOIN_DATE")
     private Date joinDate;
@@ -41,7 +41,7 @@ public class User {
         this.nickname = nickname;
     }
 
-    public void setDiamondCount(int diamondCount) {
+    public void setDiamondCount(Integer diamondCount) {
         this.diamondCount = diamondCount;
     }
 

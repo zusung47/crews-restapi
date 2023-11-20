@@ -15,7 +15,7 @@ public class CommentFile {
 
     @Id
     @Column(name = "COMMENT_ID")
-    private int commentId;
+    private Integer commentId;
 
     @Column(name = "UPLOAD_DATE")
     private Date uploadDate;
@@ -27,7 +27,7 @@ public class CommentFile {
     private String renameName;
 
     @Column(name = "DELETE_STATUS")
-    private int deleteStatus;
+    private Integer deleteStatus;
 
 //    @ManyToOne
 //    @JoinColumn(name = "COMMENT_ID")
@@ -35,7 +35,7 @@ public class CommentFile {
 
     public CommentFile() {}
 
-    public void setCommentId(int commentId) {
+    public void setCommentId(Integer commentId) {
         this.commentId = commentId;
     }
 
@@ -51,7 +51,7 @@ public class CommentFile {
         this.renameName = renameName;
     }
 
-    public void setDeleteStatus(int deleteStatus) {
+    public void setDeleteStatus(Integer deleteStatus) {
         this.deleteStatus = deleteStatus;
     }
 

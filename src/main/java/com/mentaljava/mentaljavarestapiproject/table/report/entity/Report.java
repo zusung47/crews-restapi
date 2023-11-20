@@ -15,7 +15,7 @@ public class Report {
     @Id
     @Column(name = "REPORT_ID")
     @GeneratedValue
-    private int reportId;
+    private Integer reportId;
 
     @Column(name = "REPORT_TARGET")
     private String reportTarget;
@@ -31,14 +31,14 @@ public class Report {
     private User reporter;
 
     @Column(name = "REPORT_CATEGORY")
-    private int reportCategory;
+    private Integer reportCategory;
 
     @Column(name = "REPORT_STATUS")
-    private int reportStatus;
+    private Integer reportStatus;
 
     public Report() {}
 
-    public void setReportId(int reportId) {
+    public void setReportId(Integer reportId) {
         this.reportId = reportId;
     }
 
@@ -58,11 +58,11 @@ public class Report {
         this.reporter = reporter;
     }
 
-    public void setReportCategory(int reportCategory) {
+    public void setReportCategory(Integer reportCategory) {
         this.reportCategory = reportCategory;
     }
 
-    public void setReportStatus(int reportStatus) {
+    public void setReportStatus(Integer reportStatus) {
         this.reportStatus = reportStatus;
     }
 }
