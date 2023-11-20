@@ -14,6 +14,7 @@ public class Report {
 
     @Id
     @Column(name = "REPORT_ID")
+    @GeneratedValue
     private int reportId;
 
     @Column(name = "REPORT_TARGET")

@@ -17,6 +17,7 @@ public class CertificationComment {
 
     @Id
     @Column(name = "COMMENT_ID")
+    @GeneratedValue
     private Integer commentId;
 
     @Column(name = "COMMENT_CONTENT")

@@ -16,6 +16,7 @@ public class Crew {
 
     @Id
     @Column(name = "CREW_ID")
+    @GeneratedValue
     private int crewId;
 
     @Column(name = "CREW_NAME")
