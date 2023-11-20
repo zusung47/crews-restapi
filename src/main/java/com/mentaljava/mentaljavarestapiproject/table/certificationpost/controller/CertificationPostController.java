@@ -34,14 +34,14 @@ public class CertificationPostController {
         return "certificationpost/certificationPostList";
     }
 
-    // 상세조회 기능 작동오류
     @GetMapping("/list/{postId}/detail")
     public String postDetail(@PathVariable("postId") Integer postId, Model model) {
-        Optional<CertificationPost> detailOptional = certificationPostService.findPostDetail(postId);
-        List<CertificationComment> certificationCommentList = certificationCommentService.findPostComment(postId,0);
-        if (detailOptional.isPresent()) {
-            model.addAttribute("postDetail", detailOptional.get());
-            model.addAttribute("postComment",certificationCommentList);
+        CertificationPost detailOptional = certificationPostService.findPostDetail(postId);
+        Optional<CertificationComment> certificationCommentList =
+                certificationCommentService.findPostComment(detailOptional,0);
+        if (detailOptional != null) {
+            model.addAttribute("postDetail", detailOptional);
+            model.addAttribute("postComment",certificationCommentList.get());
             return "certificationpost/postDetail";
         }
         return "redirect:/certificationPost";

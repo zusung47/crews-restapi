@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CertificationPostRepository extends JpaRepository<CertificationPost, Integer> {
 
+    CertificationPost findByPostId(Integer postId);
 
-    Optional<CertificationPost> findByPostId(Integer postId);
 }

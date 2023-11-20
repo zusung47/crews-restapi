@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,13 +8,23 @@
 <div th:object="${postDetail}">
     <h2 th:text="${postDetail.postContent}"></h2>
     <h1 th:text="${postDetail.postTitle}"></h1>
+    <div>
+        <table>
+            <tr th:each="postComments : ${postComment}">
+                <td th:text="${postComments.userId.userId}"></td>
+                <td th:text="${postComments.commentContent}"></td>
+                <td th:text="${postComments.writeDate}"></td>
+            </tr>
+        </table>
+    </div>
+    <br><br>
+    <form role="form" action="/comment/regist" method="post">
+        <input type="hidden" name="postId" th:value="${postDetail.postId}" />
+        <textarea name="postComment" id="count" placeholder="댓글을 입력하세요"></textarea>
+        <button type="submit">등록</button>
+    </form>
 </div>
-<div>
-<tr th:each="postComments : ${postComment}">
-    <td th:text="${postComments.userId}"></td>
-    <td th:text="${postComments.commentContent}"></td>
-    <td th:text="${postComments.writeDate}"></td>
-</tr>
-</div>
+
+
 </body>
 </html>
