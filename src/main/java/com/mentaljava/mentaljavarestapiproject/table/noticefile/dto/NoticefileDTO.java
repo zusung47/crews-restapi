@@ -3,9 +3,6 @@ package com.mentaljava.mentaljavarestapiproject.table.noticefile.dto;
 import com.mentaljava.mentaljavarestapiproject.table.notice.entity.Notice;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -13,7 +10,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class noticefileDTO {
+public class NoticefileDTO {
 
     private Integer attachmentId;
 

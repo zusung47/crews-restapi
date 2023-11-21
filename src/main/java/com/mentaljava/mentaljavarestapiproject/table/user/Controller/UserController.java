@@ -1,35 +1,33 @@
 package com.mentaljava.mentaljavarestapiproject.table.user.Controller;
 
+import com.mentaljava.mentaljavarestapiproject.common.ResponseDTO;
+import com.mentaljava.mentaljavarestapiproject.table.crew.dto.CrewDTO;
+import com.mentaljava.mentaljavarestapiproject.table.user.dto.UserDTO;
 import com.mentaljava.mentaljavarestapiproject.table.user.service.UserService;
-import com.mentaljava.mentaljavarestapiproject.table.usercalendar.entity.UserCalendar;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequiredArgsConstructor
-@RequestMapping("/user")
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/v1/user")
+@Slf4j
 public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("")
-    public String userNav() {
-        return "user/userForm";
+    public UserController(UserService userService) { this.userService = userService;}
+
+    @GetMapping("/list")
+    public ResponseEntity<ResponseDTO> allUserList(){
+        List<UserDTO> userList = userService.findAllUserList();
+        System.out.println("userList =" + userList);
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "조회 성공" ,userList));
     }
 
-    @GetMapping("/update")
-    public String updateFrom() {
-        return "user/updateNickname";
-    }
 
-    @PostMapping("/update")
-    public String updateNickname(@RequestParam("userId") String userId,
-                                 @RequestParam("nickname") String nickname) {
-        userService.updateNickname(userId, nickname);
-        return "redirect:/user";
-    }
 }
