@@ -1,1 +1,22 @@
+### 전체 크루 리스트 조회
 GET http://localhost:8080/api/v1/crew/list
+
+### 모집상태 1 리스트 조회
+GET http://localhost:8080/api/v1/crew/list/recruitmentstatusok
+
+### 모집상태 0 리스트 조회
+GET http://localhost:8080/api/v1/crew/list/recruitmentstatusno
+
+### 크루 상세정보 조회(1번크루)
+GET http://localhost:8080/api/v1/crew/detail/1
+
+### 크루 소개글 조회(1번크루)
+GET http://localhost:8080/api/v1/crew/detail/1/intro
+
+### 크루 소개글 수정
+PUT http://localhost:8080/api/v1/crew/1/intro
+Content-Type: application/json
+
+{
+  "introduction": "수정테스트입니다"
+}
