@@ -1,5 +1,6 @@
 package com.mentaljava.mentaljavarestapiproject.table.notice.controller;
 
+import com.mentaljava.mentaljavarestapiproject.common.ResponseDTO;
 import com.mentaljava.mentaljavarestapiproject.table.admin.entity.Admin;
 import com.mentaljava.mentaljavarestapiproject.table.admin.service.AdminService;
 import com.mentaljava.mentaljavarestapiproject.table.notice.dto.NoticeDTO;
@@ -9,6 +10,8 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/notice")
+@RequestMapping("/api/v1/notice")
 public class NoticeController {
 
     private final NoticeService noticeService;
@@ -32,10 +35,13 @@ public class NoticeController {
     }
 
     @GetMapping("/list")
-    public String noticeList(Model model) {
-        List<Notice> noticeList = noticeService.findNotice();
-        model.addAttribute("notices", noticeList);
-        return "notice/noticeList";
+    public ResponseEntity<ResponseDTO> noticeList() {
+        List<NoticeDTO> noticeList = noticeService.findNotice();
+        System.out.println("noticeList = " + noticeList);
+//        model.addAttribute("notices", noticeList);
+//        return "notice/noticeList";
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "조회 성공", noticeList));
     }
 
     @GetMapping("/list/{noticeId}/edit")
