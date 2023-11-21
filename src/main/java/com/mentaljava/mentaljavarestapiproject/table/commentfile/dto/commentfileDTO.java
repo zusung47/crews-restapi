@@ -1,6 +1,6 @@
 package com.mentaljava.mentaljavarestapiproject.table.commentfile.dto;
 
-import com.mentaljava.mentaljavarestapiproject.table.certificationcomment.entity.CertificationComment;
+import com.mentaljava.mentaljavarestapiproject.table.certificationcomment.dto.CertificationCommentDTO;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -26,6 +26,6 @@ public class commentfileDTO {
 
     private Integer deleteStatus;
 
-    private CertificationComment commnetId;
+    private CertificationCommentDTO commnetId;
 }
 

@@ -1,7 +1,8 @@
 package com.mentaljava.mentaljavarestapiproject.table.certificationpost.dto;
 
-import com.mentaljava.mentaljavarestapiproject.table.crew.entity.Crew;
-import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
+import com.mentaljava.mentaljavarestapiproject.table.crew.dto.CrewDTO;
+import com.mentaljava.mentaljavarestapiproject.table.user.dto.UserDTO;
+
 import lombok.*;
 
 import java.util.Date;
@@ -21,7 +22,7 @@ public class CertificationPostDTO {
 
     private Date postDate;
 
-    private User userId;
+    private UserDTO userId;
 
-    private Crew crewId;
+    private CrewDTO crewId;
 }

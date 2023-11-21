@@ -1,6 +1,6 @@
 package com.mentaljava.mentaljavarestapiproject.table.usercalendar.dto;
 
-import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
+import com.mentaljava.mentaljavarestapiproject.table.user.dto.UserDTO;
 import lombok.*;
 
 import java.sql.Time;
@@ -25,7 +25,7 @@ public class UsercalendarDTO {
 
     private Integer deleteStatus;
 
-    private User userId;
+    private UserDTO userId;
 
     private Time time;
 }

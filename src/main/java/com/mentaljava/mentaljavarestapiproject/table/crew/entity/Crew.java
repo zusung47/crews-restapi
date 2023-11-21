@@ -16,7 +16,7 @@ public class Crew {
 
     @Id
     @Column(name = "CREW_ID")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer crewId;
 
     @Column(name = "CREW_NAME")

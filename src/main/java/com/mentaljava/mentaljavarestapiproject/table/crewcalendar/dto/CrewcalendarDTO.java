@@ -1,6 +1,6 @@
 package com.mentaljava.mentaljavarestapiproject.table.crewcalendar.dto;
 
-import com.mentaljava.mentaljavarestapiproject.table.crew.entity.Crew;
+import com.mentaljava.mentaljavarestapiproject.table.crew.dto.CrewDTO;
 import lombok.*;
 
 import java.util.Date;
@@ -24,5 +24,5 @@ public class CrewcalendarDTO {
 
     private Integer deleteStatus;
 
-    private Crew crewId;
+    private CrewDTO crewId;
 }
