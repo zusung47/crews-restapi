@@ -2,7 +2,6 @@ package com.mentaljava.mentaljavarestapiproject.table.user.dto;
 
 import lombok.*;
 
-import javax.persistence.Column;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -10,7 +9,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class userDTO {
+public class UserDTO {
 
     private String userId;
 
