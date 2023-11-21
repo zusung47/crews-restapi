@@ -6,10 +6,11 @@ import com.mentaljava.mentaljavarestapiproject.table.admin.service.AdminService;
 import com.mentaljava.mentaljavarestapiproject.table.notice.dto.NoticeDTO;
 import com.mentaljava.mentaljavarestapiproject.table.notice.entity.Notice;
 import com.mentaljava.mentaljavarestapiproject.table.notice.service.NoticeService;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,10 +19,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/notice")
 public class NoticeController {
@@ -38,35 +42,29 @@ public class NoticeController {
     public ResponseEntity<ResponseDTO> noticeList() {
         List<NoticeDTO> noticeList = noticeService.findNotice();
         System.out.println("noticeList = " + noticeList);
-//        model.addAttribute("notices", noticeList);
-//        return "notice/noticeList";
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "조회 성공", noticeList));
     }
 
     @GetMapping("/list/{noticeId}/edit")
-    public String updateNotice(@PathVariable("noticeId") Integer noticeId, Model model) {
-        Notice one = noticeService.findOne(noticeId);
-
-        if (one != null) {
-            NoticeDTO form = new NoticeDTO();
-            form.setNoticeId(one.getNoticeId());
-            form.setNoticeTitle(one.getNoticeTitle());
-            form.setNoticeContent(one.getNoticeContent());
-            form.setAdminId(one.getAdminId());
-            form.setNoticeDate(one.getNoticeDate());
-
-            model.addAttribute("form", form);
-            return "notice/update";
-        } else {
-            return "redirect:/";
-        }
+    public ResponseEntity<ResponseDTO> updateNotice(@PathVariable("noticeId") Integer noticeId) {
+        return ResponseEntity.ok().body(
+                new ResponseDTO(HttpStatus.OK,"공지사항 상세정보 조회 성공",noticeService.findOne(noticeId)));
     }
 
-    @PostMapping("/list/{noticeId}/edit")
-    public String registNotice(@PathVariable("noticeId") Integer noticeId, @ModelAttribute("form") NoticeDTO form) {
-        noticeService.updateNotice(noticeId, form.getNoticeTitle(), form.getNoticeContent());
-        return "redirect:/notice";
+    @PutMapping("/list/{noticeId}/update")
+    public UpdateNotice registNotice(@PathVariable("noticeId") Integer noticeId, @RequestBody UpdateNotice updateNotice) {
+        noticeService.update(noticeId,updateNotice.getNoticeTitle(),updateNotice.getNoticeContent());
+        Notice notice = noticeService.updateOneNotice(noticeId);
+        return new UpdateNotice(notice.getNoticeId(),notice.getNoticeTitle(),notice.getNoticeContent());
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class UpdateNotice{
+        private Integer noticeId;
+        private String noticeTitle;
+        private String noticeContent;
     }
 
     @GetMapping("/list/{noticeId}/delete")
