@@ -53,7 +53,7 @@ public class NoticeController {
     }
 
     @PutMapping("/list/{noticeId}/update")
-    public UpdateNotice registNotice(@PathVariable("noticeId") Integer noticeId, @RequestBody UpdateNotice updateNotice) {
+    public UpdateNotice updateNotice(@PathVariable("noticeId") Integer noticeId, @RequestBody UpdateNotice updateNotice) {
         noticeService.update(noticeId,updateNotice.getNoticeTitle(),updateNotice.getNoticeContent());
         Notice notice = noticeService.updateOneNotice(noticeId);
         return new UpdateNotice(notice.getNoticeId(),notice.getNoticeTitle(),notice.getNoticeContent());
@@ -73,19 +73,13 @@ public class NoticeController {
         return "redirect:/notice";
     }
 
-    @GetMapping("/regist")
-    public String noticeAdd(Model model) {
-        return "notice/noticeRegistForm";
-    }
 
+    @PutMapping("/regist")
+    public ResponseEntity<ResponseDTO> newNotice(@RequestBody NoticeDTO noticeDTO){
 
-    // 이부분이 작동되지 않음.
-    @PostMapping("/regist")
-    public String Create(@RequestParam("adminId") String adminId,
-                         @RequestParam("noticeTitle") String noticeTitle,
-                         @RequestParam("noticeContent") String noticeContent) {
-        noticeService.registNotice(adminId,noticeTitle,noticeContent);
-        return "redirect:/notice";
+        return ResponseEntity.ok().body(
+                new ResponseDTO(HttpStatus.OK,"공지사항 등록 성공",noticeService.insertNotice(noticeDTO)));
+
     }
 
 }

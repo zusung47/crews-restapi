@@ -1,10 +1,14 @@
 package com.mentaljava.mentaljavarestapiproject.table.notice.entity;
 
+import static javax.persistence.FetchType.LAZY;
+
 import com.mentaljava.mentaljavarestapiproject.table.admin.entity.Admin;
+import java.time.LocalDate;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+import net.bytebuddy.asm.Advice.Local;
 
 @Entity
 @Table(name = "NOTICE")
@@ -25,12 +29,12 @@ public class Notice {
     private String noticeContent;
 
     @Column(name = "NOTICE_DATE")
-    private Date noticeDate;
+    private LocalDate noticeDate;
 
     @Column(name = "DELETE_STATUS")
     private Integer deleteStatus;
 
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "ADMIN_ID")
     private Admin adminId;
 
@@ -48,7 +52,7 @@ public class Notice {
         this.noticeContent = noticeContent;
     }
 
-    public void setNoticeDate(Date noticeDate) {
+    public void setNoticeDate(LocalDate noticeDate) {
         this.noticeDate = noticeDate;
     }
 
@@ -62,5 +66,9 @@ public class Notice {
 
 
     public void setAdminId(String adminId) {
+    }
+
+    public Notice build() {
+        return new Notice(noticeId,noticeTitle,noticeContent,noticeDate,deleteStatus,adminId);
     }
 }
