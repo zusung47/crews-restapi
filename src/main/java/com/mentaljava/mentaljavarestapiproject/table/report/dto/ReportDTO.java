@@ -3,16 +3,12 @@ package com.mentaljava.mentaljavarestapiproject.table.report.dto;
 import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
-public class reportDTO {
+public class ReportDTO {
 
     private Integer reportId;
 

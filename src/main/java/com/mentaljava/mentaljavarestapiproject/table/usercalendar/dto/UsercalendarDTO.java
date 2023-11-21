@@ -3,10 +3,6 @@ package com.mentaljava.mentaljavarestapiproject.table.usercalendar.dto;
 import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.sql.Time;
 import java.util.Date;
 
@@ -15,7 +11,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class usercalendarDTO {
+public class UsercalendarDTO {
 
     private Integer userCalendarId;
 
