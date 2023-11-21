@@ -8,12 +8,14 @@ import com.mentaljava.mentaljavarestapiproject.table.notice.repository.NoticeRep
 import com.mentaljava.mentaljavarestapiproject.table.noticefile.repository.NoticeFileRepository;
 import java.io.IOException;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
+import net.bytebuddy.asm.Advice.Local;
 import org.aspectj.weaver.ast.Not;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -64,18 +66,6 @@ public class NoticeService {
         noticeRepository.deleteById(noticeId);
     }
 
-    @Transactional
-    public void registNotice(String adminId, String noticeTitle, String noticeContent) {
-
-        Admin admin = adminRepository.findByAdminId(adminId);
-
-        Notice notice = new Notice();
-        notice.setNoticeTitle(noticeTitle);
-        notice.setNoticeContent(noticeContent);
-        notice.setAdminId(admin.getAdminId());
-        notice.setNoticeDate(new Date(System.currentTimeMillis()));
-        noticeRepository.save(notice);
-    }
 
     @Transactional
     public void update(Integer noticeId, String noticeTitle, String noticeContent) {
@@ -87,4 +77,18 @@ public class NoticeService {
     public Notice updateOneNotice(Integer noticeId) {
         return noticeRepository.findByNoticeId(noticeId);
     }
+
+    @Transactional
+    public Object insertNotice(NoticeDTO noticeDTO) {
+        Admin admin = noticeRepository.findByAdminId("admin1");
+
+        noticeDTO.setAdminId(admin);
+        noticeDTO.setNoticeDate(LocalDate.now());
+
+        Notice notice = modelMapper.map(noticeDTO,Notice.class);
+        noticeRepository.save(notice);
+
+        return "주문성공";
+    }
+
 }
