@@ -17,7 +17,7 @@ public class CertificationPost {
 
     @Id
     @Column(name = "POST_ID")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer postId;
 
     @Column(name = "POST_TITLE")

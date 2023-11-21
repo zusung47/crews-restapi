@@ -15,7 +15,7 @@ public class NoticeFile {
 
     @Id
     @Column(name = "ATTACHMENT_ID")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer attachmentId;
 
     @Column(name = "ORIGIN_FILE_NAME")

@@ -57,9 +57,11 @@ public class CrewController {
     }
 
     //크루 모집글 수정
-    @PutMapping(value = "/{crewId}/intro")
-    public ResponseEntity<ResponseDTO> updateCrewIntro(@PathVariable Integer crewId, @ModelAttribute CrewDTO crewDTO){
+    @PutMapping(value = "/intro")
+    public ResponseEntity<ResponseDTO> updateCrewIntro(@RequestBody CrewDTO crewDTO){
 
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "크루 소개글 수정 성공", crewService.updateCrewIntro(crewId, crewDTO)));
+        log.info("[CrewController] updateCrewIntro crewDTO ===========> " + crewDTO);
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "크루 소개글 수정 성공", crewService.updateCrewIntro(crewDTO)));
     }
 }

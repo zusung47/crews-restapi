@@ -18,7 +18,7 @@ public class CertificationComment {
 
     @Id
     @Column(name = "COMMENT_ID")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer commentId;
 
     @Column(name = "COMMENT_CONTENT")

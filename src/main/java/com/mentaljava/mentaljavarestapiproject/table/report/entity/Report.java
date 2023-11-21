@@ -14,7 +14,7 @@ public class Report {
 
     @Id
     @Column(name = "REPORT_ID")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer reportId;
 
     @Column(name = "REPORT_TARGET")
