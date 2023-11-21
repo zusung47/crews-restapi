@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class crewlistDTO {
+public class CrewlistDTO {
 
     private CrewListId CrewListid;
 

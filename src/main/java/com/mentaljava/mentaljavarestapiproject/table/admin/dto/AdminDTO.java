@@ -6,7 +6,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class adminDTO {
+public class AdminDTO {
     private String adminId;
     private String adminPw;
     private String permissionName;
