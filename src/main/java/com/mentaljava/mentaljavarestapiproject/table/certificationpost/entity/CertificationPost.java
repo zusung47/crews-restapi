@@ -30,10 +30,6 @@ public class CertificationPost {
     private Date postDate;
 
     @ManyToOne
-    @JoinColumn(name = "USER_ID")
-    private User userId;
-
-    @ManyToOne
     @JoinColumn(name = "CREW_ID")
     private Crew crewId;
 
@@ -53,10 +49,6 @@ public class CertificationPost {
 
     public void setPostDate(Date postDate) {
         this.postDate = postDate;
-    }
-
-    public void setUserId(User userId) {
-        this.userId = userId;
     }
 
     public void setCrewId(Crew crewId) {
