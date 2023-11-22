@@ -48,17 +48,25 @@ public class NoticeService {
         return noticeDTO;
     }
 
-
     @Transactional
-    public void deleteNotice(Integer noticeId) {
-        noticeFileRepository.deleteById(noticeId);
-        noticeRepository.deleteById(noticeId);
-    }
+    public String deleteNotice(Integer noticeId) {
+        int result = 0;
 
+        try {
+            Notice notice = noticeRepository.findByNoticeId(noticeId);
+            if(notice != null){
+                noticeRepository.delete(notice);
+                result = 1;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return (result > 0) ? "공지사항 삭제 성공" : "공지사항 삭제 실패";
+    }
 
     @Transactional
     public String insertNotice(NoticeDTO noticeDTO) {
-        int result =0;
+        int result = 0;
         try {
             Admin admin = noticeRepository.findByAdminId("admin1");
 
@@ -70,9 +78,9 @@ public class NoticeService {
 
             Notice notice = modelMapper.map(noticeDTO, Notice.class);
             noticeRepository.save(notice);
-            result =1;
+            result = 1;
 
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
@@ -98,4 +106,5 @@ public class NoticeService {
 
         return (result > 0) ? "공지사항 업데이트 성공" : "공지사항 업데이트 실패";
     }
+
 }
