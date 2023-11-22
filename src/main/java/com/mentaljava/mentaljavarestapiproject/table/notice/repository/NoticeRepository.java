@@ -1,5 +1,6 @@
 package com.mentaljava.mentaljavarestapiproject.table.notice.repository;
 
+import com.mentaljava.mentaljavarestapiproject.table.admin.dto.AdminDTO;
 import com.mentaljava.mentaljavarestapiproject.table.admin.entity.Admin;
 import com.mentaljava.mentaljavarestapiproject.table.notice.entity.Notice;
 import java.util.Optional;

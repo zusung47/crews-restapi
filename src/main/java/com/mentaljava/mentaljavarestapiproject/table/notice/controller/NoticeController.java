@@ -10,6 +10,7 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.weaver.ast.Not;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,10 +29,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/notice")
+@Slf4j
 public class NoticeController {
 
     private final NoticeService noticeService;
-    private final AdminService adminService;
 
     @GetMapping("")
     public String noticeNav() {
@@ -52,20 +53,14 @@ public class NoticeController {
                 new ResponseDTO(HttpStatus.OK,"공지사항 상세정보 조회 성공",noticeService.findOne(noticeId)));
     }
 
-    @PutMapping("/list/{noticeId}/update")
-    public UpdateNotice updateNotice(@PathVariable("noticeId") Integer noticeId, @RequestBody UpdateNotice updateNotice) {
-        noticeService.update(noticeId,updateNotice.getNoticeTitle(),updateNotice.getNoticeContent());
-        Notice notice = noticeService.updateOneNotice(noticeId);
-        return new UpdateNotice(notice.getNoticeId(),notice.getNoticeTitle(),notice.getNoticeContent());
+    @PutMapping("/list/update")
+    public ResponseEntity<ResponseDTO> updateNotice(@RequestBody NoticeDTO noticeDTO) {
+        log.info("[NoticeController] updateNotice noticeDTO ===========> " + noticeDTO);
+
+        return ResponseEntity.ok().body(
+                new ResponseDTO(HttpStatus.OK,"공지사항 수정 성공",noticeService.updateNotice(noticeDTO)));
     }
 
-    @Data
-    @AllArgsConstructor
-    static class UpdateNotice{
-        private Integer noticeId;
-        private String noticeTitle;
-        private String noticeContent;
-    }
 
     @GetMapping("/list/{noticeId}/delete")
     public String deleteNotice(@PathVariable("noticeId") Integer noticeId){
@@ -76,6 +71,8 @@ public class NoticeController {
 
     @PutMapping("/regist")
     public ResponseEntity<ResponseDTO> newNotice(@RequestBody NoticeDTO noticeDTO){
+
+        log.info("[NoticeController] insertnotice noticeDTO ===========> " + noticeDTO);
 
         return ResponseEntity.ok().body(
                 new ResponseDTO(HttpStatus.OK,"공지사항 등록 성공",noticeService.insertNotice(noticeDTO)));
