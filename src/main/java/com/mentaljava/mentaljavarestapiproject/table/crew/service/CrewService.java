@@ -127,8 +127,19 @@ public class CrewService {
     }
 
     @Transactional
-    public void deleteCrew(Integer crewId) {
-        crewRepository.deleteById(crewId);
+    public String deleteCrew(Integer crewId) {
+        int result = 0;
+
+        try {
+            Crew crew = crewRepository.findByCrewId(crewId);
+            if(crew != null){
+                crewRepository.delete(crew);
+                result = 1;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return (result > 0) ? "크루 삭제 성공" : "크루 삭제 실패";
     }
 
     @Transactional
