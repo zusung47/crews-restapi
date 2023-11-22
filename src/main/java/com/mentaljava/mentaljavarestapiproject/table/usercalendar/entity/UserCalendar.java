@@ -29,7 +29,7 @@ public class UserCalendar {
     @Column(name = "TITLE")
     private String title;
 
-    @Column(name = "CALENDAL_CONTENT")
+    @Column(name = "CALENDAR_CONTENT")
     private String calendarContent;
 
     @Column(name = "DELETE_STATUS")

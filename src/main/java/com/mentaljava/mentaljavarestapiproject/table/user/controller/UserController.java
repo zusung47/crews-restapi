@@ -1,11 +1,8 @@
-package com.mentaljava.mentaljavarestapiproject.table.user.Controller;
+package com.mentaljava.mentaljavarestapiproject.table.user.controller;
 
 import com.mentaljava.mentaljavarestapiproject.common.ResponseDTO;
-import com.mentaljava.mentaljavarestapiproject.table.crew.dto.CrewDTO;
-import com.mentaljava.mentaljavarestapiproject.table.notice.dto.NoticeDTO;
 import com.mentaljava.mentaljavarestapiproject.table.user.dto.UserDTO;
 import com.mentaljava.mentaljavarestapiproject.table.user.service.UserService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
