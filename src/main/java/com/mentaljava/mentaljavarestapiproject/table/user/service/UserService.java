@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,6 +36,11 @@ public class UserService {
         List<User> userList = userRepository.findAll();
         List<UserDTO> userDTOList = userList.stream().map(user -> modelMapper.map(user, UserDTO.class)).collect(Collectors.toList());
         return userDTOList;
+    }
+
+    @Transactional
+    public void deleteUser(String userId) {
+        userRepository.deleteById(userId);
     }
 
 

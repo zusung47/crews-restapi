@@ -88,4 +88,9 @@ public class CrewService {
 
         return (result > 0) ? "정보 업데이트 성공" : "정보 업데이트 실패";
     }
+
+    @Transactional
+    public void deleteCrew(Integer crewId) {
+        crewRepository.deleteById(crewId);
+    }
 }
