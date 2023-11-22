@@ -12,3 +12,6 @@ DELETE http://localhost:8000/api/v1/admin/list/user04/delete
 
 ### 크루 삭제
 DELETE http://localhost:8000/api/v1/admin/list/4/delete
+
+### 신고목록 조회
+GET http://localhost:8000/api/v1/admin/report

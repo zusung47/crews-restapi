@@ -4,6 +4,8 @@ import com.mentaljava.mentaljavarestapiproject.common.ResponseDTO;
 import com.mentaljava.mentaljavarestapiproject.table.admin.service.AdminService;
 import com.mentaljava.mentaljavarestapiproject.table.crew.dto.CrewDTO;
 import com.mentaljava.mentaljavarestapiproject.table.crew.service.CrewService;
+import com.mentaljava.mentaljavarestapiproject.table.report.dto.ReportDTO;
+import com.mentaljava.mentaljavarestapiproject.table.report.service.ReportService;
 import com.mentaljava.mentaljavarestapiproject.table.user.dto.UserDTO;
 import com.mentaljava.mentaljavarestapiproject.table.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -22,10 +24,12 @@ public class AdminController {
 
     private final UserService userService;
     private final CrewService crewService;
+    private final ReportService reportService;
 
-    public AdminController(UserService userService, CrewService crewService) {
+    public AdminController(UserService userService, CrewService crewService, ReportService reportService) {
         this.userService = userService;
         this.crewService = crewService;
+        this.reportService = reportService;
     }
 
     // 크루원 조회
@@ -39,7 +43,7 @@ public class AdminController {
 
     // 크루 조회
     @GetMapping("/crewList")
-    public ResponseEntity<ResponseDTO> CrewList(){
+    public ResponseEntity<ResponseDTO> crewList(){
         List<CrewDTO> crewList = crewService.findAllCrewList();
         System.out.println("crewList = " + crewList);
 
@@ -65,5 +69,14 @@ public class AdminController {
     public ResponseEntity<ResponseDTO> deleteCrew(@PathVariable("crewId") Integer crewId){
         return ResponseEntity.ok().body(
                 new ResponseDTO(HttpStatus.OK,"공지사항 삭제 성공",crewService.deleteCrew(crewId)));
+    }
+
+    // 신고 목록
+    @GetMapping("/report")
+    public ResponseEntity<ResponseDTO> reportList(){
+        List<ReportDTO> reportList = reportService.findAllReportList();
+        System.out.println("reportList = " + reportList);
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "전체 크루 리스트 조회 성공", reportList));
     }
 }
