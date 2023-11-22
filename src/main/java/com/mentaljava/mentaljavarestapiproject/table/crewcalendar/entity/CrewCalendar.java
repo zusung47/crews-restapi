@@ -15,7 +15,7 @@ public class CrewCalendar {
 
     @Id
     @Column(name = "CREW_CALENDAR_ID")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer crewCalendarId;
 
     @Column(name = "START_DATE")

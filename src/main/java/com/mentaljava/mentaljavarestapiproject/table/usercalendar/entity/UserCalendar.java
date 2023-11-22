@@ -17,7 +17,7 @@ public class UserCalendar {
 
     @Id
     @Column(name = "USER_CALENDAR_ID")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userCalendarId;
 
     @Column(name = "START_DATE")

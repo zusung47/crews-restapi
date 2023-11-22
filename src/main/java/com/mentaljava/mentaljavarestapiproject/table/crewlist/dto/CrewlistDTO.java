@@ -1,6 +1,6 @@
 package com.mentaljava.mentaljavarestapiproject.table.crewlist.dto;
 
-import com.mentaljava.mentaljavarestapiproject.table.crewlistid.entity.CrewListId;
+import com.mentaljava.mentaljavarestapiproject.table.crewlistid.dto.CrewListIdDTO;
 import lombok.*;
 
 
@@ -11,7 +11,7 @@ import lombok.*;
 @ToString
 public class CrewlistDTO {
 
-    private CrewListId CrewListid;
+    private CrewListIdDTO CrewListid;
 
     private Integer approvalStatus;
 }

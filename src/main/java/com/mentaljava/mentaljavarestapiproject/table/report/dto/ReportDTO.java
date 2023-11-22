@@ -1,6 +1,6 @@
 package com.mentaljava.mentaljavarestapiproject.table.report.dto;
 
-import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
+import com.mentaljava.mentaljavarestapiproject.table.user.dto.UserDTO;
 import lombok.*;
 
 @NoArgsConstructor
@@ -18,7 +18,7 @@ public class ReportDTO {
 
     private String reportContent;
 
-    private User reporter;
+    private UserDTO reporter;
 
     private Integer reportCategory;
 

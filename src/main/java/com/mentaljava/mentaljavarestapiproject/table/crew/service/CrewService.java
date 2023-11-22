@@ -72,12 +72,12 @@ public class CrewService {
     }
 
     @Transactional
-    public String updateCrewIntro(Integer crewId, CrewDTO crewDTO) {
+    public String updateCrewIntro(CrewDTO crewDTO) {
 
         int result = 0;
 
         try {
-            Crew crew = crewRepository.findById(crewId).get();
+            Crew crew = crewRepository.findById(crewDTO.getCrewId()).get();
 
             crew.setIntroduction(crewDTO.getIntroduction());
 

@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class CrewcategoryDTO {
+public class CrewCategoryDTO {
 
     private Integer categoryCode;
 

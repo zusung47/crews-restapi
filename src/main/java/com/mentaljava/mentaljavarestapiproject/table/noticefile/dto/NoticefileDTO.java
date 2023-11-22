@@ -1,6 +1,6 @@
 package com.mentaljava.mentaljavarestapiproject.table.noticefile.dto;
 
-import com.mentaljava.mentaljavarestapiproject.table.notice.entity.Notice;
+import com.mentaljava.mentaljavarestapiproject.table.notice.dto.NoticeDTO;
 import lombok.*;
 
 import java.util.Date;
@@ -20,5 +20,5 @@ public class NoticefileDTO {
 
     private Date uploadDate;
 
-    private Notice noticeId;
+    private NoticeDTO noticeId;
 }

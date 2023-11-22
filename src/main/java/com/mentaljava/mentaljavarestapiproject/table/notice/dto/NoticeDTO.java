@@ -1,6 +1,7 @@
 package com.mentaljava.mentaljavarestapiproject.table.notice.dto;
 
 import com.mentaljava.mentaljavarestapiproject.table.admin.entity.Admin;
+import java.time.LocalDate;
 import lombok.*;
 
 import java.util.Date;
@@ -18,7 +19,7 @@ public class NoticeDTO {
 
     private String noticeContent;
 
-    private Date noticeDate;
+    private LocalDate noticeDate;
 
     private Integer deleteStatus;
 

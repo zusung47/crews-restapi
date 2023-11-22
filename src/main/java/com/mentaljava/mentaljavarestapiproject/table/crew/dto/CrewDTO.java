@@ -1,7 +1,7 @@
 package com.mentaljava.mentaljavarestapiproject.table.crew.dto;
 
-import com.mentaljava.mentaljavarestapiproject.table.crewcategory.entity.CrewCategory;
-import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
+import com.mentaljava.mentaljavarestapiproject.table.crewcategory.dto.CrewCategoryDTO;
+import com.mentaljava.mentaljavarestapiproject.table.user.dto.UserDTO;
 import lombok.*;
 
 import java.util.Date;
@@ -17,11 +17,11 @@ public class CrewDTO {
 
     private String crewName;
 
-    private User captain;
+    private UserDTO captain;
 
     private String introduction;
 
-    private CrewCategory crewCategoryCode;
+    private CrewCategoryDTO crewCategoryCode;
 
     private Date startDate;
 

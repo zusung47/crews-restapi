@@ -14,9 +14,10 @@ GET http://localhost:8080/api/v1/crew/detail/1
 GET http://localhost:8080/api/v1/crew/detail/1/intro
 
 ### 크루 소개글 수정
-PUT http://localhost:8080/api/v1/crew/1/intro
+PUT http://localhost:8080/api/v1/crew/intro
 Content-Type: application/json
 
 {
-  "introduction": "수정테스트입니다"
+  "crewId": "1",
+  "introduction": "수정테스트입니다22"
 }
