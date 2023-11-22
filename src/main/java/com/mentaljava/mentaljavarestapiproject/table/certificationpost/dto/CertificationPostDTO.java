@@ -22,7 +22,5 @@ public class CertificationPostDTO {
 
     private Date postDate;
 
-    private UserDTO userId;
-
     private CrewDTO crewId;
 }

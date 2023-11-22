@@ -1,20 +1,27 @@
 ### 공지사항 수정
-PUT http://localhost:8080/api/v1/notice/list/5/update
+PUT http://localhost:8080/api/v1/notice/list/update
 content-type: application/json
 
 {
-    "noticeTitle": "공지사항 http테스트2",
-    "noticeContent": "공지사항 내용 http테스트2"
+    "noticeId": 5,
+    "noticeTitle": "공지사항 http테스트5",
+    "noticeContent": "공지사항 내용 http테스트5"
 }
 
 ### 공지사항 리스트조회
 GET http://localhost:8080/api/v1/notice/list
 
-### 공지사항 등록(오류)
+### 공지사항 상세 조회
+GET http://localhost:8080/api/v1/notice/list/5/edit
+
+### 공지사항 등록
 PUT http://localhost:8080/api/v1/notice/regist
 content-type: application/json
 
 {
-  "noticeTitle": "새로운 공지사항",
-  "noticeContent": "새로운 공지사항 내용 테스팅"
+  "noticeTitle": "default값 들어가는지 테스트",
+  "noticeContent": "테스팅asdfg"
 }
+
+### 공지사항 삭제
+DELETE http://localhost:8080/api/v1/notice/list/4/edit

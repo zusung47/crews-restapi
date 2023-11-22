@@ -4,6 +4,7 @@ import com.mentaljava.mentaljavarestapiproject.table.crewcategory.dto.CrewCatego
 import com.mentaljava.mentaljavarestapiproject.table.user.dto.UserDTO;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -33,5 +34,5 @@ public class CrewDTO {
 
     private String recruitmentStatus;
 
-    private Date creationDate;
+    private LocalDate creationDate;
 }

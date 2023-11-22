@@ -34,6 +34,42 @@ public class CrewService {
         return crewDTOList;
     }
 
+    public List<CrewDTO> selectCrewListAboutExercise() {
+
+        List<Crew> crewAboutExercise = crewRepository.findByCrewCategoryCode_CategoryCode(1);
+
+        List<CrewDTO> crewDTOList = crewAboutExercise.stream().map(crew -> modelMapper.map(crew, CrewDTO.class)).collect(Collectors.toList());
+
+        return crewDTOList;
+    }
+
+    public List<CrewDTO> selectCrewListAboutStudy() {
+
+        List<Crew> crewAboutStudy = crewRepository.findByCrewCategoryCode_CategoryCode(2);
+
+        List<CrewDTO> crewDTOList = crewAboutStudy.stream().map(crew -> modelMapper.map(crew, CrewDTO.class)).collect(Collectors.toList());
+
+        return crewDTOList;
+    }
+
+    public List<CrewDTO> selectCrewListAboutHabit() {
+
+        List<Crew> crewAboutHabit = crewRepository.findByCrewCategoryCode_CategoryCode(3);
+
+        List<CrewDTO> crewDTOList = crewAboutHabit.stream().map(crew -> modelMapper.map(crew, CrewDTO.class)).collect(Collectors.toList());
+
+        return crewDTOList;
+    }
+
+    public List<CrewDTO> selectCrewListAboutEtc() {
+
+        List<Crew> crewAboutEtc = crewRepository.findByCrewCategoryCode_CategoryCode(4);
+
+        List<CrewDTO> crewDTOList = crewAboutEtc.stream().map(crew -> modelMapper.map(crew, CrewDTO.class)).collect(Collectors.toList());
+
+        return crewDTOList;
+    }
+
     public List<CrewDTO> selectCrewListAboutRecruitmentStatusOk() {
 
         List<Crew> crewListAboutRecruitmentStatusOk = crewRepository.findByRecruitmentStatus("1");
@@ -93,4 +129,27 @@ public class CrewService {
     public void deleteCrew(Integer crewId) {
         crewRepository.deleteById(crewId);
     }
+
+    @Transactional
+    public Object insertCrew(CrewDTO crewDTO) {
+
+        int result = 0;
+
+        try{
+            crewDTO.setCreationDate(LocalDate.now());
+            crewDTO.setRecruitmentStatus("1");
+
+            log.info("[CrewController] insertCrew crewDTO ===========> " + crewDTO);
+            Crew newCrew = modelMapper.map(crewDTO, Crew.class);
+
+            crewRepository.save(newCrew);
+
+            result = 1;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return (result > 0) ? "크루 만들기 성공" : "크루 만들기 실패";
+    }
+
 }

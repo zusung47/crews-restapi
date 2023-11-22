@@ -14,8 +14,8 @@ import java.util.Date;
 public class CommentFile {
 
     @Id
-    @Column(name = "COMMENT_ID")
-    private Integer commentId;
+    @Column(name = "COMMENT_FILE_ID")
+    private Integer commentFileId;
 
     @Column(name = "UPLOAD_DATE")
     private Date uploadDate;
@@ -29,14 +29,14 @@ public class CommentFile {
     @Column(name = "DELETE_STATUS")
     private Integer deleteStatus;
 
-//    @ManyToOne
-//    @JoinColumn(name = "COMMENT_ID")
-//    private CertificationComment commnetId;
+    @ManyToOne
+    @JoinColumn(name = "COMMENT_ID")
+    private CertificationComment commentId;
 
     public CommentFile() {}
 
-    public void setCommentId(Integer commentId) {
-        this.commentId = commentId;
+    public void setCommentFileId(Integer commentFileId) {
+        this.commentFileId = commentFileId;
     }
 
     public void setUploadDate(Date uploadDate) {
@@ -55,7 +55,4 @@ public class CommentFile {
         this.deleteStatus = deleteStatus;
     }
 
-//    public void setCommnetId(CertificationComment commnetId) {
-//        this.commnetId = commnetId;
-//    }
 }

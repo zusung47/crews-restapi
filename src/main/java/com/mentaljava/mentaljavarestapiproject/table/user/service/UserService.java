@@ -1,8 +1,5 @@
 package com.mentaljava.mentaljavarestapiproject.table.user.service;
 
-import com.mentaljava.mentaljavarestapiproject.table.crew.dto.CrewDTO;
-import com.mentaljava.mentaljavarestapiproject.table.crew.entity.Crew;
-import com.mentaljava.mentaljavarestapiproject.table.crew.repository.CrewRepository;
 import com.mentaljava.mentaljavarestapiproject.table.user.dto.UserDTO;
 import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
 import com.mentaljava.mentaljavarestapiproject.table.user.repository.UserRepository;
@@ -44,4 +41,66 @@ public class UserService {
     }
 
 
+    @Transactional
+    public Object editUserNickname(UserDTO userDTO) {
+        int result = 0;
+
+        try {
+            User user = userRepository.findById(userDTO.getUserId()).get();
+            user.setNickname(userDTO.getNickname());
+
+            result = 1;
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+        return (result > 0) ? "닉네임 변경 성공" : "닉네임 변경 실패";
+    }
+
+    @Transactional
+    public Object plusUserDiamond(UserDTO userDTO) {
+
+        int result = 0;
+
+        try {
+            User user = userRepository.findById(userDTO.getUserId()).orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
+
+            // userDTO.getDiamondCount() 값이 null인 경우 0으로 설정합니다.
+            int newDiamondCount = userDTO.getDiamondCount() != null ? userDTO.getDiamondCount() : 0;
+
+            // 현재 다이아몬드 수를 가져와서 1을 더해줍니다.
+            int currentDiamondCount = user.getDiamondCount();
+            user.setDiamondCount(currentDiamondCount + 1);
+
+            userRepository.save(user);  // 변경된 유저 정보를 저장합니다.
+
+            result = 1;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return (result > 0) ? "다이아몬드 추가 성공" : "다이아몬드 추가 실패";
+    }
+
+    @Transactional
+    public Object minusUserDiamond(UserDTO userDTO) {
+
+        int result = 0;
+
+        try {
+            User user = userRepository.findById(userDTO.getUserId()).orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
+
+            // userDTO.getDiamondCount() 값이 null인 경우 0으로 설정합니다.
+            int newDiamondCount = userDTO.getDiamondCount() != null ? userDTO.getDiamondCount() : 0;
+
+            // 현재 다이아몬드 수를 가져와서 1을 빼줍니다.
+            int currentDiamondCount = user.getDiamondCount();
+            user.setDiamondCount(currentDiamondCount - 1);
+
+            userRepository.save(user);  // 변경된 유저 정보를 저장합니다.
+
+            result = 1;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return (result > 0) ? "다이아몬드 감소 성공" : "다이아몬드 감소 실패";
+    }
 }
