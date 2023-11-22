@@ -36,8 +36,19 @@ public class UserService {
     }
 
     @Transactional
-    public void deleteUser(String userId) {
-        userRepository.deleteById(userId);
+    public String deleteUser(String userId) {
+        int result = 0;
+
+        try {
+            User user = userRepository.findByUserId(userId);
+            if(user != null){
+                userRepository.delete(user);
+                result = 1;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return (result > 0) ? "크루원 삭제 성공" : "크루원 삭제 실패";
     }
 
 
