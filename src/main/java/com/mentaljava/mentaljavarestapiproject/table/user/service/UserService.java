@@ -64,9 +64,6 @@ public class UserService {
         try {
             User user = userRepository.findById(userDTO.getUserId()).orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
 
-            // userDTO.getDiamondCount() 값이 null인 경우 0으로 설정합니다.
-            int newDiamondCount = userDTO.getDiamondCount() != null ? userDTO.getDiamondCount() : 0;
-
             // 현재 다이아몬드 수를 가져와서 1을 더해줍니다.
             int currentDiamondCount = user.getDiamondCount();
             user.setDiamondCount(currentDiamondCount + 1);
@@ -87,9 +84,6 @@ public class UserService {
 
         try {
             User user = userRepository.findById(userDTO.getUserId()).orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
-
-            // userDTO.getDiamondCount() 값이 null인 경우 0으로 설정합니다.
-            int newDiamondCount = userDTO.getDiamondCount() != null ? userDTO.getDiamondCount() : 0;
 
             // 현재 다이아몬드 수를 가져와서 1을 빼줍니다.
             int currentDiamondCount = user.getDiamondCount();

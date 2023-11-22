@@ -7,7 +7,7 @@ Content-Type: application/json
 
 {
   "userId": "zusung1",
-  "nickname": "김주성"
+  "nickname": "제갈주성"
 }
 
 ### 유저 다이아몬드 추가 (diamond)
@@ -15,8 +15,7 @@ PUT http://localhost:8080/api/v1/user/plusdiamond
 Content-Type: application/json
 
 {
-  "userId": "zusung1",
-  "diamondCount": 32
+  "userId": "zusung1"
 }
 
 ### 유저 다이아몬드 감소(diamondcount 값 상관없이 1 감소)
@@ -24,6 +23,5 @@ PUT http://localhost:8080/api/v1/user/minusdiamond
 Content-Type: application/json
 
 {
-  "userId": "zusung1",
-  "diamondCount": 20
+  "userId": "zusung1"
 }
