@@ -2,6 +2,7 @@ package com.mentaljava.mentaljavarestapiproject.table.user.Controller;
 
 import com.mentaljava.mentaljavarestapiproject.common.ResponseDTO;
 import com.mentaljava.mentaljavarestapiproject.table.crew.dto.CrewDTO;
+import com.mentaljava.mentaljavarestapiproject.table.notice.dto.NoticeDTO;
 import com.mentaljava.mentaljavarestapiproject.table.user.dto.UserDTO;
 import com.mentaljava.mentaljavarestapiproject.table.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,10 @@ public class UserController {
 
     public UserController(UserService userService) { this.userService = userService;}
 
+    /**
+     * 유저 전체 조회
+     * @return
+     */
     @GetMapping("/list")
     public ResponseEntity<ResponseDTO> allUserList(){
         List<UserDTO> userList = userService.findAllUserList();
@@ -29,5 +34,32 @@ public class UserController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "조회 성공" ,userList));
     }
 
+    /**
+     * 유저 닉네임 변경
+     * @param userDTO
+     * @return
+     */
+    @PutMapping("/editnickname")
+    public ResponseEntity<ResponseDTO> editUserNickname(@RequestBody UserDTO userDTO) {
+        log.info("[UserController] editUserNickname userDTO ===========> " + userDTO);
+
+        return ResponseEntity.ok().body(
+                new ResponseDTO(HttpStatus.OK,"유저 닉네임 변경 성공",userService.editUserNickname(userDTO)));
+    }
+
+    @PutMapping("/plusdiamond")
+    public ResponseEntity<ResponseDTO> plusUserDiamond(@RequestBody UserDTO userDTO) {
+        log.info("[UserController] plusUserDiamond userDTO ====> " + userDTO);
+
+        return ResponseEntity.ok().body(
+                new ResponseDTO(HttpStatus.OK,"유저 다이아몬드 증가 성공" , userService.plusUserDiamond(userDTO)));
+    }
+    @PutMapping("/minusdiamond")
+    public ResponseEntity<ResponseDTO> minusUserDiamond(@RequestBody UserDTO userDTO) {
+        log.info("[UserController] minusUserDiamond userDTO ====> " + userDTO);
+
+        return ResponseEntity.ok().body(
+                new ResponseDTO(HttpStatus.OK,"유저 다이아몬드 감소 성공" , userService.minusUserDiamond(userDTO)));
+    }
 
 }
