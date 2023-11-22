@@ -28,6 +28,34 @@ public class CrewController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "전체 크루 리스트 조회 성공", crewList));
     }
 
+    //크루 카테고리별 조회(운동)
+    @GetMapping("/list/exercise")
+    public ResponseEntity<ResponseDTO> selectCrewListAboutExercise(){
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "카테고리 운동 조회 성공", crewService.selectCrewListAboutExercise()));
+    }
+
+    //크루 카테고리별 조회(공부)
+    @GetMapping("/list/study")
+    public ResponseEntity<ResponseDTO> selectCrewListAboutStudy(){
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "카테고리 공부 조회 성공", crewService.selectCrewListAboutStudy()));
+    }
+
+    //크루 카테고리별 조회(습관)
+    @GetMapping("/list/habit")
+    public ResponseEntity<ResponseDTO> selectCrewListAboutHabit(){
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "카테고리 습관 조회 성공", crewService.selectCrewListAboutHabit()));
+    }
+
+    //크루 카테고리별 조회(기타)
+    @GetMapping("/list/etc")
+    public ResponseEntity<ResponseDTO> selectCrewListAboutEtc(){
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "카테고리 기타 조회 성공", crewService.selectCrewListAboutEtc()));
+    }
+
     //모집상태1 조회
     @GetMapping("/list/recruitmentstatusok")
     public ResponseEntity<ResponseDTO> selectCrewListAboutRecruitmentStatusOk(){
@@ -63,5 +91,15 @@ public class CrewController {
         log.info("[CrewController] updateCrewIntro crewDTO ===========> " + crewDTO);
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "크루 소개글 수정 성공", crewService.updateCrewIntro(crewDTO)));
+    }
+
+    //크루 등록
+    @PostMapping("/register")
+    public ResponseEntity<ResponseDTO> insertCrew(@RequestBody CrewDTO crewDTO){
+
+        log.info("[CrewController] insertCrew crewDTO ===========> " + crewDTO);
+        //나중에 시큐리티로 로그인한 사용자 받아와야함
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "크루 등록 성공", crewService.insertCrew(crewDTO)));
     }
 }

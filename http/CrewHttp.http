@@ -1,6 +1,18 @@
 ### 전체 크루 리스트 조회
 GET http://localhost:8080/api/v1/crew/list
 
+### 카테고리 운동 크루 리스트 조회
+GET http://localhost:8080/api/v1/crew/list/exercise
+
+### 카테고리 공부 크루 리스트 조회
+GET http://localhost:8080/api/v1/crew/list/study
+
+### 카테고리 습관 크루 리스트 조회
+GET http://localhost:8080/api/v1/crew/list/habit
+
+### 카테고리 기타 크루 리스트 조회
+GET http://localhost:8080/api/v1/crew/list/etc
+
 ### 모집상태 1 리스트 조회
 GET http://localhost:8080/api/v1/crew/list/recruitmentstatusok
 
@@ -19,5 +31,24 @@ Content-Type: application/json
 
 {
   "crewId": "1",
-  "introduction": "수정테스트입니다22"
+  "introduction": "수정테스트입니다33"
+}
+
+### 크루 만들기
+POST http://localhost:8080/api/v1/crew/register
+Content-Type: application/json
+
+{
+  "crewName": "테스트크루3",
+  "captain": {
+    "userId": "zusung1"
+  },
+  "introduction": "크루만들기테스트중입니다3",
+  "crewCategoryCode": {
+    "categoryCode": 4
+  },
+  "startDate": "2023-11-11",
+  "endDate": "2024-11-11",
+  "crewRecruitmentPost": "크루모집글제목테스트3",
+  "crewRecruitmentContent": "크루모집글내용테스트3"
 }
