@@ -6,6 +6,8 @@ import com.mentaljava.mentaljavarestapiproject.table.certificationcomment.servic
 import com.mentaljava.mentaljavarestapiproject.table.certificationpost.dto.CertificationPostDTO;
 import com.mentaljava.mentaljavarestapiproject.table.certificationpost.entity.CertificationPost;
 import com.mentaljava.mentaljavarestapiproject.table.certificationpost.service.CertificationPostService;
+import com.mentaljava.mentaljavarestapiproject.table.crew.dto.CrewDTO;
+import com.mentaljava.mentaljavarestapiproject.table.crew.service.CrewService;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -29,13 +31,13 @@ public class CertificationPostController {
     private final CertificationPostService certificationPostService;
     private final CertificationCommentService certificationCommentService;
 
-    @GetMapping("/list")
-    public ResponseEntity<ResponseDTO> certificationPostList(@RequestBody CertificationPostDTO certificationPostDTO) {
-        log.info("[CertificationPost] CertificationDTO ===========> " + certificationPostDTO);
+    @GetMapping("/{crewId}/list")
+    public ResponseEntity<ResponseDTO> certificationPostList(@PathVariable Integer crewId) {
+        List<CertificationPostDTO> certificationPostList = certificationPostService.findOnePost(crewId);
 
+        log.info("[CertificationPost] CertificationDTO ===========> " + certificationPostList);
         return ResponseEntity.ok().body(
-                new ResponseDTO(HttpStatus.OK,"크루의 인증게시판 글 리스트 조회", certificationPostService.findCertificationPost(certificationPostDTO)));
-
+                new ResponseDTO(HttpStatus.OK,"크루의 인증게시판 글 리스트 조회", certificationPostList));
     }
 
     @GetMapping("/list/{postId}/detail")

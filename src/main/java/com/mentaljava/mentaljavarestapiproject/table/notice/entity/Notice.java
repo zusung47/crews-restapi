@@ -28,7 +28,7 @@ public class Notice {
     @Column(name = "NOTICE_CONTENT")
     private String noticeContent;
 
-    @Column(name = "NOTICE_DATE", columnDefinition = "integer default 0")
+    @Column(name = "NOTICE_DATE")
     private LocalDate noticeDate;
 
     @Column(name = "DELETE_STATUS")

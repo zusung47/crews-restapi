@@ -10,4 +10,6 @@ public interface CrewRepository extends JpaRepository<Crew, Integer> {
     List<Crew> findByRecruitmentStatus(String recruitmentStatus);
 
     List<Crew> findByCrewCategoryCode_CategoryCode(int crewCategoryCode);
+
+    Crew findByCrewId(Integer crewId);
 }
