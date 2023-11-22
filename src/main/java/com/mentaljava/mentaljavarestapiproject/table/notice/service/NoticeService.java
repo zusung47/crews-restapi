@@ -1,5 +1,6 @@
 package com.mentaljava.mentaljavarestapiproject.table.notice.service;
 
+import com.mentaljava.mentaljavarestapiproject.table.admin.dto.AdminDTO;
 import com.mentaljava.mentaljavarestapiproject.table.admin.entity.Admin;
 import com.mentaljava.mentaljavarestapiproject.table.admin.repository.AdminRepository;
 import com.mentaljava.mentaljavarestapiproject.table.notice.dto.NoticeDTO;
@@ -15,6 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.asm.Advice.Local;
 import org.aspectj.weaver.ast.Not;
 import org.modelmapper.ModelMapper;
@@ -23,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class NoticeService {
 
     private final NoticeRepository noticeRepository;
@@ -45,20 +48,6 @@ public class NoticeService {
         return noticeDTO;
     }
 
-    @Transactional
-    public String updateNotice(Integer noticeId, String noticeTitle, String noticeContent) {
-        int result = 0;
-        Notice notice = noticeRepository.findByNoticeId(noticeId);
-        notice.setNoticeContent(noticeContent);
-        notice.setNoticeTitle(noticeTitle);
-        noticeRepository.save(notice);
-
-        if(notice != null){
-            result =1;
-        }
-
-        return (result > 0) ? "공지사항 수정 성공" : "공지사항 수정 실패";
-    }
 
     @Transactional
     public void deleteNotice(Integer noticeId) {
@@ -68,27 +57,45 @@ public class NoticeService {
 
 
     @Transactional
-    public void update(Integer noticeId, String noticeTitle, String noticeContent) {
-        Notice notice = noticeRepository.findByNoticeId(noticeId);
-        notice.setNoticeTitle(noticeTitle);
-        notice.setNoticeContent(noticeContent);
-    }
+    public String insertNotice(NoticeDTO noticeDTO) {
+        int result =0;
+        try {
+            Admin admin = noticeRepository.findByAdminId("admin1");
 
-    public Notice updateOneNotice(Integer noticeId) {
-        return noticeRepository.findByNoticeId(noticeId);
+            AdminDTO adminDTO = modelMapper.map(admin, AdminDTO.class);
+            log.info("[noticeService] insert adminDTO ===========> " + adminDTO);
+            noticeDTO.setAdminId(adminDTO);
+            noticeDTO.setNoticeDate(LocalDate.now());
+            noticeDTO.setDeleteStatus(0);
+
+            Notice notice = modelMapper.map(noticeDTO, Notice.class);
+            noticeRepository.save(notice);
+            result =1;
+
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+
+        return (result > 0) ? "공지사항 등록 성공" : "공지사항 등록 실패";
     }
 
     @Transactional
-    public Object insertNotice(NoticeDTO noticeDTO) {
-        Admin admin = noticeRepository.findByAdminId("admin1");
+    public String updateNotice(NoticeDTO noticeDTO) {
 
-        noticeDTO.setAdminId(admin);
-        noticeDTO.setNoticeDate(LocalDate.now());
+        int result = 0;
 
-        Notice notice = modelMapper.map(noticeDTO,Notice.class);
-        noticeRepository.save(notice);
+        try {
+            Notice notice = noticeRepository.findByNoticeId(noticeDTO.getNoticeId());
 
-        return "주문성공";
+            notice.setNoticeContent(noticeDTO.getNoticeContent());
+            notice.setNoticeTitle(noticeDTO.getNoticeTitle());
+            noticeRepository.save(notice);
+            result = 1;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return (result > 0) ? "공지사항 업데이트 성공" : "공지사항 업데이트 실패";
     }
-
 }

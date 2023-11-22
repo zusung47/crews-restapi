@@ -19,7 +19,7 @@ public class Notice {
 
     @Id
     @Column(name = "NOTICE_ID")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer noticeId;
 
     @Column(name = "NOTICE_TITLE")
@@ -28,11 +28,11 @@ public class Notice {
     @Column(name = "NOTICE_CONTENT")
     private String noticeContent;
 
-    @Column(name = "NOTICE_DATE")
+    @Column(name = "NOTICE_DATE", columnDefinition = "integer default 0")
     private LocalDate noticeDate;
 
     @Column(name = "DELETE_STATUS")
-    private Integer deleteStatus;
+    private int deleteStatus;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "ADMIN_ID")
@@ -56,7 +56,7 @@ public class Notice {
         this.noticeDate = noticeDate;
     }
 
-    public void setDeleteStatus(Integer deleteStatus) {
+    public void setDeleteStatus(int deleteStatus) {
         this.deleteStatus = deleteStatus;
     }
 
@@ -64,11 +64,4 @@ public class Notice {
         this.adminId = adminId;
     }
 
-
-    public void setAdminId(String adminId) {
-    }
-
-    public Notice build() {
-        return new Notice(noticeId,noticeTitle,noticeContent,noticeDate,deleteStatus,adminId);
-    }
 }
