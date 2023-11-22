@@ -34,7 +34,7 @@ public class AdminController {
         List<UserDTO> crewMemberList = userService.findAllUserList();
         System.out.println("userList =" + crewMemberList);
 
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "조회 성공" ,crewMemberList));
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "크루원 조회 성공" ,crewMemberList));
     }
 
     // 크루 조회
@@ -44,6 +44,13 @@ public class AdminController {
         System.out.println("crewList = " + crewList);
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "전체 크루 리스트 조회 성공", crewList));
+    }
+
+    // 크루 상세 조회
+    @GetMapping("/detail/{crewId}")
+    public ResponseEntity<ResponseDTO> crewDetail(@PathVariable Integer crewId){
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "크루 상세정보 조회 성공", crewService.selectCrew(crewId)));
     }
 
     // 크루원 삭제

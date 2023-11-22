@@ -4,6 +4,9 @@ GET http://localhost:8000/api/v1/admin/crewMemberList
 ### 크루 조회
 GET http://localhost:8000/api/v1/admin/crewList
 
+### 크루 상세정보 조회(1번크루)
+GET http://localhost:8000/api/v1/crew/detail/1
+
 ### 크루원 삭제
 DELETE http://localhost:8000/api/v1/admin/list/user04/delete
 
