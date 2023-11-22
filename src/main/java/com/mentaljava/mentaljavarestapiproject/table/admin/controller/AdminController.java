@@ -48,15 +48,15 @@ public class AdminController {
 
     // 크루원 삭제
     @GetMapping("/list/{userId}/delete")
-    public String deleteCrewMember(@PathVariable("userId") String userId){
-        userService.deleteUser(userId);
-        return "redirect:/admin";
+    public ResponseEntity<ResponseDTO> deleteCrewMember(@PathVariable("userId") String userId){
+        return ResponseEntity.ok().body(
+                new ResponseDTO(HttpStatus.OK,"공지사항 삭제 성공",userService.deleteUser(userId)));
     }
 
     // 크루 삭제
     @GetMapping("/list/{crewId}/delete")
-    public String deleteCrew(@PathVariable("crewId") Integer crewId){
-        crewService.deleteCrew(crewId);
-        return "redirect:/admin";
+    public ResponseEntity<ResponseDTO> deleteCrew(@PathVariable("crewId") Integer crewId){
+        return ResponseEntity.ok().body(
+                new ResponseDTO(HttpStatus.OK,"공지사항 삭제 성공",crewService.deleteCrew(crewId)));
     }
 }

@@ -1,6 +1,11 @@
 ### 크루원 리스트 조회
-GET http://localhost:8080/api/v1/admin/crewMemberList
+GET http://localhost:8000/api/v1/admin/crewMemberList
 
 ### 크루 조회
-GET http://localhost:8080/api/v1/admin/crewList
+GET http://localhost:8000/api/v1/admin/crewList
 
+### 크루원 삭제
+DELETE http://localhost:8000/api/v1/admin/list/user04/delete
+
+### 크루 삭제
+DELETE http://localhost:8000/api/v1/admin/list/4/delete
