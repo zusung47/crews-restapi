@@ -5,6 +5,7 @@ import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -49,7 +50,7 @@ public class Crew {
     private String recruitmentStatus;
 
     @Column(name = "CREATION_DATE")
-    private Date creationDate;
+    private LocalDate creationDate;
 
     public Crew() {}
 
@@ -93,7 +94,7 @@ public class Crew {
         this.recruitmentStatus = recruitmentStatus;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
 }
