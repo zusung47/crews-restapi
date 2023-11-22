@@ -35,6 +35,11 @@ public class UserService {
         return userDTOList;
     }
 
+    @Transactional
+    public void deleteUser(String userId) {
+        userRepository.deleteById(userId);
+    }
+
 
     @Transactional
     public Object editUserNickname(UserDTO userDTO) {

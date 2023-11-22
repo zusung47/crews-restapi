@@ -3,7 +3,6 @@ package com.mentaljava.mentaljavarestapiproject.table.crew.service;
 import com.mentaljava.mentaljavarestapiproject.table.crew.dto.CrewDTO;
 import com.mentaljava.mentaljavarestapiproject.table.crew.entity.Crew;
 import com.mentaljava.mentaljavarestapiproject.table.crew.repository.CrewRepository;
-import com.mentaljava.mentaljavarestapiproject.table.crewcategory.entity.CrewCategory;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -125,6 +124,11 @@ public class CrewService {
         }
 
         return (result > 0) ? "정보 업데이트 성공" : "정보 업데이트 실패";
+    }
+
+    @Transactional
+    public void deleteCrew(Integer crewId) {
+        crewRepository.deleteById(crewId);
     }
 
     @Transactional
