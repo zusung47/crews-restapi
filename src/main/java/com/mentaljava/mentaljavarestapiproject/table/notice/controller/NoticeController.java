@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,11 +35,7 @@ public class NoticeController {
 
     private final NoticeService noticeService;
 
-    @GetMapping("")
-    public String noticeNav() {
-        return "notice/noticeForm";
-    }
-
+    // 공지사항 리스트 출력 api
     @GetMapping("/list")
     public ResponseEntity<ResponseDTO> noticeList() {
         List<NoticeDTO> noticeList = noticeService.findNotice();
@@ -47,12 +44,14 @@ public class NoticeController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "조회 성공", noticeList));
     }
 
+    // 공지사항 상세정보 조회
     @GetMapping("/list/{noticeId}/edit")
     public ResponseEntity<ResponseDTO> updateNotice(@PathVariable("noticeId") Integer noticeId) {
         return ResponseEntity.ok().body(
                 new ResponseDTO(HttpStatus.OK,"공지사항 상세정보 조회 성공",noticeService.findOne(noticeId)));
     }
 
+    // 공지사항 수정
     @PutMapping("/list/update")
     public ResponseEntity<ResponseDTO> updateNotice(@RequestBody NoticeDTO noticeDTO) {
         log.info("[NoticeController] updateNotice noticeDTO ===========> " + noticeDTO);
@@ -61,14 +60,7 @@ public class NoticeController {
                 new ResponseDTO(HttpStatus.OK,"공지사항 수정 성공",noticeService.updateNotice(noticeDTO)));
     }
 
-
-    @GetMapping("/list/{noticeId}/delete")
-    public String deleteNotice(@PathVariable("noticeId") Integer noticeId){
-        noticeService.deleteNotice(noticeId);
-        return "redirect:/notice";
-    }
-
-
+    //공지사항 등록
     @PutMapping("/regist")
     public ResponseEntity<ResponseDTO> newNotice(@RequestBody NoticeDTO noticeDTO){
 
@@ -78,5 +70,13 @@ public class NoticeController {
                 new ResponseDTO(HttpStatus.OK,"공지사항 등록 성공",noticeService.insertNotice(noticeDTO)));
 
     }
+
+    //공지사항 삭제
+    @DeleteMapping("/list/{noticeId}/edit")
+    public ResponseEntity<ResponseDTO> deleteNotice(@PathVariable("noticeId") Integer noticeId){
+        return ResponseEntity.ok().body(
+                new ResponseDTO(HttpStatus.OK,"공지사항 삭제 성공",noticeService.deleteNotice(noticeId)));
+    }
+
 
 }
