@@ -29,8 +29,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class NoticeService {
 
     private final NoticeRepository noticeRepository;
-    private final NoticeFileRepository noticeFileRepository;
-    private final AdminRepository adminRepository;
     private final ModelMapper modelMapper;
 
     public List<NoticeDTO> findNotice() {

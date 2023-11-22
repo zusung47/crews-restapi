@@ -3,10 +3,6 @@ package com.mentaljava.mentaljavarestapiproject.table.commentfile.dto;
 import com.mentaljava.mentaljavarestapiproject.table.certificationcomment.dto.CertificationCommentDTO;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -14,9 +10,9 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class commentfileDTO {
+public class commentFileDTO {
 
-    private Integer commentId;
+    private Integer commentFIleId;
 
     private Date uploadDate;
 
@@ -26,6 +22,6 @@ public class commentfileDTO {
 
     private Integer deleteStatus;
 
-    private CertificationCommentDTO commnetId;
+    private CertificationCommentDTO commentId;
 }
 
