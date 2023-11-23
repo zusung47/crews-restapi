@@ -24,6 +24,6 @@ content-type: application/json
 }
 
 ### 공지사항 삭제
-DELETE http://localhost:8080/api/v1/notice/list/4/edit
+DELETE http://localhost:8080/api/v1/notice/list/16/edit
 
 

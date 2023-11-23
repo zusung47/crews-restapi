@@ -134,6 +134,7 @@ public class CrewService {
             Crew crew = crewRepository.findByCrewId(crewId);
             if(crew != null){
                 crewRepository.delete(crew);
+
                 result = 1;
             }
         } catch (Exception e) {

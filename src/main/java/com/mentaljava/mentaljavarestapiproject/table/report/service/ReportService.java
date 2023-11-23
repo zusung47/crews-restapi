@@ -2,25 +2,29 @@ package com.mentaljava.mentaljavarestapiproject.table.report.service;
 
 import com.mentaljava.mentaljavarestapiproject.table.admin.entity.Admin;
 import com.mentaljava.mentaljavarestapiproject.table.report.dto.ReportDTO;
+import com.mentaljava.mentaljavarestapiproject.table.report.entity.Report;
 import com.mentaljava.mentaljavarestapiproject.table.report.repository.ReportRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
 
+@Service
+@RequiredArgsConstructor
+@Slf4j
 public class ReportService {
     private final ReportRepository reportRepository;
     private final ModelMapper modelMapper;
 
-    public ReportService(ReportRepository reportRepository, ModelMapper modelMapper){
-        this.reportRepository = reportRepository;
-        this.modelMapper = modelMapper;
-    }
-
     public List<ReportDTO> findAllReportList() {
 
-        List<Admin> reportList = reportRepository.findAll();
-        List<ReportDTO> reportDTOList = reportList.stream().map(crew -> modelMapper.map(reportList, ReportDTO.class)).collect(Collectors.toList());
+        List<Report> reportList = reportRepository.findAll();
+        List<ReportDTO> reportDTOList = reportList.stream().map(report ->
+                modelMapper.map(report, ReportDTO.class)).collect(Collectors.toList());
         return reportDTOList;
     }
+
 }
