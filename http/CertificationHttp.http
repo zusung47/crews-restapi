@@ -1,3 +1,27 @@
 ### 크루의 인증게시판 리스트 조회
-GET http://localhost:8080/api/v1/certificationPost/4/list
-content-type: application/json-type
+GET http://localhost:8080/api/v1/certificationPost/3/list
+
+
+### 크루의 인증게시판 글의 상세조회 + 댓글
+GET http://localhost:8080/api/v1/certificationPost/1/list/detail
+
+### 인증게시판 글 생성
+PUT http://localhost:8080/api/v1/certificationPost/2/regist
+content-type: application/json
+
+{
+    "postTitle": "새로운 인증글22",
+    "postContent": "11/23 인증"
+}
+
+
+### 인증 게시판에 댓글 등록
+PUT http://localhost:8080/api/v1/certificationPost/1/list/detail
+content-type: application/json
+
+{
+    "commentContent": "새로운 인증 댓글"
+}
+
+
+
