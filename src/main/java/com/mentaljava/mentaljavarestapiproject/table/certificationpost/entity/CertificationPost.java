@@ -1,5 +1,6 @@
 package com.mentaljava.mentaljavarestapiproject.table.certificationpost.entity;
 
+import java.time.LocalDate;
 import javax.persistence.*;
 import java.util.Date;
 
@@ -27,7 +28,7 @@ public class CertificationPost {
     private String postContent;
 
     @Column(name = "POST_DATE")
-    private Date postDate;
+    private LocalDate postDate;
 
     @ManyToOne
     @JoinColumn(name = "CREW_ID")
@@ -47,7 +48,7 @@ public class CertificationPost {
         this.postContent = postContent;
     }
 
-    public void setPostDate(Date postDate) {
+    public void setPostDate(LocalDate postDate) {
         this.postDate = postDate;
     }
 

@@ -3,6 +3,7 @@ package com.mentaljava.mentaljavarestapiproject.table.certificationpost.dto;
 import com.mentaljava.mentaljavarestapiproject.table.crew.dto.CrewDTO;
 import com.mentaljava.mentaljavarestapiproject.table.user.dto.UserDTO;
 
+import java.time.LocalDate;
 import lombok.*;
 
 import java.util.Date;
@@ -20,7 +21,7 @@ public class CertificationPostDTO {
 
     private String postContent;
 
-    private Date postDate;
+    private LocalDate postDate;
 
     private CrewDTO crewId;
 }

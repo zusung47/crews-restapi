@@ -1,32 +1,45 @@
 package com.mentaljava.mentaljavarestapiproject.table.certificationcomment.controller;
 
+import com.mentaljava.mentaljavarestapiproject.common.ResponseDTO;
+import com.mentaljava.mentaljavarestapiproject.table.certificationcomment.dto.CertificationCommentDTO;
+import com.mentaljava.mentaljavarestapiproject.table.certificationcomment.entity.CertificationComment;
 import com.mentaljava.mentaljavarestapiproject.table.certificationcomment.service.CertificationCommentService;
-import com.mentaljava.mentaljavarestapiproject.table.certificationpost.entity.CertificationPost;
-import com.mentaljava.mentaljavarestapiproject.table.certificationpost.service.CertificationPostService;
-import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
-import com.mentaljava.mentaljavarestapiproject.table.user.service.UserService;
-import java.util.Optional;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+
+@RestController
+@RequestMapping("/api/v1/certificationPost")
+@Slf4j
 @RequiredArgsConstructor
 public class CertificationCommentController {
 
     private final CertificationCommentService certificationCommentService;
-    private final UserService userService;
-    private final CertificationPostService certificationPostService;
 
-    @PostMapping("/comment/regist")
-    public String commentInput(@RequestParam("postComment")String postComment,
-                               @RequestParam("postId")Integer postId){
-        User user = userService.findOne("seyoung2");
-        CertificationPost postDetail = certificationPostService.findPostDetail(postId);
-
-        certificationCommentService.newComment(postComment,user,postDetail);
-        return "redirect:/certificationPost";
+    @GetMapping("/{postId}/list/detail")
+    public ResponseEntity<ResponseDTO> postDetail(@PathVariable Integer postId) {
+        List<CertificationCommentDTO> certificationCommentDTOList = certificationCommentService.findCommentList(postId);
+        return ResponseEntity.ok().body(
+                new ResponseDTO(HttpStatus.OK, "댓글 게시판 조회", certificationCommentDTOList));
     }
+
+    @PutMapping("/{postId}/list/detail")
+    public ResponseEntity<ResponseDTO> registComment(@PathVariable Integer postId,
+                                                     @RequestBody CertificationCommentDTO certificationCommentDTO) {
+        log.info("[registComment] DTO ===========> " + certificationCommentDTO);
+        return ResponseEntity.ok().body(
+                new ResponseDTO(HttpStatus.OK, "댓글 게시판 조회", certificationCommentService.addComment(postId,certificationCommentDTO)));
+
+    }
+
 }
