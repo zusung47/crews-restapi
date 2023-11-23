@@ -1,2 +1,7 @@
 ### 전체 유저 캘린더 조회
 GET http://localhost:8080/api/v1/usercalendar/list
+
+### 유저별 캘린더 조회
+GET http://localhost:8080/api/v1/usercalendar/list/zusung1
+
+
