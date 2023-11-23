@@ -19,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/admin")
+@RequiredArgsConstructor
 @Slf4j
 public class AdminController {
 
@@ -26,17 +27,11 @@ public class AdminController {
     private final CrewService crewService;
     private final ReportService reportService;
 
-    public AdminController(UserService userService, CrewService crewService, ReportService reportService) {
-        this.userService = userService;
-        this.crewService = crewService;
-        this.reportService = reportService;
-    }
-
     // 크루원 조회
     @GetMapping("/crewMemberList")
     public ResponseEntity<ResponseDTO> crewMemberList(){
         List<UserDTO> crewMemberList = userService.findAllUserList();
-        System.out.println("userList =" + crewMemberList);
+        log.info("[AdminController] crewMemberList ========"+crewMemberList);
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "크루원 조회 성공" ,crewMemberList));
     }
@@ -58,24 +53,24 @@ public class AdminController {
     }
 
     // 크루원 삭제
-    @GetMapping("/list/{userId}/delete")
+    @DeleteMapping("/list/{userId}/delete")
     public ResponseEntity<ResponseDTO> deleteCrewMember(@PathVariable("userId") String userId){
         return ResponseEntity.ok().body(
                 new ResponseDTO(HttpStatus.OK,"공지사항 삭제 성공",userService.deleteUser(userId)));
     }
 
     // 크루 삭제
-    @GetMapping("/list/{crewId}/delete")
+    @DeleteMapping("/list/{crewId}/crewdelete")
     public ResponseEntity<ResponseDTO> deleteCrew(@PathVariable("crewId") Integer crewId){
         return ResponseEntity.ok().body(
-                new ResponseDTO(HttpStatus.OK,"공지사항 삭제 성공",crewService.deleteCrew(crewId)));
+                new ResponseDTO(HttpStatus.OK,"크루 삭제 성공",crewService.deleteCrew(crewId)));
     }
 
     // 신고 목록
     @GetMapping("/report")
     public ResponseEntity<ResponseDTO> reportList(){
         List<ReportDTO> reportList = reportService.findAllReportList();
-        System.out.println("reportList = " + reportList);
+
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "전체 크루 리스트 조회 성공", reportList));
     }

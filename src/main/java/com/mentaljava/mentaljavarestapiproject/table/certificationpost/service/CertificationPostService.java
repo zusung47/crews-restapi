@@ -25,6 +25,7 @@ public class CertificationPostService {
     public CertificationPost findPostDetail(Integer postId) {
         return certificationPostRepository.findByPostId(postId);
     }
+
     public List<CertificationPostDTO> findOnePost(Integer crewId) {
         Crew crew = crewRepository.findByCrewId(crewId);
         log.info("[CertificationPost] crew ===========> " + crew);
@@ -33,4 +34,5 @@ public class CertificationPostService {
                 modelMapper.map(certificationPost, CertificationPostDTO.class)).collect(Collectors.toList());
         return certificationPostDTOList;
     }
+
 }
