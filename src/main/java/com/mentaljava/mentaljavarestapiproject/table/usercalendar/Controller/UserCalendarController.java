@@ -1,15 +1,13 @@
 package com.mentaljava.mentaljavarestapiproject.table.usercalendar.Controller;
 
 import com.mentaljava.mentaljavarestapiproject.common.ResponseDTO;
+import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
 import com.mentaljava.mentaljavarestapiproject.table.usercalendar.dto.UsercalendarDTO;
 import com.mentaljava.mentaljavarestapiproject.table.usercalendar.service.UserCalendarService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,4 +29,12 @@ public class UserCalendarController {
         return ResponseEntity.ok().body(
                 new ResponseDTO(HttpStatus.OK,"전체 유저 캘린더 조회 성공",usercalendarList));
     }
+    @GetMapping ("/list/{userId}")
+    public ResponseEntity<ResponseDTO> getUserCalendarsByUserId(@PathVariable User userId) {
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "해당 유저 리스트 조회 성공", userCalendarService.findUserCalendarsByUserId(userId)));
+
+    }
+
+
 }

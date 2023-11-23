@@ -1,5 +1,6 @@
 package com.mentaljava.mentaljavarestapiproject.table.usercalendar.service;
 
+import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
 import com.mentaljava.mentaljavarestapiproject.table.usercalendar.dto.UsercalendarDTO;
 import com.mentaljava.mentaljavarestapiproject.table.usercalendar.entity.UserCalendar;
 import com.mentaljava.mentaljavarestapiproject.table.usercalendar.repository.UserCalendarRepository;
@@ -26,5 +27,12 @@ public class UserCalendarService {
         List<UserCalendar> userCalendarList = userCalendarRepository.findAll();
         List<UsercalendarDTO> usercalendarDTOList = userCalendarList.stream().map(userCalendar -> modelMapper.map(userCalendar, UsercalendarDTO.class)).collect(Collectors.toList());
         return usercalendarDTOList;
+    }
+
+    public List<UsercalendarDTO> findUserCalendarsByUserId(User userId) {
+        List<UserCalendar> userCalendarList = userCalendarRepository.findByUserId(userId);
+        return userCalendarList.stream()
+                .map(userCalendar -> modelMapper.map(userCalendar, UsercalendarDTO.class))
+                .collect(Collectors.toList());
     }
 }
