@@ -62,6 +62,7 @@ public class AdminController {
     // 크루 삭제
     @DeleteMapping("/list/{crewId}/crewdelete")
     public ResponseEntity<ResponseDTO> deleteCrew(@PathVariable("crewId") Integer crewId){
+        System.out.println("crewId = " + crewId);
         return ResponseEntity.ok().body(
                 new ResponseDTO(HttpStatus.OK,"크루 삭제 성공",crewService.deleteCrew(crewId)));
     }
