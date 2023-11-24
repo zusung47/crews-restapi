@@ -81,7 +81,7 @@ public class CrewService {
         return crewDTOList;
     }
 
-    public Object selectCrewListAboutRecruitmentStatusNo() {
+    public List<CrewDTO> selectCrewListAboutRecruitmentStatusNo() {
 
         List<Crew> crewListAboutRecruitmentStatusNo = crewRepository.findByRecruitmentStatus("0");
 
@@ -144,7 +144,7 @@ public class CrewService {
     }
 
     @Transactional
-    public Object insertCrew(CrewDTO crewDTO) {
+    public String insertCrew(CrewDTO crewDTO) {
 
         int result = 0;
 
@@ -152,7 +152,7 @@ public class CrewService {
             crewDTO.setCreationDate(LocalDate.now());
             crewDTO.setRecruitmentStatus("1");
 
-            log.info("[CrewController] insertCrew crewDTO ===========> " + crewDTO);
+            log.info("[CrewService] insertCrew crewDTO ===========> " + crewDTO);
             Crew newCrew = modelMapper.map(crewDTO, Crew.class);
 
             crewRepository.save(newCrew);
