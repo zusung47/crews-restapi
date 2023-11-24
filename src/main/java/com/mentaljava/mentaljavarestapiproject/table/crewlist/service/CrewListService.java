@@ -64,7 +64,7 @@ public class CrewListService {
     }
 
     @Transactional
-    public Object updateStatusRejection(CrewListDTO crewListDTO) {
+    public String updateStatusRejection(CrewListDTO crewListDTO) {
 
         int result = 0;
 
