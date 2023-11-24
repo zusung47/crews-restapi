@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/crewlist")
 @Slf4j
@@ -47,5 +49,10 @@ public class CrewListController {
         log.info("[CrewListController] updateStatusRejection CrewListDto ============> " + crewListDTO);
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "신청상태변경완료", crewListService.updateStatusRejection(crewListDTO)));
+    }
+    @GetMapping("/{userId}/crew")
+    public List<CrewListDTO> getCrewListByUserId(@PathVariable String userId) {
+
+        return crewListService.getCrewListByUserId(userId);
     }
 }
