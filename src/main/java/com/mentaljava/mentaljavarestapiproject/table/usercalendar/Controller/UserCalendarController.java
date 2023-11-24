@@ -35,6 +35,17 @@ public class UserCalendarController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "해당 유저 리스트 조회 성공", userCalendarService.findUserCalendarsByUserId(userId)));
 
     }
+    @PutMapping("/update/{userId}")
+    public ResponseEntity<ResponseDTO> updateUserCalendarByUserId(
+            @PathVariable User userId,
+            @RequestBody UsercalendarDTO usercalendarDTO) {
 
+        // 서비스 메서드를 호출하여 사용자 캘린더를 업데이트합니다.
+        UsercalendarDTO updatedUsercalendarDTO = userCalendarService.updateUserCalendarByUserId(userId, usercalendarDTO);
+
+        // 응답을 반환합니다.
+        return ResponseEntity.ok().body(
+                new ResponseDTO(HttpStatus.OK, "유저 캘린더 수정 성공", updatedUsercalendarDTO));
+    }
 
 }

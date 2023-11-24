@@ -35,4 +35,22 @@ public class UserCalendarService {
                 .map(userCalendar -> modelMapper.map(userCalendar, UsercalendarDTO.class))
                 .collect(Collectors.toList());
     }
+
+    public UsercalendarDTO updateUserCalendarByUserId(User userId, UsercalendarDTO usercalendarDTO) {
+        // userId를 사용하여 유저 캘린더를 조회합니다.
+        UserCalendar userCalendar = userCalendarRepository.findForUpdateByUserId(userId)
+                .orElseThrow(() -> new IllegalArgumentException("해당하는 유저 캘린더가 없습니다. userId: " + userId));
+
+        // 유저 캘린더의 정보를 업데이트합니다.
+        userCalendar.setStartDate(usercalendarDTO.getStartDate());
+        userCalendar.setEndDate(usercalendarDTO.getEndDate());
+        userCalendar.setTitle(usercalendarDTO.getTitle());
+        userCalendar.setCalendarContent(usercalendarDTO.getCalendarContent());
+        userCalendar.setDeleteStatus(usercalendarDTO.getDeleteStatus());
+        userCalendar.setTime(usercalendarDTO.getTime());
+
+        // 유저 캘린더를 저장하고 업데이트된 DTO를 반환합니다.
+        UserCalendar updatedUserCalendar = userCalendarRepository.save(userCalendar);
+        return modelMapper.map(updatedUserCalendar, UsercalendarDTO.class);
+    }
 }
