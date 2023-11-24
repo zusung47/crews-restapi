@@ -12,4 +12,6 @@ public interface CrewListRepository extends JpaRepository<CrewList, CrewListId> 
     CrewList findById_CrewIdAndId_UserId(Integer crewId, String userId);
 
     List<CrewList> findById_CrewIdAndApprovalStatus(Integer crewId, Integer approvalStatus);
+
+    List<CrewList> findCrewByUser_UserId(String userId);
 }
