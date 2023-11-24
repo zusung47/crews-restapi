@@ -1,5 +1,6 @@
 package com.mentaljava.mentaljavarestapiproject.table.usercalendar.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mentaljava.mentaljavarestapiproject.table.user.dto.UserDTO;
 import lombok.*;
 
@@ -15,8 +16,10 @@ public class UsercalendarDTO {
 
     private Integer userCalendarId;
 
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "UTC") //날짜 형식 포맷 수정
     private Date startDate;
 
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "UTC")
     private Date endDate;
 
     private String title;

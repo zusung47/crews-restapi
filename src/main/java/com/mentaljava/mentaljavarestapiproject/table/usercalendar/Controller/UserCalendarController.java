@@ -5,11 +5,15 @@ import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
 import com.mentaljava.mentaljavarestapiproject.table.usercalendar.dto.UsercalendarDTO;
 import com.mentaljava.mentaljavarestapiproject.table.usercalendar.service.UserCalendarService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 @RestController
 @RequestMapping("/api/v1/usercalendar")
@@ -47,5 +51,14 @@ public class UserCalendarController {
         return ResponseEntity.ok().body(
                 new ResponseDTO(HttpStatus.OK, "유저 캘린더 수정 성공", updatedUsercalendarDTO));
     }
-
+    @GetMapping("list/StartDate/{startDate}")
+    public ResponseEntity<ResponseDTO> findUserCalendarsByStartDate(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate) {
+        List<UsercalendarDTO> userCalendars = userCalendarService.findUserCalendarsByStartDate(startDate);
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "유저 캘린더 조회 성공", userCalendars));
+    }
+    @GetMapping("list/EndDate/{endDate}")
+    public ResponseEntity<ResponseDTO> findUserCalendarsByEndDate(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+        List<UsercalendarDTO> userCalendars = userCalendarService.findUserCalendarsByEndDate(endDate);
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "유저 캘린더 조회 성공", userCalendars));
+    }
 }
