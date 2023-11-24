@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,5 +53,19 @@ public class UserCalendarService {
         // 유저 캘린더를 저장하고 업데이트된 DTO를 반환합니다.
         UserCalendar updatedUserCalendar = userCalendarRepository.save(userCalendar);
         return modelMapper.map(updatedUserCalendar, UsercalendarDTO.class);
+    }
+
+    public List<UsercalendarDTO> findUserCalendarsByStartDate(Date startDate) {
+        List<UserCalendar> userCalendarList = userCalendarRepository.findByStartDate(startDate);
+        return userCalendarList.stream()
+                .map(userCalendar -> modelMapper.map(userCalendar, UsercalendarDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    public List<UsercalendarDTO> findUserCalendarsByEndDate(Date endDate) {
+        List<UserCalendar> userCalendarList = userCalendarRepository.findByEndDate(endDate);
+        return userCalendarList.stream()
+                .map(userCalendar -> modelMapper.map(userCalendar, UsercalendarDTO.class))
+                .collect(Collectors.toList());
     }
 }
