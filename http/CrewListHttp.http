@@ -40,3 +40,13 @@ Content-Type: application/json
 
 ###유저 가입 크루 조회
 GET http://localhost:8080/api/v1/crewlist/seyoung2/crew
+
+###크루 가입 신청
+POST http://localhost:8080/api/v1/crewlist/crew/1/apply
+Content-Type: application/json
+
+{
+  "user": {
+    "userId": "zusung2"
+  }
+}

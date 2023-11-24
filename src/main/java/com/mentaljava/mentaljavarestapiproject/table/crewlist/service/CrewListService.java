@@ -1,9 +1,13 @@
 package com.mentaljava.mentaljavarestapiproject.table.crewlist.service;
 
+import com.mentaljava.mentaljavarestapiproject.table.crew.dto.CrewDTO;
 import com.mentaljava.mentaljavarestapiproject.table.crew.entity.Crew;
+import com.mentaljava.mentaljavarestapiproject.table.crew.repository.CrewRepository;
 import com.mentaljava.mentaljavarestapiproject.table.crewlist.dto.CrewListDTO;
 import com.mentaljava.mentaljavarestapiproject.table.crewlist.entity.CrewList;
 import com.mentaljava.mentaljavarestapiproject.table.crewlist.repository.CrewListRepository;
+import com.mentaljava.mentaljavarestapiproject.table.crewlistid.dto.CrewListIdDTO;
+import com.mentaljava.mentaljavarestapiproject.table.crewlistid.entity.CrewListId;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -18,10 +22,13 @@ public class CrewListService {
 
     private final CrewListRepository crewListRepository;
 
+    private final CrewRepository crewRepository;
+
     private final ModelMapper modelMapper;
 
-    public CrewListService(CrewListRepository crewListRepository, ModelMapper modelMapper){
+    public CrewListService(CrewListRepository crewListRepository, CrewRepository crewRepository, ModelMapper modelMapper){
         this.crewListRepository = crewListRepository;
+        this.crewRepository = crewRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -90,5 +97,36 @@ public class CrewListService {
                 .collect(Collectors.toList());
 
         return crewlistDTO;
+    }
+
+    @Transactional
+    public Object inserCrewListApply(Integer crewId, CrewListDTO crewListDTO) {
+
+        int result = 0;
+
+        try{
+            CrewListId crewListId = new CrewListId(crewListDTO.getUser().getUserId(), crewId);
+
+            Crew crew = crewRepository.findById(crewId).get();
+            CrewDTO crewDTO = modelMapper.map(crew, CrewDTO.class);
+
+            crewListDTO.setId(crewListId);
+            crewListDTO.setCrew(crewDTO);
+            crewListDTO.setApprovalStatus(0);
+
+            CrewList newCrewList = modelMapper.map(crewListDTO, CrewList.class);
+
+            crewListRepository.save(newCrewList);
+
+            log.info("[CrewService] insertCrewListApply crewDTO ===========> " + crewListDTO);
+            log.info("[CrewService] insertCrewListApply crewDTO ===========> " + newCrewList);
+
+
+            result = 1;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return (result > 0) ? "크루 신청 성공" : "크루 신청 실패";
     }
 }
