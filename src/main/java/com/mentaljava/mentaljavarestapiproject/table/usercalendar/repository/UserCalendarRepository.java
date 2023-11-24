@@ -5,7 +5,10 @@ import com.mentaljava.mentaljavarestapiproject.table.usercalendar.entity.UserCal
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserCalendarRepository extends JpaRepository<UserCalendar, Integer> {
     List<UserCalendar> findByUserId(User userId);
+
+    Optional<UserCalendar> findForUpdateByUserId(User userId);
 }
