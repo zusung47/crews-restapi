@@ -1,10 +1,15 @@
 package com.mentaljava.mentaljavarestapiproject.table.crew.service;
 
+import com.mentaljava.mentaljavarestapiproject.common.Criteria;
 import com.mentaljava.mentaljavarestapiproject.table.crew.dto.CrewDTO;
 import com.mentaljava.mentaljavarestapiproject.table.crew.entity.Crew;
 import com.mentaljava.mentaljavarestapiproject.table.crew.repository.CrewRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -165,4 +170,25 @@ public class CrewService {
         return (result > 0) ? "크루 만들기 성공" : "크루 만들기 실패";
     }
 
+    public int seletTotalCrew() {
+
+        List<Crew> crewList = crewRepository.findAll();
+
+        return crewList.size();
+    }
+
+    public List<CrewDTO> selectCrewListWithPaging(Criteria cri) {
+
+        int index = cri.getPageNum() - 1;
+        int count = cri.getAmount();
+        Pageable paging = PageRequest.of(index, count, Sort.by("crewId").descending());
+
+        Page<Crew> result = crewRepository.findAll(paging);
+        List<CrewDTO> crewDTOList = result.stream()
+                .map(crew -> modelMapper.map(crew, CrewDTO.class))
+                .collect(Collectors.toList());
+
+        return crewDTOList;
+
+    }
 }
