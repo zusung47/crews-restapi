@@ -303,4 +303,20 @@ public class CrewService {
         log.info("[CrewService] selectCrewListAboutEtcWithPaging end ============");
         return crewDTOList;
     }
+
+    public List<CrewDTO> selectSearchCrewList(String search) {
+
+        log.info("[CrewService] selectSearchCrewList start ============");
+        log.info("[CrewService] search : {} ", search);
+
+        List<Crew> crewListWithSearchValue = crewRepository.findByCrewNameContaining(search);
+
+        List<CrewDTO> crewDTOList = crewListWithSearchValue.stream()
+                .map(crew -> modelMapper.map(crew, CrewDTO.class)).collect(Collectors.toList());
+
+        log.info("[CrewService] selectSearchCrewList crewDTOList : " + crewDTOList);
+
+        log.info("[CrewService] selectSearchCrewList end ============");
+        return crewDTOList;
+    }
 }

@@ -172,4 +172,12 @@ public class CrewController {
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "크루 등록 성공", crewService.insertCrew(crewDTO)));
     }
+
+    //크루이름 검색해서 조회
+    @GetMapping("/list/search")
+    public ResponseEntity<ResponseDTO> selectSearchCrewList(
+            @RequestParam(name = "s", defaultValue = "all") String search){
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "검색 조회 성공", crewService.selectSearchCrewList(search)));
+    }
 }
