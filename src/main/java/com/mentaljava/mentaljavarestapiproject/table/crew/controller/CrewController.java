@@ -43,34 +43,82 @@ public class CrewController {
 
     //크루 카테고리별 조회(운동)
     @GetMapping("/list/exercise")
-    public ResponseEntity<ResponseDTO> selectCrewListAboutExercise() {
+    public ResponseEntity<ResponseDTO> selectCrewListAboutExerciseWithPaging(
+            @RequestParam(value = "offset", defaultValue = "1") String offset) {
 
-        return ResponseEntity.ok()
-                .body(new ResponseDTO(HttpStatus.OK, "카테고리 운동 조회 성공", crewService.selectCrewListAboutExercise()));
+        log.info("[CrewController] selectCrewListAboutExerciseWithPaging start =============");
+        log.info("[CrewController] selectCrewListAboutExerciseWithPaging offset : {} ", offset);
+
+        int total = crewService.selectTotalCrewListAboutExercise();
+
+        Criteria cri = new Criteria(Integer.valueOf(offset), 10);
+
+        PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
+
+        pagingResponseDTO.setData(crewService.selectCrewListAboutExerciseWithPaging(cri));
+        pagingResponseDTO.setPageInfo(new PagingDTO(cri, total));
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "카테고리 운동 조회 성공", pagingResponseDTO));
     }
 
     //크루 카테고리별 조회(공부)
     @GetMapping("/list/study")
-    public ResponseEntity<ResponseDTO> selectCrewListAboutStudy() {
+    public ResponseEntity<ResponseDTO> selectCrewListAboutStudyWithPaging(
+            @RequestParam(value = "offset", defaultValue = "1") String offset) {
 
-        return ResponseEntity.ok()
-                .body(new ResponseDTO(HttpStatus.OK, "카테고리 공부 조회 성공", crewService.selectCrewListAboutStudy()));
+        log.info("[CrewController] selectCrewListAboutStudyWithPaging start =============");
+        log.info("[CrewController] selectCrewListAboutStudyWithPaging offset : {} ", offset);
+
+        int total = crewService.selectTotalCrewListAboutStudy();
+
+        Criteria cri = new Criteria(Integer.valueOf(offset), 10);
+
+        PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
+
+        pagingResponseDTO.setData(crewService.selectCrewListAboutStudyWithPaging(cri));
+        pagingResponseDTO.setPageInfo(new PagingDTO(cri, total));
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "카테고리 공부 조회 성공", pagingResponseDTO));
     }
 
     //크루 카테고리별 조회(습관)
     @GetMapping("/list/habit")
-    public ResponseEntity<ResponseDTO> selectCrewListAboutHabit() {
+    public ResponseEntity<ResponseDTO> selectCrewListAboutHabitWithPaging(
+            @RequestParam(value = "offset", defaultValue = "1") String offset) {
 
-        return ResponseEntity.ok()
-                .body(new ResponseDTO(HttpStatus.OK, "카테고리 습관 조회 성공", crewService.selectCrewListAboutHabit()));
+        log.info("[CrewController] selectCrewListAboutHabitWithPaging start =============");
+        log.info("[CrewController] selectCrewListAboutHabitWithPaging offset : {} ", offset);
+
+        int total = crewService.selectTotalCrewListAboutHabit();
+
+        Criteria cri = new Criteria(Integer.valueOf(offset), 10);
+
+        PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
+
+        pagingResponseDTO.setData(crewService.selectCrewListAboutHabitWithPaging(cri));
+        pagingResponseDTO.setPageInfo(new PagingDTO(cri, total));
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "카테고리 습관 조회 성공", pagingResponseDTO));
     }
 
     //크루 카테고리별 조회(기타)
     @GetMapping("/list/etc")
-    public ResponseEntity<ResponseDTO> selectCrewListAboutEtc() {
+    public ResponseEntity<ResponseDTO> selectCrewListAboutEtcWithPaging(
+            @RequestParam(value = "offset", defaultValue = "1") String offset) {
 
-        return ResponseEntity.ok()
-                .body(new ResponseDTO(HttpStatus.OK, "카테고리 기타 조회 성공", crewService.selectCrewListAboutEtc()));
+        log.info("[CrewController] selectCrewListAboutEtcWithPaging start =============");
+        log.info("[CrewController] selectCrewListAboutEtcWithPaging offset : {} ", offset);
+
+        int total = crewService.selectTotalCrewListAboutEtc();
+
+        Criteria cri = new Criteria(Integer.valueOf(offset), 10);
+
+        PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
+
+        pagingResponseDTO.setData(crewService.selectCrewListAboutEtcWithPaging(cri));
+        pagingResponseDTO.setPageInfo(new PagingDTO(cri, total));
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "카테고리 기타 조회 성공", pagingResponseDTO));
     }
 
     //모집상태1 조회
@@ -97,7 +145,7 @@ public class CrewController {
                 .body(new ResponseDTO(HttpStatus.OK, "크루 상세정보 조회 성공", crewService.selectCrew(crewId)));
     }
 
-    //크루 모집글 조회
+    //크루 소개글 조회
     @GetMapping("/detail/{crewId}/intro")
     public ResponseEntity<ResponseDTO> selectCrewIntro(@PathVariable Integer crewId) {
 
@@ -105,7 +153,7 @@ public class CrewController {
                 .body(new ResponseDTO(HttpStatus.OK, "크루 소개글 조회 성공", crewService.selectCrewIntro(crewId)));
     }
 
-    //크루 모집글 수정
+    //크루 소개글 수정
     @PutMapping(value = "/intro")
     public ResponseEntity<ResponseDTO> updateCrewIntro(@RequestBody CrewDTO crewDTO) {
 

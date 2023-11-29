@@ -191,4 +191,116 @@ public class CrewService {
         return crewDTOList;
 
     }
+
+    public int selectTotalCrewListAboutExercise() {
+        log.info("[CrewService] selectTotalCrewListAboutExercise start =============");
+
+        List<Crew> crewList = crewRepository.findByCrewCategoryCode_CategoryCode(1);
+
+        log.info("[CrewService] crewList.size : {}", crewList.size());
+        log.info("[CrewService] selectTotalCrewListAboutExercise end =============");
+
+        return crewList.size();
+    }
+
+    public List<CrewDTO> selectCrewListAboutExerciseWithPaging(Criteria cri) {
+
+        log.info("[CrewService] selectCrewListAboutExerciseWithPaging start ============");
+
+        int index = cri.getPageNum() - 1;
+        int count = cri.getAmount();
+        Pageable paging = PageRequest.of(index, count, Sort.by("crewId").descending());
+
+        Page<Crew> result = crewRepository.findByCrewCategoryCode_CategoryCode(1, paging);
+
+        List<CrewDTO> crewDTOList = result.stream()
+                .map(crew -> modelMapper.map(crew, CrewDTO.class)).collect(Collectors.toList());
+
+        log.info("[CrewService] selectCrewListAboutExerciseWithPaging end ============");
+        return crewDTOList;
+    }
+
+    public int selectTotalCrewListAboutStudy() {
+        log.info("[CrewService] selectTotalCrewListAboutStudy start =============");
+
+        List<Crew> crewList = crewRepository.findByCrewCategoryCode_CategoryCode(2);
+
+        log.info("[CrewService] crewList.size : {}", crewList.size());
+        log.info("[CrewService] selectTotalCrewListAboutStudy end =============");
+
+        return crewList.size();
+    }
+
+    public List<CrewDTO> selectCrewListAboutStudyWithPaging(Criteria cri) {
+
+        log.info("[CrewService] selectCrewListAboutStudyWithPaging start ============");
+
+        int index = cri.getPageNum() - 1;
+        int count = cri.getAmount();
+        Pageable paging = PageRequest.of(index, count, Sort.by("crewId").descending());
+
+        Page<Crew> result = crewRepository.findByCrewCategoryCode_CategoryCode(2, paging);
+
+        List<CrewDTO> crewDTOList = result.stream()
+                .map(crew -> modelMapper.map(crew, CrewDTO.class)).collect(Collectors.toList());
+
+        log.info("[CrewService] selectCrewListAboutStudyWithPaging end ============");
+        return crewDTOList;
+    }
+
+    public int selectTotalCrewListAboutHabit() {
+        log.info("[CrewService] selectTotalCrewListAboutHabit start =============");
+
+        List<Crew> crewList = crewRepository.findByCrewCategoryCode_CategoryCode(3);
+
+        log.info("[CrewService] crewList.size : {}", crewList.size());
+        log.info("[CrewService] selectTotalCrewListAboutHabit end =============");
+
+        return crewList.size();
+    }
+
+    public List<CrewDTO> selectCrewListAboutHabitWithPaging(Criteria cri) {
+
+        log.info("[CrewService] selectCrewListAboutHabitWithPaging start ============");
+
+        int index = cri.getPageNum() - 1;
+        int count = cri.getAmount();
+        Pageable paging = PageRequest.of(index, count, Sort.by("crewId").descending());
+
+        Page<Crew> result = crewRepository.findByCrewCategoryCode_CategoryCode(3, paging);
+
+        List<CrewDTO> crewDTOList = result.stream()
+                .map(crew -> modelMapper.map(crew, CrewDTO.class)).collect(Collectors.toList());
+
+        log.info("[CrewService] selectCrewListAboutHabitWithPaging end ============");
+        return crewDTOList;
+    }
+
+    public int selectTotalCrewListAboutEtc() {
+        log.info("[CrewService] selectTotalCrewListAboutEtc start =============");
+
+        List<Crew> crewList = crewRepository.findByCrewCategoryCode_CategoryCode(4);
+
+        log.info("[CrewService] crewList.size : {}", crewList.size());
+        log.info("[CrewService] selectTotalCrewListAboutEtc end =============");
+
+        return crewList.size();
+    }
+
+    public List<CrewDTO> selectCrewListAboutEtcWithPaging(Criteria cri) {
+
+        log.info("[CrewService] selectCrewListAboutEtcWithPaging start ============");
+
+        int index = cri.getPageNum() - 1;
+        int count = cri.getAmount();
+        Pageable paging = PageRequest.of(index, count, Sort.by("crewId").descending());
+
+        Page<Crew> result = crewRepository.findByCrewCategoryCode_CategoryCode(4, paging);
+
+        List<CrewDTO> crewDTOList = result.stream()
+                .map(crew -> modelMapper.map(crew, CrewDTO.class)).collect(Collectors.toList());
+
+        log.info("[CrewService] selectCrewListAboutEtcWithPaging end ============");
+        return crewDTOList;
+    }
 }
