@@ -1,5 +1,8 @@
 package com.mentaljava.mentaljavarestapiproject.table.admin.controller;
 
+import com.mentaljava.mentaljavarestapiproject.common.Criteria;
+import com.mentaljava.mentaljavarestapiproject.common.PagingDTO;
+import com.mentaljava.mentaljavarestapiproject.common.PagingResponseDTO;
 import com.mentaljava.mentaljavarestapiproject.common.ResponseDTO;
 import com.mentaljava.mentaljavarestapiproject.table.admin.service.AdminService;
 import com.mentaljava.mentaljavarestapiproject.table.crew.dto.CrewDTO;
@@ -38,11 +41,19 @@ public class AdminController {
 
     // 크루 조회
     @GetMapping("/crewList")
-    public ResponseEntity<ResponseDTO> crewList(){
-        List<CrewDTO> crewList = crewService.findAllCrewList();
-        System.out.println("crewList = " + crewList);
+    public ResponseEntity<ResponseDTO> crewList(
+            @RequestParam(value = "offset", defaultValue = "1") String offset) {
 
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "전체 크루 리스트 조회 성공", crewList));
+        int total = crewService.seletTotalCrew();
+
+        Criteria cri = new Criteria(Integer.valueOf(offset), 10);
+
+        PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
+
+        pagingResponseDTO.setData(crewService.selectCrewListWithPaging(cri));
+        pagingResponseDTO.setPageInfo(new PagingDTO(cri, total));
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "전체 크루 리스트 조회 성공", pagingResponseDTO));
     }
 
     // 크루 상세 조회

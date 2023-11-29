@@ -13,6 +13,8 @@ public interface CrewRepository extends JpaRepository<Crew, Integer> {
 
     List<Crew> findByCrewCategoryCode_CategoryCode(int crewCategoryCode);
 
+    Page<Crew> findByCrewCategoryCode_CategoryCode(int crewCategoryCode, Pageable paging);
+
     Crew findByCrewId(Integer crewId);
 
 
