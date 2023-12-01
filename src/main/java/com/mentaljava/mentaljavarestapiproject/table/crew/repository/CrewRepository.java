@@ -1,6 +1,7 @@
 package com.mentaljava.mentaljavarestapiproject.table.crew.repository;
 
 import com.mentaljava.mentaljavarestapiproject.table.crew.entity.Crew;
+import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,4 +19,6 @@ public interface CrewRepository extends JpaRepository<Crew, Integer> {
     Crew findByCrewId(Integer crewId);
 
     List<Crew> findByCrewNameContaining(String search);
+
+    List<Crew> findByCaptain(User captain);
 }

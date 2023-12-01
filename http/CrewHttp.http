@@ -55,3 +55,6 @@ Content-Type: application/json
 
 ###크루이름 검색 조회
 GET http://localhost:8080/api/v1/crew/list/search?s=크루
+
+### 캡틴 이름을 통해 조회
+GET http://localhost:8080/api/v1/crew/list/zusung1/mypost
