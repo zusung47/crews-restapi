@@ -65,12 +65,11 @@ public class KakaoService {
         Map<String, Object> kakao_account = (Map<String, Object>) jsonMap.get("kakao_account");
 
 
-        Long id = (Long) jsonMap.get("id");
         String nickname = properties.get("nickname").toString();
         String email = kakao_account.get("email").toString();
 
         //userInfo에 넣기
-        userInfo.put("id", id);
+
         userInfo.put("nickname", nickname);
         userInfo.put("email", email);
 

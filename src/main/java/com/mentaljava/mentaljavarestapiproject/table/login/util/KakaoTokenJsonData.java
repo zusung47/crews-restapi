@@ -1,6 +1,7 @@
 package com.mentaljava.mentaljavarestapiproject.table.login.util;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -14,10 +15,12 @@ public class KakaoTokenJsonData {
     private static final String TOKEN_URI = "https://kauth.kakao.com/oauth/token";
 
     private static final String GRANT_TYPE = "authorization_code";
-    private static final String CLIENT_ID = "3506fa179cbeaf488ef2be30f802135d";
+
+    @Value("${kakao.client_id}")
+    private String client_id;
 
     public KakaoTokenResponse getToken(String code) {
-        String uri = TOKEN_URI + "?grant_type=" + GRANT_TYPE + "&client_id=" + CLIENT_ID + "&code=" + code;
+        String uri = TOKEN_URI + "?grant_type=" + GRANT_TYPE + "&client_id=" + client_id + "&code=" + code;
         System.out.println(uri);
 
         Flux<KakaoTokenResponse> response = webClient.post()
