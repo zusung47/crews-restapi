@@ -6,6 +6,7 @@ import com.mentaljava.mentaljavarestapiproject.common.PagingResponseDTO;
 import com.mentaljava.mentaljavarestapiproject.common.ResponseDTO;
 import com.mentaljava.mentaljavarestapiproject.table.crew.service.CrewService;
 import com.mentaljava.mentaljavarestapiproject.table.crew.dto.CrewDTO;
+import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -179,5 +180,12 @@ public class CrewController {
             @RequestParam(name = "s", defaultValue = "all") String search){
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "검색 조회 성공", crewService.selectSearchCrewList(search)));
+    }
+
+    //캡틴을 통해 크루 정보 조회 추후 필요한 데이터만 가져오도록 수정(내가 쓴 글 조회)
+    @GetMapping("/list/{captain}/mypost")
+    public ResponseEntity<ResponseDTO> getCrewByCaptain(@PathVariable User captain) {
+        List<CrewDTO> Crews = crewService.getCrewByCaptain(captain);
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,"작성글 조회 성공",Crews));
     }
 }

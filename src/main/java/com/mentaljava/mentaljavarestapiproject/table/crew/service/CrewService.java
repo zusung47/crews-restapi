@@ -4,6 +4,7 @@ import com.mentaljava.mentaljavarestapiproject.common.Criteria;
 import com.mentaljava.mentaljavarestapiproject.table.crew.dto.CrewDTO;
 import com.mentaljava.mentaljavarestapiproject.table.crew.entity.Crew;
 import com.mentaljava.mentaljavarestapiproject.table.crew.repository.CrewRepository;
+import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -317,6 +318,16 @@ public class CrewService {
         log.info("[CrewService] selectSearchCrewList crewDTOList : " + crewDTOList);
 
         log.info("[CrewService] selectSearchCrewList end ============");
+        return crewDTOList;
+    }
+
+    //캡틴을 통해 크루 정보 조회 추후 필요한 데이터만 가져오도록 수정
+    public List<CrewDTO> getCrewByCaptain(User captain) {
+        List<Crew> crewListWithCaptain = crewRepository.findByCaptain(captain);
+
+        List<CrewDTO> crewDTOList = crewListWithCaptain.stream()
+                .map(crew -> modelMapper.map(crew, CrewDTO.class)).collect(Collectors.toList());
+
         return crewDTOList;
     }
 }
