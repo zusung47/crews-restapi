@@ -57,5 +57,11 @@ public class User {
         this.permissionType = permissionType;
     }
 
+    @Builder
+    public User(String email,String nickname) {
+        this.userId = email;
+        this.nickname = nickname;
+    }
+
 
 }
