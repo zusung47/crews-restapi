@@ -31,7 +31,7 @@ Content-Type: application/json
 
 {
   "crewId": "1",
-  "introduction": "수정테스트입니다33"
+  "introduction": "수정테스트입니다34"
 }
 
 ### 크루 만들기
