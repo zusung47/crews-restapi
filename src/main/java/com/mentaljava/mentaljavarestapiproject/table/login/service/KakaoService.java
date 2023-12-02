@@ -84,6 +84,8 @@ public class KakaoService {
         String email = (String) userInfo.get("email");
         String nickname = (String) userInfo.get("nickname");
 
+        // 동일한 이메일을 가진 사용자가 이미 있다면 로그인, 처음 로그인이라면 회원가입
+
         User user = User.builder()
                 .email(email)
                 .nickname(nickname)

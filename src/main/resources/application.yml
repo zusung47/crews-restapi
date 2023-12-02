@@ -33,5 +33,5 @@ spring:
 
 kakao:
   client_id: 3506fa179cbeaf488ef2be30f802135d
-  redirect_uri: http://localhost:8080/api/v1/usercalendar
+  redirect_uri: http://localhost:8080/oauth
 
