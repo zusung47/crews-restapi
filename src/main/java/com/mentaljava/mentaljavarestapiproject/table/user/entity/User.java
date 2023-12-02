@@ -1,5 +1,6 @@
 package com.mentaljava.mentaljavarestapiproject.table.user.entity;
 
+import java.time.LocalDate;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,10 +24,10 @@ public class User {
     private Integer diamondCount;
 
     @Column(name = "JOIN_DATE")
-    private Date joinDate;
+    private LocalDate joinDate;
 
     @Column(name = "OUT_DATE")
-    private Date outDate;
+    private LocalDate outDate;
 
     @Column(name = "PERMISSION_TYPE")
     private String permissionType;
@@ -45,11 +46,11 @@ public class User {
         this.diamondCount = diamondCount;
     }
 
-    public void setJoinDate(Date joinDate) {
+    public void setJoinDate(LocalDate joinDate) {
         this.joinDate = joinDate;
     }
 
-    public void setOutDate(Date outDate) {
+    public void setOutDate(LocalDate outDate) {
         this.outDate = outDate;
     }
 
@@ -58,9 +59,12 @@ public class User {
     }
 
     @Builder
-    public User(String email,String nickname) {
+    public User(String email,String nickname, LocalDate joinDate, Integer daimondCount,String permissionType) {
         this.userId = email;
         this.nickname = nickname;
+        this.joinDate = joinDate;
+        this.diamondCount = daimondCount;
+        this.permissionType = permissionType;
     }
 
 
