@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -84,19 +85,30 @@ public class KakaoService {
         String email = (String) userInfo.get("email");
         String nickname = (String) userInfo.get("nickname");
 
-        // 동일한 이메일을 가진 사용자가 이미 있다면 로그인, 처음 로그인이라면 회원가입
+        User user = userRepository.findByUserId(email);
 
-        User user = User.builder()
-                .email(email)
-                .nickname(nickname)
-                .build();
+        // 동일한 이메일을 가진 사용자가 이미 있다면 로그인, 처음 로그인이라면 회원가입
+        if(user == null){
+            log.info("[KakaoLogin] signup start ======== ");
+            User newUser = User.builder()
+                    .email(email)
+                    .nickname(nickname)
+                    .daimondCount(50)
+                    .joinDate(LocalDate.now())
+                    .permissionType("0")
+                    .build();
+
+            UserDTO userDTO = modelMapper.map(newUser, UserDTO.class);
+
+            userRepository.save(newUser);
+
+            return userDTO;
+
+        }
 
         UserDTO userDTO = modelMapper.map(user, UserDTO.class);
-
-        userRepository.save(user);
+        log.info("기존 유저 ======="+userDTO);
 
         return userDTO;
-
-
     }
 }

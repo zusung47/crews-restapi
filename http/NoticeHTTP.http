@@ -19,8 +19,8 @@ PUT http://localhost:8080/api/v1/notice/regist
 content-type: application/json
 
 {
-  "noticeTitle": "default값 들어가는지 테스트",
-  "noticeContent": "테스팅asdfg"
+  "noticeTitle": "테스팅",
+  "noticeContent": "공지사항 테스팅"
 }
 
 ### 공지사항 삭제
