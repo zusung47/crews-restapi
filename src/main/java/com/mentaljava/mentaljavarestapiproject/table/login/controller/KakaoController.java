@@ -40,7 +40,7 @@ public class KakaoController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,"카카오 로그인 화면 이동 성공",location));
     }
 
-    @GetMapping("/api/v1/usercalendar")
+    @GetMapping("/oauth")
     @ResponseBody
     public ResponseEntity<ResponseDTO> callback(@RequestParam("code") String code) throws IOException {
         KakaoTokenResponse accessToken = kakaoTokenJsonData.getToken(code);
