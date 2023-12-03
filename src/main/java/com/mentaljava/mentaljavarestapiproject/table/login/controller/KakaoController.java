@@ -6,6 +6,8 @@ import com.mentaljava.mentaljavarestapiproject.table.user.dto.UserDTO;
 import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
 import java.io.IOException;
 import java.util.HashMap;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +17,8 @@ import com.mentaljava.mentaljavarestapiproject.table.login.util.KakaoTokenJsonDa
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,13 +38,15 @@ public class KakaoController {
     private final KakaoTokenJsonData kakaoTokenJsonData;
 
     @GetMapping("/")
-    public ResponseEntity<ResponseDTO> home(){
-        String location = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id="+client_id+"&redirect_uri="+redirect_uri;
+    public ResponseEntity<ResponseDTO> home() {
+        String location =
+                "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=" + client_id + "&redirect_uri="
+                        + redirect_uri;
 
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,"카카오 로그인 화면 이동 성공",location));
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "카카오 로그인 화면 이동 성공", location));
     }
 
-    @GetMapping("/oauth")
+    @GetMapping("/oauth/dd")
     @ResponseBody
     public ResponseEntity<ResponseDTO> callback(@RequestParam("code") String code) throws IOException {
         KakaoTokenResponse accessToken = kakaoTokenJsonData.getToken(code);
@@ -50,7 +56,21 @@ public class KakaoController {
         // User 로그인, 또는 회원가입 로직 추가
         UserDTO userDTO = kakaoService.createUser(userInfo);
 //        return userInfo.toString();
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,"회원 가입 성공", userDTO));
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "회원 가입 성공", userDTO));
+    }
+
+    @GetMapping("/oauth")
+    public ResponseEntity<ResponseDTO> kakaoLogin(HttpServletRequest request) throws IOException {
+
+        String code = request.getParameter("code");
+        KakaoTokenResponse accessToken = kakaoTokenJsonData.getToken(code);
+        HashMap<String, Object> userInfo = kakaoService.getUserInfo(accessToken.getAccess_token());
+        log.info("id : " + userInfo.get("id"));
+        // User 로그인, 또는 회원가입 로직 추가
+        UserDTO userDTO = kakaoService.createUser(userInfo);
+        return ResponseEntity.ok()
+                .body(new ResponseDTO(HttpStatus.OK, "회원 가입 성공", userDTO));
+
     }
 
 
