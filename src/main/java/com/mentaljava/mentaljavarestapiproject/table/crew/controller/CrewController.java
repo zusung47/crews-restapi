@@ -42,7 +42,7 @@ public class CrewController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "전체 크루 리스트 조회 성공", pagingResponseDTO));
     }
 
-    //전체 크루 리스트 조회 페이징처리 50개씩
+    //전체 크루 리스트 조회 페이징처리 5개씩
     @GetMapping("/list/five")
     public ResponseEntity<ResponseDTO> selectCrewListWithPagingFive(
             @RequestParam(value = "offset", defaultValue = "1") String offset) {
@@ -69,7 +69,7 @@ public class CrewController {
 
         int total = crewService.selectTotalCrewListAboutExercise();
 
-        Criteria cri = new Criteria(Integer.valueOf(offset), 10);
+        Criteria cri = new Criteria(Integer.valueOf(offset), 5);
 
         PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
 
@@ -89,7 +89,7 @@ public class CrewController {
 
         int total = crewService.selectTotalCrewListAboutStudy();
 
-        Criteria cri = new Criteria(Integer.valueOf(offset), 10);
+        Criteria cri = new Criteria(Integer.valueOf(offset), 5);
 
         PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
 
@@ -109,7 +109,7 @@ public class CrewController {
 
         int total = crewService.selectTotalCrewListAboutHabit();
 
-        Criteria cri = new Criteria(Integer.valueOf(offset), 10);
+        Criteria cri = new Criteria(Integer.valueOf(offset), 5);
 
         PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
 
@@ -129,7 +129,7 @@ public class CrewController {
 
         int total = crewService.selectTotalCrewListAboutEtc();
 
-        Criteria cri = new Criteria(Integer.valueOf(offset), 10);
+        Criteria cri = new Criteria(Integer.valueOf(offset), 5);
 
         PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
 
