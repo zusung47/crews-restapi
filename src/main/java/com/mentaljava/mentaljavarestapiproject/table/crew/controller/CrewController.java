@@ -25,14 +25,31 @@ public class CrewController {
         this.crewService = crewService;
     }
 
-    //전체 크루 리스트 조회
+    //전체 크루 리스트 조회 페이징처리 10개씩
     @GetMapping("/list")
-    public ResponseEntity<ResponseDTO> selectCrewList(
+    public ResponseEntity<ResponseDTO> selectCrewListWithPagingTen(
             @RequestParam(value = "offset", defaultValue = "1") String offset) {
 
         int total = crewService.seletTotalCrew();
 
         Criteria cri = new Criteria(Integer.valueOf(offset), 10);
+
+        PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
+
+        pagingResponseDTO.setData(crewService.selectCrewListWithPaging(cri));
+        pagingResponseDTO.setPageInfo(new PagingDTO(cri, total));
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "전체 크루 리스트 조회 성공", pagingResponseDTO));
+    }
+
+    //전체 크루 리스트 조회 페이징처리 50개씩
+    @GetMapping("/list/five")
+    public ResponseEntity<ResponseDTO> selectCrewListWithPagingFive(
+            @RequestParam(value = "offset", defaultValue = "1") String offset) {
+
+        int total = crewService.seletTotalCrew();
+
+        Criteria cri = new Criteria(Integer.valueOf(offset), 5);
 
         PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
 
