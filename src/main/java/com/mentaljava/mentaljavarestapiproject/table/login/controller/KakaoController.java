@@ -37,33 +37,14 @@ public class KakaoController {
     private final KakaoService kakaoService;
     private final KakaoTokenJsonData kakaoTokenJsonData;
 
-    @GetMapping("/")
-    public ResponseEntity<ResponseDTO> home() {
-        String location =
-                "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=" + client_id + "&redirect_uri="
-                        + redirect_uri;
 
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "카카오 로그인 화면 이동 성공", location));
-    }
-
-    @GetMapping("/oauth/dd")
-    @ResponseBody
-    public ResponseEntity<ResponseDTO> callback(@RequestParam("code") String code) throws IOException {
-        KakaoTokenResponse accessToken = kakaoTokenJsonData.getToken(code);
-        System.out.println("accessToken =================== " + accessToken);
-        HashMap<String, Object> userInfo = kakaoService.getUserInfo(accessToken.getAccess_token());
-        log.info("id : " + userInfo.get("id"));
-        // User 로그인, 또는 회원가입 로직 추가
-        UserDTO userDTO = kakaoService.createUser(userInfo);
-//        return userInfo.toString();
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "회원 가입 성공", userDTO));
-    }
 
     @GetMapping("/oauth")
     public ResponseEntity<ResponseDTO> kakaoLogin(HttpServletRequest request) throws IOException {
 
         String code = request.getParameter("code");
         KakaoTokenResponse accessToken = kakaoTokenJsonData.getToken(code);
+        log.info("[token] ===== "+accessToken);
         HashMap<String, Object> userInfo = kakaoService.getUserInfo(accessToken.getAccess_token());
         log.info("id : " + userInfo.get("id"));
         // User 로그인, 또는 회원가입 로직 추가

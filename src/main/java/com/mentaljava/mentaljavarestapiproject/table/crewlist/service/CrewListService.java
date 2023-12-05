@@ -89,12 +89,14 @@ public class CrewListService {
         return (result > 0) ? "크루 거절하기 성공" : "크루 거절하기 실패";
     }
 
-    public List<CrewListDTO> getCrewListByUserId(String userId) {
+    public List<CrewListDTO>  getCrewListByUserId(String userId) {
         List<CrewList> crewListByUserId = crewListRepository.findCrewByUser_UserId(userId);
 
         List<CrewListDTO> crewlistDTO = crewListByUserId.stream()
                 .map(crewList -> modelMapper.map(crewList, CrewListDTO.class))
                 .collect(Collectors.toList());
+
+        log.info("가입된 크루 목록 ===="+crewlistDTO);
 
         return crewlistDTO;
     }
