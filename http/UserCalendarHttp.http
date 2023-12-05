@@ -34,6 +34,13 @@ Content-Type: application/json
   "title": "수영하기",
   "calendarContent": "매일 1km 수영하기",
   "deleteStatus": "0",
-  "userId": "juhyeong99",
+  "userId": {
+    "userId": "test6",
+    "nickname": "test6",
+    "diamondCount": 50,
+    "joinDate": "2023-11-11",
+    "outDate": "2023-11-20",
+    "permissionType": "0"
+  },
   "time": "14:30:00"
 }
