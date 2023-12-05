@@ -73,6 +73,7 @@ public class KakaoService {
 
         userInfo.put("nickname", nickname);
         userInfo.put("email", email);
+        userInfo.put("token",access_Token);
 
 
         return userInfo;
@@ -84,6 +85,7 @@ public class KakaoService {
 
         String email = (String) userInfo.get("email");
         String nickname = (String) userInfo.get("nickname");
+        String token = (String) userInfo.get("token");
 
         User user = userRepository.findByUserId(email);
 
@@ -99,6 +101,7 @@ public class KakaoService {
                     .build();
 
             UserDTO userDTO = modelMapper.map(newUser, UserDTO.class);
+            userDTO.setToken(token);
 
             userRepository.save(newUser);
 
@@ -107,6 +110,7 @@ public class KakaoService {
         }
 
         UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+        userDTO.setToken(token);
         log.info("기존 유저 ======="+userDTO);
 
         return userDTO;
