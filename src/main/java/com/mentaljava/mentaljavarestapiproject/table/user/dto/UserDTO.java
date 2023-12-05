@@ -22,5 +22,7 @@ public class UserDTO {
     private Date outDate;
 
     private String permissionType;
+
+    private String token;
 }
 
