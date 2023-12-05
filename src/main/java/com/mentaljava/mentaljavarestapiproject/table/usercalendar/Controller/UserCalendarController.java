@@ -1,6 +1,7 @@
 package com.mentaljava.mentaljavarestapiproject.table.usercalendar.Controller;
 
 import com.mentaljava.mentaljavarestapiproject.common.ResponseDTO;
+import com.mentaljava.mentaljavarestapiproject.table.notice.dto.NoticeDTO;
 import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
 import com.mentaljava.mentaljavarestapiproject.table.usercalendar.dto.UsercalendarDTO;
 import com.mentaljava.mentaljavarestapiproject.table.usercalendar.service.UserCalendarService;
@@ -60,5 +61,14 @@ public class UserCalendarController {
     public ResponseEntity<ResponseDTO> findUserCalendarsByEndDate(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
         List<UsercalendarDTO> userCalendars = userCalendarService.findUserCalendarsByEndDate(endDate);
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "유저 캘린더 조회 성공", userCalendars));
+    }
+    @PutMapping("/regist")
+    public ResponseEntity<ResponseDTO> newCalendar(@RequestBody UsercalendarDTO usercalendarDTO) {
+
+        log.info("[UserController] insertusercalnedar usercalendarDTO ===========> " + usercalendarDTO);
+
+        return ResponseEntity.ok().body(
+                new ResponseDTO(HttpStatus.OK, "공지사항 등록 성공", userCalendarService.insertUsercalendar(usercalendarDTO)));
+
     }
 }

@@ -1,5 +1,6 @@
 package com.mentaljava.mentaljavarestapiproject.table.usercalendar.service;
 
+import com.mentaljava.mentaljavarestapiproject.table.crew.entity.Crew;
 import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
 import com.mentaljava.mentaljavarestapiproject.table.usercalendar.dto.UsercalendarDTO;
 import com.mentaljava.mentaljavarestapiproject.table.usercalendar.entity.UserCalendar;
@@ -7,7 +8,9 @@ import com.mentaljava.mentaljavarestapiproject.table.usercalendar.repository.Use
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -68,4 +71,18 @@ public class UserCalendarService {
                 .map(userCalendar -> modelMapper.map(userCalendar, UsercalendarDTO.class))
                 .collect(Collectors.toList());
     }
+    @Transactional
+    public String insertUsercalendar(UsercalendarDTO usercalendarDTO) {
+        try {
+
+            UserCalendar newUsercalendar = modelMapper.map(usercalendarDTO, UserCalendar.class);
+
+            userCalendarRepository.save(newUsercalendar);
+
+            return "유저 캘린더 추가 성공";
+        } catch (Exception e) {
+            throw new RuntimeException("유저 캘린더 추가 실패", e);
+        }
+    }
+
 }
