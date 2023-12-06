@@ -1,6 +1,5 @@
 package com.mentaljava.mentaljavarestapiproject.config;
 
-import com.mentaljava.mentaljavarestapiproject.jwt.handler.JwtAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -15,8 +14,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer(){
         return (web) -> web.ignoring().antMatchers("/css/**", "/js/**", "/images/**",
@@ -30,7 +27,9 @@ public class SecurityConfig {
                 authorizeRequests()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin().disable();
+                .formLogin().disable()
+                .httpBasic().disable()
+                .csrf().disable();
 
         return httpSecurity.build();
 
