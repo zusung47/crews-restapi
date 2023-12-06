@@ -5,7 +5,6 @@ import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -20,5 +19,10 @@ public interface CrewRepository extends JpaRepository<Crew, Integer> {
 
     List<Crew> findByCrewNameContaining(String search);
 
-    List<Crew> findByCaptain(User captain);
+  
+
+
+    Page<Crew> findByCaptain(User captain, Pageable paging);
+
+    List<Crew> findByCaptain(User user);
 }

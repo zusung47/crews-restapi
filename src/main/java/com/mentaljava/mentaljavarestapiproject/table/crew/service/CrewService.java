@@ -5,6 +5,8 @@ import com.mentaljava.mentaljavarestapiproject.table.crew.dto.CrewDTO;
 import com.mentaljava.mentaljavarestapiproject.table.crew.entity.Crew;
 import com.mentaljava.mentaljavarestapiproject.table.crew.repository.CrewRepository;
 import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
+import com.mentaljava.mentaljavarestapiproject.table.user.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -13,31 +15,28 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import java.io.IOError;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 @Slf4j
 public class CrewService {
 
     private final CrewRepository crewRepository;
+    private final UserRepository userRepository;
 
     private final ModelMapper modelMapper;
 
-    public CrewService(CrewRepository crewRepository, ModelMapper modelMapper){
-        this.crewRepository = crewRepository;
-        this.modelMapper = modelMapper;
-    }
+
 
     public List<CrewDTO> findAllCrewList() {
 
         List<Crew> crewList = crewRepository.findAll();
-        List<CrewDTO> crewDTOList = crewList.stream().map(crew -> modelMapper.map(crew, CrewDTO.class)).collect(Collectors.toList());
+        List<CrewDTO> crewDTOList = crewList.stream().map(crew -> modelMapper.map(crew, CrewDTO.class))
+                .collect(Collectors.toList());
         return crewDTOList;
     }
 
@@ -45,7 +44,8 @@ public class CrewService {
 
         List<Crew> crewAboutExercise = crewRepository.findByCrewCategoryCode_CategoryCode(1);
 
-        List<CrewDTO> crewDTOList = crewAboutExercise.stream().map(crew -> modelMapper.map(crew, CrewDTO.class)).collect(Collectors.toList());
+        List<CrewDTO> crewDTOList = crewAboutExercise.stream().map(crew -> modelMapper.map(crew, CrewDTO.class))
+                .collect(Collectors.toList());
 
         return crewDTOList;
     }
@@ -54,7 +54,8 @@ public class CrewService {
 
         List<Crew> crewAboutStudy = crewRepository.findByCrewCategoryCode_CategoryCode(2);
 
-        List<CrewDTO> crewDTOList = crewAboutStudy.stream().map(crew -> modelMapper.map(crew, CrewDTO.class)).collect(Collectors.toList());
+        List<CrewDTO> crewDTOList = crewAboutStudy.stream().map(crew -> modelMapper.map(crew, CrewDTO.class))
+                .collect(Collectors.toList());
 
         return crewDTOList;
     }
@@ -63,7 +64,8 @@ public class CrewService {
 
         List<Crew> crewAboutHabit = crewRepository.findByCrewCategoryCode_CategoryCode(3);
 
-        List<CrewDTO> crewDTOList = crewAboutHabit.stream().map(crew -> modelMapper.map(crew, CrewDTO.class)).collect(Collectors.toList());
+        List<CrewDTO> crewDTOList = crewAboutHabit.stream().map(crew -> modelMapper.map(crew, CrewDTO.class))
+                .collect(Collectors.toList());
 
         return crewDTOList;
     }
@@ -72,7 +74,8 @@ public class CrewService {
 
         List<Crew> crewAboutEtc = crewRepository.findByCrewCategoryCode_CategoryCode(4);
 
-        List<CrewDTO> crewDTOList = crewAboutEtc.stream().map(crew -> modelMapper.map(crew, CrewDTO.class)).collect(Collectors.toList());
+        List<CrewDTO> crewDTOList = crewAboutEtc.stream().map(crew -> modelMapper.map(crew, CrewDTO.class))
+                .collect(Collectors.toList());
 
         return crewDTOList;
     }
@@ -82,7 +85,7 @@ public class CrewService {
         List<Crew> crewListAboutRecruitmentStatusOk = crewRepository.findByRecruitmentStatus("1");
 
         List<CrewDTO> crewDTOList = crewListAboutRecruitmentStatusOk.stream()
-                                        .map(crew -> modelMapper.map(crew, CrewDTO.class)).collect(Collectors.toList());
+                .map(crew -> modelMapper.map(crew, CrewDTO.class)).collect(Collectors.toList());
 
         return crewDTOList;
     }
@@ -92,7 +95,7 @@ public class CrewService {
         List<Crew> crewListAboutRecruitmentStatusNo = crewRepository.findByRecruitmentStatus("0");
 
         List<CrewDTO> crewDTOList = crewListAboutRecruitmentStatusNo.stream()
-                                        .map(crew -> modelMapper.map(crew, CrewDTO.class)).collect(Collectors.toList());
+                .map(crew -> modelMapper.map(crew, CrewDTO.class)).collect(Collectors.toList());
 
         return crewDTOList;
     }
@@ -138,7 +141,7 @@ public class CrewService {
 
         try {
             Crew crew = crewRepository.findByCrewId(crewId);
-            if(crew != null){
+            if (crew != null) {
                 crewRepository.delete(crew);
 
                 result = 1;
@@ -154,7 +157,7 @@ public class CrewService {
 
         int result = 0;
 
-        try{
+        try {
             crewDTO.setCreationDate(LocalDate.now());
             crewDTO.setRecruitmentStatus("1");
 
@@ -322,11 +325,37 @@ public class CrewService {
     }
 
     //캡틴을 통해 크루 정보 조회 추후 필요한 데이터만 가져오도록 수정
-    public List<CrewDTO> getCrewByCaptain(User captain) {
-        List<Crew> crewListWithCaptain = crewRepository.findByCaptain(captain);
+//    public List<CrewDTO> getCrewByCaptain(User captain) {
+//        List<Crew> crewListWithCaptain = crewRepository.findByCaptain(captain);
+//
+//        List<CrewDTO> crewDTOList = crewListWithCaptain.stream()
+//                .map(crew -> modelMapper.map(crew, CrewDTO.class)).collect(Collectors.toList());
+//
+//        return crewDTOList;
+//    }
 
-        List<CrewDTO> crewDTOList = crewListWithCaptain.stream()
-                .map(crew -> modelMapper.map(crew, CrewDTO.class)).collect(Collectors.toList());
+    public int getCrewByCaptainTotal(String captain) {
+
+        User user = userRepository.findByUserId(captain);
+        List<Crew> crewList = crewRepository.findByCaptain(user);
+
+        return crewList.size();
+    }
+
+    public List<CrewDTO> selectCrewCaptainWithPaging(String captain, Criteria cri) {
+
+        int index = cri.getPageNum() - 1;
+        int count = cri.getAmount();
+
+        Pageable paging = PageRequest.of(index, count, Sort.by("crewId").descending());
+
+        User user = userRepository.findByUserId(captain);
+
+        Page<Crew> result = crewRepository.findByCaptain(user,paging);
+
+        List<CrewDTO> crewDTOList = result.stream()
+                .map(crew -> modelMapper.map(crew, CrewDTO.class))
+                .collect(Collectors.toList());
 
         return crewDTOList;
     }
