@@ -160,6 +160,7 @@ public class CrewService {
         try {
             crewDTO.setCreationDate(LocalDate.now());
             crewDTO.setRecruitmentStatus("1");
+            crewDTO.setIntroduction("크루소개글을 입력해주세요.");
 
             log.info("[CrewService] insertCrew crewDTO ===========> " + crewDTO);
             Crew newCrew = modelMapper.map(crewDTO, Crew.class);
