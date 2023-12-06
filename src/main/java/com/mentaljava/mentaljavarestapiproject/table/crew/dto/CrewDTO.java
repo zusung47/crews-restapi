@@ -24,9 +24,9 @@ public class CrewDTO {
 
     private CrewCategoryDTO crewCategoryCode;
 
-    private Date startDate;
+    private LocalDate startDate;
 
-    private Date endDate;
+    private LocalDate endDate;
 
     private String crewRecruitmentPost;
 
