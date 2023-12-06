@@ -60,4 +60,4 @@ Content-Type: application/json
 GET http://localhost:8080/api/v1/crew/list/search?s=크루
 
 ### 캡틴 이름을 통해 조회
-GET http://localhost:8080/api/v1/crew/list/zusung1/mypost
+GET http://localhost:8080/api/v1/crew/list/sean1007@naver.com/mypost

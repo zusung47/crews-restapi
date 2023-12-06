@@ -8,6 +8,7 @@ import com.mentaljava.mentaljavarestapiproject.table.crew.service.CrewService;
 import com.mentaljava.mentaljavarestapiproject.table.crew.dto.CrewDTO;
 import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -194,15 +195,25 @@ public class CrewController {
     //크루이름 검색해서 조회
     @GetMapping("/list/search")
     public ResponseEntity<ResponseDTO> selectSearchCrewList(
-            @RequestParam(name = "s", defaultValue = "all") String search){
+            @RequestParam(name = "s", defaultValue = "all") String search) {
 
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "검색 조회 성공", crewService.selectSearchCrewList(search)));
+        return ResponseEntity.ok()
+                .body(new ResponseDTO(HttpStatus.OK, "검색 조회 성공", crewService.selectSearchCrewList(search)));
     }
 
     //캡틴을 통해 크루 정보 조회 추후 필요한 데이터만 가져오도록 수정(내가 쓴 글 조회)
     @GetMapping("/list/{captain}/mypost")
-    public ResponseEntity<ResponseDTO> getCrewByCaptain(@PathVariable User captain) {
-        List<CrewDTO> Crews = crewService.getCrewByCaptain(captain);
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,"작성글 조회 성공",Crews));
+    public ResponseEntity<ResponseDTO> getCrewByCaptain(
+            @PathVariable String captain
+            , @RequestParam(value = "offset", defaultValue = "1") String offset) {
+        int total = crewService.getCrewByCaptainTotal(captain);
+
+        Criteria cri = new Criteria(Integer.valueOf(offset), 5);
+
+        PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
+        pagingResponseDTO.setData(crewService.selectCrewCaptainWithPaging(captain, cri));
+        pagingResponseDTO.setPageInfo(new PagingDTO(cri, total));
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "작성글 조회 성공", pagingResponseDTO));
     }
 }

@@ -59,6 +59,7 @@ public class UserService {
         try {
             User user = userRepository.findById(userDTO.getUserId()).get();
             user.setNickname(userDTO.getNickname());
+            userRepository.save(user);
 
             result = 1;
         }catch (Exception e){
