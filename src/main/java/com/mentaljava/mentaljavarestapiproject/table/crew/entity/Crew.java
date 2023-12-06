@@ -35,10 +35,10 @@ public class Crew {
     private CrewCategory crewCategoryCode;
 
     @Column(name = "START_DATE")
-    private Date startDate;
+    private LocalDate startDate;
 
     @Column(name = "END_DATE")
-    private Date endDate;
+    private LocalDate endDate;
 
     @Column(name = "CREW_RECRUITMENT_POST")
     private String crewRecruitmentPost;
@@ -74,11 +74,11 @@ public class Crew {
         this.crewCategoryCode = crewCategoryCode;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
