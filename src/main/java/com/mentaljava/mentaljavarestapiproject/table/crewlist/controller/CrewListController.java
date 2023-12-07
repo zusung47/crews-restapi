@@ -1,5 +1,8 @@
 package com.mentaljava.mentaljavarestapiproject.table.crewlist.controller;
 
+import com.mentaljava.mentaljavarestapiproject.common.Criteria;
+import com.mentaljava.mentaljavarestapiproject.common.PagingDTO;
+import com.mentaljava.mentaljavarestapiproject.common.PagingResponseDTO;
 import com.mentaljava.mentaljavarestapiproject.common.ResponseDTO;
 import com.mentaljava.mentaljavarestapiproject.table.crewlist.dto.CrewListDTO;
 import com.mentaljava.mentaljavarestapiproject.table.crewlist.service.CrewListService;
@@ -58,12 +61,25 @@ public class CrewListController {
     }
 
     @GetMapping("/{userId}/crew")
-    public ResponseEntity<ResponseDTO> getCrewListByUserId(@PathVariable String userId) {
+    public ResponseEntity<ResponseDTO> getCrewListByUserId(
+            @PathVariable String userId,
+            @RequestParam(value = "offset", defaultValue = "1") String offset
+            ) {
+
+        int total = crewListService.seletTotalCrewList("userId");
+
+        Criteria cri = new Criteria(Integer.valueOf(offset),10);
+
+        PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
+
+        pagingResponseDTO.setData(crewListService.selectCrewListWithPaging(userId,cri));
+        pagingResponseDTO.setPageInfo(new PagingDTO(cri,total));
+
 
         log.info("가입된 크루" + userId);
 
         return ResponseEntity.ok()
-                .body(new ResponseDTO(HttpStatus.OK, "회원의 크루조회 완료", crewListService.getCrewListByUserId(userId)));
+                .body(new ResponseDTO(HttpStatus.OK, "회원의 크루조회 완료", pagingResponseDTO));
     }
 
     //크루 신청하기
