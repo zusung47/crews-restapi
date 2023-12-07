@@ -1,5 +1,6 @@
 package com.mentaljava.mentaljavarestapiproject.table.report.entity;
 
+import com.mentaljava.mentaljavarestapiproject.table.crew.entity.Crew;
 import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
 import lombok.*;
 
@@ -17,8 +18,9 @@ public class Report {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer reportId;
 
-    @Column(name = "REPORT_TARGET")
-    private String reportTarget;
+    @ManyToOne
+    @JoinColumn(name = "REPORT_TARGET")
+    private User reportTarget;
 
     @Column(name = "REPORT_REASON")
     private String reportReason;
@@ -36,13 +38,17 @@ public class Report {
     @Column(name = "REPORT_STATUS")
     private Integer reportStatus;
 
+    @ManyToOne
+    @JoinColumn(name = "REPORT_CREW")
+    private Crew reportCrew;
+
     public Report() {}
 
     public void setReportId(Integer reportId) {
         this.reportId = reportId;
     }
 
-    public void setReportTarget(String reportTarget) {
+    public void setReportTarget(User reportTarget) {
         this.reportTarget = reportTarget;
     }
 
@@ -65,4 +71,6 @@ public class Report {
     public void setReportStatus(Integer reportStatus) {
         this.reportStatus = reportStatus;
     }
+
+    public void setReportCrew(Crew reportCrew) { this.reportCrew = reportCrew; }
 }
