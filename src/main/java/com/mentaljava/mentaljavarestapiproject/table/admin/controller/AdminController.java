@@ -78,12 +78,17 @@ public class AdminController {
                 new ResponseDTO(HttpStatus.OK,"크루 삭제 성공",crewService.deleteCrew(crewId)));
     }
 
-    // 신고 목록
-    @GetMapping("/report")
-    public ResponseEntity<ResponseDTO> reportList(){
-        List<ReportDTO> reportList = reportService.findAllReportList();
+    // 신고대상크루 목록 조회
+    @GetMapping("/reportlist/crew")
+    public ResponseEntity<ResponseDTO> findReportListWithoutReportCrew(){
 
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "신고대상크루 목록 조회", reportService.findReportListAboutReportCrew()));
+    }
 
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "전체 크루 리스트 조회 성공", reportList));
+    // 신고대상유저 목록 조회
+    @GetMapping("/reportlist/user")
+    public ResponseEntity<ResponseDTO> findReportListWithoutReportTarget(){
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "신고대상유저 목록 조회", reportService.findReportListAboutReportUser()));
     }
 }

@@ -1,5 +1,6 @@
 package com.mentaljava.mentaljavarestapiproject.table.report.dto;
 
+import com.mentaljava.mentaljavarestapiproject.table.crew.dto.CrewDTO;
 import com.mentaljava.mentaljavarestapiproject.table.user.dto.UserDTO;
 import lombok.*;
 
@@ -12,7 +13,7 @@ public class ReportDTO {
 
     private Integer reportId;
 
-    private String reportTarget;
+    private UserDTO reportTarget;
 
     private String reportReason;
 
@@ -23,4 +24,6 @@ public class ReportDTO {
     private Integer reportCategory;
 
     private Integer reportStatus;
+
+    private CrewDTO reportCrew;
 }

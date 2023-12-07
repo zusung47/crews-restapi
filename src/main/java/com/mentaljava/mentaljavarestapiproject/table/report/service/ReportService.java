@@ -19,12 +19,23 @@ public class ReportService {
     private final ReportRepository reportRepository;
     private final ModelMapper modelMapper;
 
-    public List<ReportDTO> findAllReportList() {
+    public List<ReportDTO> findReportListAboutReportCrew() {
 
-        List<Report> reportList = reportRepository.findAll();
-        List<ReportDTO> reportDTOList = reportList.stream().map(report ->
-                modelMapper.map(report, ReportDTO.class)).collect(Collectors.toList());
+        List<Report> reportList = reportRepository.findAllReportsWithoutUser();
+
+        List<ReportDTO> reportDTOList = reportList.stream()
+                .map(report -> modelMapper.map(report, ReportDTO.class)).collect(Collectors.toList());
+
         return reportDTOList;
     }
 
+    public List<ReportDTO> findReportListAboutReportUser() {
+
+        List<Report> reportList = reportRepository.findAllReportsWithoutCrew();
+
+        List<ReportDTO> reportDTOList = reportList.stream()
+                .map(report -> modelMapper.map(report, ReportDTO.class)).collect(Collectors.toList());
+
+        return reportDTOList;
+    }
 }
