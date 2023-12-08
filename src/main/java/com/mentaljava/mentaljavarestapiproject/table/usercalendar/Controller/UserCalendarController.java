@@ -62,13 +62,13 @@ public class UserCalendarController {
         List<UsercalendarDTO> userCalendars = userCalendarService.findUserCalendarsByEndDate(endDate);
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "유저 캘린더 조회 성공", userCalendars));
     }
-    @PutMapping("/regist")
-    public ResponseEntity<ResponseDTO> newCalendar(@RequestBody UsercalendarDTO usercalendarDTO) {
+    @PostMapping("/regist/{userId}")
+    public ResponseEntity<ResponseDTO> newCalendar(@PathVariable User userId, @RequestBody UsercalendarDTO usercalendarDTO) {
 
         log.info("[UserController] insertusercalnedar usercalendarDTO ===========> " + usercalendarDTO);
 
         return ResponseEntity.ok().body(
-                new ResponseDTO(HttpStatus.OK, "공지사항 등록 성공", userCalendarService.insertUsercalendar(usercalendarDTO)));
+                new ResponseDTO(HttpStatus.OK, "일정 등록 성공", userCalendarService.insertUsercalendar(userId,usercalendarDTO)));
 
     }
 }
