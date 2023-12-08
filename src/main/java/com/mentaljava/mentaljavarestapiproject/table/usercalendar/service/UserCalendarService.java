@@ -72,17 +72,22 @@ public class UserCalendarService {
                 .collect(Collectors.toList());
     }
     @Transactional
-    public String insertUsercalendar(UsercalendarDTO usercalendarDTO) {
-        try {
+    public UsercalendarDTO insertUsercalendar(User userId, UsercalendarDTO usercalendarDTO) {
+        UserCalendar newUserCalendar = new UserCalendar();
 
-            UserCalendar newUsercalendar = modelMapper.map(usercalendarDTO, UserCalendar.class);
+        // 새로운 유저 캘린더의 정보를 설정합니다.
+        newUserCalendar.setUserId(userId);
+        newUserCalendar.setStartDate(usercalendarDTO.getStartDate());
+        newUserCalendar.setEndDate(usercalendarDTO.getEndDate());
+        newUserCalendar.setTitle(usercalendarDTO.getTitle());
+        newUserCalendar.setCalendarContent(usercalendarDTO.getCalendarContent());
+        newUserCalendar.setDeleteStatus(usercalendarDTO.getDeleteStatus());
+        newUserCalendar.setTime(usercalendarDTO.getTime());
 
-            userCalendarRepository.save(newUsercalendar);
-
-            return "유저 캘린더 추가 성공";
-        } catch (Exception e) {
-            throw new RuntimeException("유저 캘린더 추가 실패", e);
-        }
+        // 새로운 유저 캘린더를 저장하고 저장된 DTO를 반환합니다.
+        UserCalendar savedUserCalendar = userCalendarRepository.save(newUserCalendar);
+        return modelMapper.map(savedUserCalendar, UsercalendarDTO.class);
     }
+
 
 }
