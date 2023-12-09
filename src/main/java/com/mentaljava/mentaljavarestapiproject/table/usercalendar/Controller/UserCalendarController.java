@@ -77,4 +77,17 @@ public class UserCalendarController {
                 new ResponseDTO(HttpStatus.OK, "일정 등록 성공", userCalendarService.insertUsercalendar(userId,usercalendarDTO)));
 
     }
+
+    @DeleteMapping("/delete/{userId}/{userCalendarId}")
+    public ResponseEntity<ResponseDTO> deleteCalendar(
+            @PathVariable User userId,
+            @PathVariable Integer userCalendarId
+    ) {
+        // 해당 userId와 userCalendarId를 사용하여 이벤트를 삭제합니다.
+        userCalendarService.deleteUserCalendar(userId, userCalendarId);
+
+        return ResponseEntity.ok().body(
+                new ResponseDTO(HttpStatus.OK, "이벤트 삭제 성공", null));
+    }
+
 }

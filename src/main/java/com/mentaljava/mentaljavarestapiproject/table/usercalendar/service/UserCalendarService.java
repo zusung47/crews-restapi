@@ -99,6 +99,19 @@ public class UserCalendarService {
         UserCalendar savedUserCalendar = userCalendarRepository.save(newUserCalendar);
         return modelMapper.map(savedUserCalendar, UsercalendarDTO.class);
     }
+    public String deleteUserCalendar(User userId, Integer userCalendarId) {
+        // userId를 사용하여 유저 캘린더를 조회합니다.
+        List<UserCalendar> userCalendars = userCalendarRepository.findForUpdateByUserId(userId);
+
+        // 삭제할 유저 캘린더를 찾아서 삭제합니다.
+        for (UserCalendar userCalendar : userCalendars) {
+            if (userCalendar.getUserCalendarId().equals(userCalendarId)) {
+                userCalendarRepository.delete(userCalendar);
+                return "삭제 성공했습니다!"; // 삭제 성공
+            }
+        }
+        return "삭제에 실패했습니다!"; // 해당하는 userCalendarId를 가진 이벤트를 찾을 수 없음
+    }
 
 
 }
