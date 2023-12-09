@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface UserCalendarRepository extends JpaRepository<UserCalendar, Integer> {
     List<UserCalendar> findByUserId(User userId);
 
-    Optional<UserCalendar> findForUpdateByUserId(User userId);
+    List<UserCalendar> findForUpdateByUserId(User userId);
 
     List<UserCalendar> findByStartDate(Date startDate);
     List<UserCalendar> findByEndDate(Date endDate);

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,24 +40,34 @@ public class UserCalendarService {
                 .map(userCalendar -> modelMapper.map(userCalendar, UsercalendarDTO.class))
                 .collect(Collectors.toList());
     }
-
-    public UsercalendarDTO updateUserCalendarByUserId(User userId, UsercalendarDTO usercalendarDTO) {
+    public List<UsercalendarDTO> updateUserCalendarByUserId(User userId, Integer userCalendarId, UsercalendarDTO usercalendarDTO) {
         // userId를 사용하여 유저 캘린더를 조회합니다.
-        UserCalendar userCalendar = userCalendarRepository.findForUpdateByUserId(userId)
-                .orElseThrow(() -> new IllegalArgumentException("해당하는 유저 캘린더가 없습니다. userId: " + userId));
+        List<UserCalendar> userCalendars = userCalendarRepository.findForUpdateByUserId(userId);
 
-        // 유저 캘린더의 정보를 업데이트합니다.
-        userCalendar.setStartDate(usercalendarDTO.getStartDate());
-        userCalendar.setEndDate(usercalendarDTO.getEndDate());
-        userCalendar.setTitle(usercalendarDTO.getTitle());
-        userCalendar.setCalendarContent(usercalendarDTO.getCalendarContent());
-        userCalendar.setDeleteStatus(usercalendarDTO.getDeleteStatus());
-        userCalendar.setTime(usercalendarDTO.getTime());
+        // 조회된 유저 캘린더들을 각각 업데이트합니다.
+        List<UserCalendar> updatedUserCalendars = new ArrayList<>();
+        for (UserCalendar userCalendar : userCalendars) {
+            if (userCalendar.getUserCalendarId().equals(userCalendarId)) {
+                // 해당하는 userCalendarId를 가진 이벤트에 대해서만 값을 업데이트합니다.
+                userCalendar.setStartDate(usercalendarDTO.getStartDate());
+                userCalendar.setEndDate(usercalendarDTO.getEndDate());
+                userCalendar.setTitle(usercalendarDTO.getTitle());
+                userCalendar.setCalendarContent(usercalendarDTO.getCalendarContent());
+                userCalendar.setDeleteStatus(usercalendarDTO.getDeleteStatus());
+                userCalendar.setTime(usercalendarDTO.getTime());
 
-        // 유저 캘린더를 저장하고 업데이트된 DTO를 반환합니다.
-        UserCalendar updatedUserCalendar = userCalendarRepository.save(userCalendar);
-        return modelMapper.map(updatedUserCalendar, UsercalendarDTO.class);
+                // 업데이트된 유저 캘린더를 저장하고 리스트에 추가합니다.
+                updatedUserCalendars.add(userCalendarRepository.save(userCalendar));
+            }
+        }
+
+        // DTO 리스트로 변환하여 반환합니다.
+        return updatedUserCalendars.stream()
+                .map(userCalendar -> modelMapper.map(userCalendar, UsercalendarDTO.class))
+                .collect(Collectors.toList());
     }
+
+
 
     public List<UsercalendarDTO> findUserCalendarsByStartDate(Date startDate) {
         List<UserCalendar> userCalendarList = userCalendarRepository.findByStartDate(startDate);
