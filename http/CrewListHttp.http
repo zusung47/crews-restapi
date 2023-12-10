@@ -9,14 +9,8 @@ PUT http://localhost:8080/api/v1/crewlist/agreestatus
 Content-Type: application/json
 
 {
-  "user": {
-    "userId": "test1"
-  },
-  "crew": {
-    "crewId": 1
-  },
   "id": {
-    "userId": "test1",
+    "userId": "zusung2",
     "crewId": 1
   }
 }
@@ -26,14 +20,8 @@ PUT http://localhost:8080/api/v1/crewlist/rejectionstatus
 Content-Type: application/json
 
 {
-  "user": {
-    "userId": "test4"
-  },
-  "crew": {
-    "crewId": 1
-  },
   "id": {
-    "userId": "test4",
+    "userId": "zusung2",
     "crewId": 1
   }
 }

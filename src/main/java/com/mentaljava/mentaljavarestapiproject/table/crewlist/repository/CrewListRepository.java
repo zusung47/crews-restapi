@@ -13,7 +13,7 @@ import java.util.List;
 public interface CrewListRepository extends JpaRepository<CrewList, CrewListId> {
     List<CrewList> findAllById_CrewId(Integer crewId);
 
-    CrewList findById_CrewIdAndId_UserId(Crew crewId, User userId);
+    CrewList findById_CrewIdAndId_UserId(Integer crewId, String userId);
 
     List<CrewList> findById_CrewIdAndApprovalStatus(Integer crewId, Integer approvalStatus);
 

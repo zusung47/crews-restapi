@@ -63,11 +63,11 @@ public class CrewListService {
         int result = 0;
 
         try {
-            CrewList crewListInfo = modelMapper.map(crewListDTO, CrewList.class);
             CrewList crewList = crewListRepository
-                    .findById_CrewIdAndId_UserId(crewListInfo.getCrew(), crewListInfo.getUser());
+                    .findById_CrewIdAndId_UserId(crewListDTO.getId().getCrewId(), crewListDTO.getId().getUserId());
 
             crewList.setApprovalStatus(1);
+            crewList.setIsCaptain("CREWON");
 
             result = 1;
         } catch (Exception e) {
@@ -83,10 +83,10 @@ public class CrewListService {
         int result = 0;
 
         try {
-            CrewList crewListInfo = modelMapper.map(crewListDTO, CrewList.class);
             CrewList crewList = crewListRepository
-                    .findById_CrewIdAndId_UserId(crewListInfo.getCrew(), crewListInfo.getUser());
+                    .findById_CrewIdAndId_UserId(crewListDTO.getId().getCrewId(), crewListDTO.getId().getUserId());
             crewList.setApprovalStatus(2);
+            crewList.setIsCaptain("USER");
 
             result = 1;
         } catch (Exception e) {
