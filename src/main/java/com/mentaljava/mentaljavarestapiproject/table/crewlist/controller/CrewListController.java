@@ -83,13 +83,13 @@ public class CrewListController {
     }
 
     //크루 신청하기
-    @PostMapping("/crew/{crewId}/apply")
+    @PostMapping("/apply/{crewId}")
     public ResponseEntity<ResponseDTO> insertCrewListApply(@PathVariable Integer crewId,
                                                            @RequestBody CrewListDTO crewListDTO) {
 
         //나중에 시큐리티로 사용자 받아와야함
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "크루신청완료",
-                crewListService.inserCrewListApply(crewId, crewListDTO)));
+                crewListService.insertCrewListApply(crewId, crewListDTO)));
     }
 }
