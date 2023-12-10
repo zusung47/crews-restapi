@@ -8,7 +8,6 @@ Content-Type: application/json
     "userId": "jus789@naver.com"
   },
   "reportCategory": 1,
-  "reportStatus": 0,
   "reportCrew": {
     "crewId": 20
   }
@@ -24,7 +23,6 @@ Content-Type: application/json
     "userId": "jus789@naver.com"
   },
   "reportCategory": 1,
-  "reportStatus": 0,
   "reportTarget": {
     "userId": "zusung1"
   }
