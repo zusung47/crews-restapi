@@ -2,7 +2,7 @@
 GET http://localhost:8080/api/v1/crewlist/select/detail/1
 
 ###신청대기 크루리스트 조회
-GET http://localhost:8080/api/v1/crewlist/select/waitstatus/2
+GET http://localhost:8080/api/v1/crewlist/applylist/1
 
 ###크루원 받아주기(상태를 1로변경)
 PUT http://localhost:8080/api/v1/crewlist/agreestatus
@@ -22,7 +22,7 @@ Content-Type: application/json
 {
   "id": {
     "userId": "zusung2",
-    "crewId": 1
+    "crewId": 43
   }
 }
 
@@ -30,11 +30,11 @@ Content-Type: application/json
 GET http://localhost:8080/api/v1/crewlist/sean1007@naver.com/crew
 
 ###크루 가입 신청
-POST http://localhost:8080/api/v1/crewlist/apply/20
+POST http://localhost:8080/api/v1/crewlist/apply/46
 Content-Type: application/json
 
 {
   "user": {
-    "userId": "zusung2"
+    "userId": "test2"
   }
 }
