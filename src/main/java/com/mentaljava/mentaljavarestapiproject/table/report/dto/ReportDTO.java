@@ -15,8 +15,6 @@ public class ReportDTO {
 
     private UserDTO reportTarget;
 
-    private String reportReason;
-
     private String reportContent;
 
     private UserDTO reporter;
