@@ -4,6 +4,10 @@ import com.mentaljava.mentaljavarestapiproject.common.Criteria;
 import com.mentaljava.mentaljavarestapiproject.table.crew.dto.CrewDTO;
 import com.mentaljava.mentaljavarestapiproject.table.crew.entity.Crew;
 import com.mentaljava.mentaljavarestapiproject.table.crew.repository.CrewRepository;
+import com.mentaljava.mentaljavarestapiproject.table.crewlist.dto.CrewListDTO;
+import com.mentaljava.mentaljavarestapiproject.table.crewlist.entity.CrewList;
+import com.mentaljava.mentaljavarestapiproject.table.crewlist.repository.CrewListRepository;
+import com.mentaljava.mentaljavarestapiproject.table.crewlistid.dto.CrewListIdDTO;
 import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
 import com.mentaljava.mentaljavarestapiproject.table.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,9 +31,9 @@ public class CrewService {
 
     private final CrewRepository crewRepository;
     private final UserRepository userRepository;
+    private final CrewListRepository crewListRepository;
 
     private final ModelMapper modelMapper;
-
 
 
     public List<CrewDTO> findAllCrewList() {
@@ -153,11 +157,9 @@ public class CrewService {
     }
 
     @Transactional
-    public String insertCrew(CrewDTO crewDTO) {
+    public CrewDTO insertCrew(CrewDTO crewDTO) {
 
-        int result = 0;
 
-        try {
             crewDTO.setCreationDate(LocalDate.now());
             crewDTO.setRecruitmentStatus("1");
             crewDTO.setIntroduction("크루소개글을 입력해주세요.");
@@ -167,12 +169,28 @@ public class CrewService {
 
             crewRepository.save(newCrew);
 
-            result = 1;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+            CrewDTO giveCrewInfo = new CrewDTO();
+            giveCrewInfo = modelMapper.map(newCrew, CrewDTO.class);
 
-        return (result > 0) ? "크루 만들기 성공" : "크루 만들기 실패";
+
+
+            return giveCrewInfo;
+    }
+
+    private void newCrewList(int crewNum) {
+
+        CrewListDTO crewListDTO = new CrewListDTO();
+        Crew giveInfo = crewRepository.findByCrewId(crewNum);
+        log.info("newCrew give" + giveInfo);
+        CrewDTO giveCrew = modelMapper.map(giveInfo, CrewDTO.class);
+        crewListDTO.setUser(giveCrew.getCaptain());
+        crewListDTO.setCrew(giveCrew);
+        crewListDTO.setApprovalStatus(1);
+        crewListDTO.setIsCaptain("CAPTAIN");
+
+        CrewList newCrewList = modelMapper.map(crewListDTO, CrewList.class);
+
+        crewListRepository.save(newCrewList);
     }
 
     public int seletTotalCrew() {
@@ -352,12 +370,38 @@ public class CrewService {
 
         User user = userRepository.findByUserId(captain);
 
-        Page<Crew> result = crewRepository.findByCaptain(user,paging);
+        Page<Crew> result = crewRepository.findByCaptain(user, paging);
 
         List<CrewDTO> crewDTOList = result.stream()
                 .map(crew -> modelMapper.map(crew, CrewDTO.class))
                 .collect(Collectors.toList());
 
         return crewDTOList;
+    }
+
+    @Transactional
+    public String insertCrewList(CrewDTO getCrewInfo) {
+
+        int result = 0;
+
+        try{
+
+            CrewListDTO crewListDTO = new CrewListDTO();
+            crewListDTO.setCrew(getCrewInfo);
+            crewListDTO.setUser(getCrewInfo.getCaptain());
+            crewListDTO.setIsCaptain("CAPTAIN");
+            crewListDTO.setApprovalStatus(1);
+            crewListDTO.setId(new CrewListIdDTO(getCrewInfo.getCaptain().getUserId(),getCrewInfo.getCrewId()));
+            CrewList crewList = modelMapper.map(crewListDTO, CrewList.class);
+
+            crewListRepository.save(crewList);
+
+            result = 1;
+
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+
+        return (result>0)? "크루리스트 등록성공" : "크루리스트 등록 실패";
     }
 }

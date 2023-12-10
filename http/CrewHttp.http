@@ -42,7 +42,7 @@ POST http://localhost:8080/api/v1/crew/register
 Content-Type: application/json
 
 {
-  "crewName": "테스트크루3",
+  "crewName": "테스트크루1901901234dfa1234",
   "captain": {
     "userId": "zusung1"
   },
@@ -50,8 +50,8 @@ Content-Type: application/json
   "crewCategoryCode": {
     "categoryCode": 4
   },
-  "startDate": "2023-11-11",
-  "endDate": "2024-11-11",
+  "startDate": "2023-11-16",
+  "endDate": "2024-11-20",
   "crewRecruitmentPost": "크루모집글제목테스트3",
   "crewRecruitmentContent": "크루모집글내용테스트3"
 }

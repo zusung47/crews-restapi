@@ -1,5 +1,7 @@
 package com.mentaljava.mentaljavarestapiproject.table.crewlistid.entity;
 
+import com.mentaljava.mentaljavarestapiproject.table.crew.entity.Crew;
+import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
 import lombok.*;
 
 import java.io.Serializable;
@@ -20,5 +22,6 @@ public class CrewListId implements Serializable {
 
     @Column(name = "CREW_ID")
     private Integer crewId;
+
 
 }

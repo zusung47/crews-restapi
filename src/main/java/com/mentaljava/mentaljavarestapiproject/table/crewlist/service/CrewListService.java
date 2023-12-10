@@ -63,8 +63,9 @@ public class CrewListService {
         int result = 0;
 
         try {
+            CrewList crewListInfo = modelMapper.map(crewListDTO, CrewList.class);
             CrewList crewList = crewListRepository
-                    .findById_CrewIdAndId_UserId(crewListDTO.getId().getCrewId(), crewListDTO.getId().getUserId());
+                    .findById_CrewIdAndId_UserId(crewListInfo.getCrew(), crewListInfo.getUser());
 
             crewList.setApprovalStatus(1);
 
@@ -82,9 +83,9 @@ public class CrewListService {
         int result = 0;
 
         try {
+            CrewList crewListInfo = modelMapper.map(crewListDTO, CrewList.class);
             CrewList crewList = crewListRepository
-                    .findById_CrewIdAndId_UserId(crewListDTO.getId().getCrewId(), crewListDTO.getId().getUserId());
-
+                    .findById_CrewIdAndId_UserId(crewListInfo.getCrew(), crewListInfo.getUser());
             crewList.setApprovalStatus(2);
 
             result = 1;
@@ -113,12 +114,12 @@ public class CrewListService {
         int result = 0;
 
         try {
-            CrewListId crewListId = new CrewListId(crewListDTO.getUser().getUserId(), crewId);
+//            CrewListId crewListId = new CrewListId(crewListDTO.getUser().getUserId(), crewId);
 
             Crew crew = crewRepository.findById(crewId).get();
             CrewDTO crewDTO = modelMapper.map(crew, CrewDTO.class);
 
-            crewListDTO.setId(crewListId);
+//            crewListDTO.setUser(crewListId);
             crewListDTO.setCrew(crewDTO);
             crewListDTO.setApprovalStatus(0);
 

@@ -188,8 +188,9 @@ public class CrewController {
 
         log.info("[CrewController] insertCrew crewDTO ===========> " + crewDTO);
         //나중에 시큐리티로 로그인한 사용자 받아와야함
+        CrewDTO getCrewInfo = crewService.insertCrew(crewDTO);
 
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "크루 등록 성공", crewService.insertCrew(crewDTO)));
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "크루 등록 성공", crewService.insertCrewList(getCrewInfo)));
     }
 
     //크루이름 검색해서 조회
