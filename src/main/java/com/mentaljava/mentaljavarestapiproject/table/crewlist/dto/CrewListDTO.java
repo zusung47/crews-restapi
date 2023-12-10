@@ -14,11 +14,14 @@ import lombok.*;
 @ToString
 public class CrewListDTO {
 
-    private CrewListId id;
+    private CrewListIdDTO id;
 
     private UserDTO user;
 
     private CrewDTO crew;
 
     private Integer approvalStatus;
+
+    private String isCaptain;
+
 }

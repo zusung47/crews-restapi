@@ -32,5 +32,8 @@ public class CrewList {
     @Column(name = "APPROVAL_STATUS")
     private Integer approvalStatus;
 
+    @Column(name = "IS_CAPTAIN")
+    private String isCaptain;
+
 
 }
