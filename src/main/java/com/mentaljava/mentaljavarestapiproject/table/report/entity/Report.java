@@ -22,9 +22,6 @@ public class Report {
     @JoinColumn(name = "REPORT_TARGET")
     private User reportTarget;
 
-    @Column(name = "REPORT_REASON")
-    private String reportReason;
-
     @Column(name = "REPORT_CONTENT")
     private String reportContent;
 
@@ -50,10 +47,6 @@ public class Report {
 
     public void setReportTarget(User reportTarget) {
         this.reportTarget = reportTarget;
-    }
-
-    public void setReportReason(String reportReason) {
-        this.reportReason = reportReason;
     }
 
     public void setReportContent(String reportContent) {
