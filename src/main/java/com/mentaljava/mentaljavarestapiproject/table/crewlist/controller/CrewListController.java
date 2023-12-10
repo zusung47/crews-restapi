@@ -33,7 +33,7 @@ public class CrewListController {
     }
 
     //크루신청대기상태조회 (대기상태는 approvalStatus = 0)
-    @GetMapping("/select/waitstatus/{crewId}")
+    @GetMapping("/applylist/{crewId}")
     public ResponseEntity<ResponseDTO> selectCrewListByCrewIdAndWaitStatus(@PathVariable Integer crewId) {
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "크루별대기상태조회성공",
