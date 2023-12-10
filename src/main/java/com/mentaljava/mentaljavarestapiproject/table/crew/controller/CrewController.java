@@ -217,4 +217,10 @@ public class CrewController {
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "작성글 조회 성공", pagingResponseDTO));
     }
+
+    @DeleteMapping("crewdelete/{crewId}")
+    public ResponseEntity<ResponseDTO> deleteCrewByCaptain(@PathVariable Integer crewId){
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "크루 삭제 성공", crewService.deleteCrew(crewId)));
+    }
 }
