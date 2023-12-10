@@ -30,7 +30,7 @@ Content-Type: application/json
 GET http://localhost:8080/api/v1/crewlist/sean1007@naver.com/crew
 
 ###크루 가입 신청
-POST http://localhost:8080/api/v1/crewlist/crew/1/apply
+POST http://localhost:8080/api/v1/crewlist/apply/20
 Content-Type: application/json
 
 {

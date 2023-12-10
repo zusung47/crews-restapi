@@ -7,6 +7,7 @@ import com.mentaljava.mentaljavarestapiproject.table.crew.repository.CrewReposit
 import com.mentaljava.mentaljavarestapiproject.table.crewlist.dto.CrewListDTO;
 import com.mentaljava.mentaljavarestapiproject.table.crewlist.entity.CrewList;
 import com.mentaljava.mentaljavarestapiproject.table.crewlist.repository.CrewListRepository;
+import com.mentaljava.mentaljavarestapiproject.table.crewlistid.dto.CrewListIdDTO;
 import com.mentaljava.mentaljavarestapiproject.table.crewlistid.entity.CrewListId;
 import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
 import com.mentaljava.mentaljavarestapiproject.table.user.repository.UserRepository;
@@ -109,17 +110,18 @@ public class CrewListService {
     }
 
     @Transactional
-    public Object inserCrewListApply(Integer crewId, CrewListDTO crewListDTO) {
+    public Object insertCrewListApply(Integer crewId, CrewListDTO crewListDTO) {
 
         int result = 0;
 
         try {
-//            CrewListId crewListId = new CrewListId(crewListDTO.getUser().getUserId(), crewId);
+            CrewListId crewListId = new CrewListId(crewListDTO.getUser().getUserId(), crewId);
+            CrewListIdDTO crewListIdDTO = modelMapper.map(crewListId, CrewListIdDTO.class);
 
             Crew crew = crewRepository.findById(crewId).get();
             CrewDTO crewDTO = modelMapper.map(crew, CrewDTO.class);
 
-//            crewListDTO.setUser(crewListId);
+            crewListDTO.setId(crewListIdDTO);
             crewListDTO.setCrew(crewDTO);
             crewListDTO.setApprovalStatus(0);
 
