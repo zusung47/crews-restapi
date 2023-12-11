@@ -35,5 +35,8 @@ public class CrewList {
     @Column(name = "IS_CAPTAIN")
     private String isCaptain;
 
+    @Column(name = "END_DATE")
+    private String endDate;
+
 
 }

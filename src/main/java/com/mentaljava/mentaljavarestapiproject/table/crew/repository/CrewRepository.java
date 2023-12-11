@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface CrewRepository extends JpaRepository<Crew, Integer> {
     List<Crew> findByRecruitmentStatus(String recruitmentStatus);
@@ -19,10 +21,12 @@ public interface CrewRepository extends JpaRepository<Crew, Integer> {
 
     List<Crew> findByCrewNameContaining(String search);
 
-  
 
 
-    Page<Crew> findByCaptain(User captain, Pageable paging);
+
+    @Query("SELECT c FROM Crew c WHERE c.captain = :captain AND c.endDate >= CURRENT_DATE")
+    Page<Crew> findByCaptain(@Param("captain") User captain, Pageable pageable);
+
 
     List<Crew> findByCaptain(User user);
 }

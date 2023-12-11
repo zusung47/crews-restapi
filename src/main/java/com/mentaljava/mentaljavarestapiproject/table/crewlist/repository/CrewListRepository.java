@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface CrewListRepository extends JpaRepository<CrewList, CrewListId> {
     List<CrewList> findAllById_CrewId(Integer crewId);
@@ -21,5 +23,9 @@ public interface CrewListRepository extends JpaRepository<CrewList, CrewListId> 
 
     List<CrewList> findByUserAndApprovalStatus(User user, int i);
 
-    Page<CrewList> findByUserAndApprovalStatus(User user, int i, Pageable paging);
+    @Query("SELECT cl FROM CrewList cl WHERE cl.user = :user AND cl.approvalStatus = 1 AND cl.endDate >= CURRENT_DATE")
+    Page<CrewList> findByUserAndApprovalStatus(@Param("user") User user, Pageable pageable);
+
+    @Query("SELECT cl FROM CrewList cl WHERE cl.user = :user AND cl.approvalStatus = 1 AND cl.endDate <= CURRENT_DATE")
+    Page<CrewList> findByUserAndEndCrew(User user, Pageable paging);
 }
