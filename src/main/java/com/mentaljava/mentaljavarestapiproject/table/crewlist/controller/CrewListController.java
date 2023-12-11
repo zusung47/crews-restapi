@@ -9,6 +9,7 @@ import com.mentaljava.mentaljavarestapiproject.table.crewlist.service.CrewListSe
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -80,6 +81,22 @@ public class CrewListController {
 
         return ResponseEntity.ok()
                 .body(new ResponseDTO(HttpStatus.OK, "회원의 크루조회 완료", pagingResponseDTO));
+    }
+
+    @GetMapping("/{userId}/endCrew")
+    public ResponseEntity<ResponseDTO> getEndCrew(
+            @PathVariable String userId,
+            @RequestParam(value = "offset", defaultValue = "1") String offset
+    ){
+        int total = crewListService.seletTotalCrewList("userId");
+        Criteria cri = new Criteria(Integer.valueOf(offset), 5);
+        PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
+
+        pagingResponseDTO.setData(crewListService.selectEndCrewListWithPaging(userId,cri));
+        pagingResponseDTO.setPageInfo(new PagingDTO(cri,total));
+
+        return ResponseEntity.ok()
+                .body(new ResponseDTO(HttpStatus.OK,"종료된 크루 조회 완료",pagingResponseDTO));
     }
 
     //크루 신청하기

@@ -156,7 +156,24 @@ public class CrewListService {
 
         User user = userRepository.findByUserId(userId);
 
-        Page<CrewList> result = crewListRepository.findByUserAndApprovalStatus(user,1,paging);
+        Page<CrewList> result = crewListRepository.findByUserAndApprovalStatus(user,paging);
+
+        List<CrewListDTO> crewListDTOS = result.stream()
+                .map(crewList -> modelMapper.map(crewList, CrewListDTO.class))
+                .collect(Collectors.toList());
+
+        return crewListDTOS;
+    }
+
+    public List<CrewListDTO> selectEndCrewListWithPaging(String userId, Criteria cri) {
+
+        int index = cri.getPageNum() - 1;
+        int count = cri.getAmount();
+        Pageable paging = PageRequest.of(index, count, Sort.by("user").descending());
+
+        User user = userRepository.findByUserId(userId);
+
+        Page<CrewList> result = crewListRepository.findByUserAndEndCrew(user,paging);
 
         List<CrewListDTO> crewListDTOS = result.stream()
                 .map(crewList -> modelMapper.map(crewList, CrewListDTO.class))
