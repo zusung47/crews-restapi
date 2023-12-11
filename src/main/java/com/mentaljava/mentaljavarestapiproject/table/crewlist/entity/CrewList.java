@@ -38,5 +38,4 @@ public class CrewList {
     @Column(name = "END_DATE")
     private String endDate;
 
-
 }

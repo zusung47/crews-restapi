@@ -67,9 +67,12 @@ public class CrewListService {
             CrewList crewList = crewListRepository
                     .findById_CrewIdAndId_UserId(crewListDTO.getId().getCrewId(), crewListDTO.getId().getUserId());
 
+            Crew crew = crewRepository.findByCrewId(crewListDTO.getCrew().getCrewId());
+            log.info("크루정보=====================", String.valueOf(crew.getEndDate()));
+
             crewList.setApprovalStatus(1);
             crewList.setIsCaptain("CREWON");
-
+            crewList.setEndDate(String.valueOf(crew.getEndDate()));
             result = 1;
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -79,7 +82,7 @@ public class CrewListService {
     }
 
     @Transactional
-    public String updateStatusRejection(CrewListDTO crewListDTO) {
+    public String updateStatusDisagree(CrewListDTO crewListDTO) {
 
         int result = 0;
 
@@ -143,7 +146,6 @@ public class CrewListService {
     public int seletTotalCrewList(String userId) {
         User user = userRepository.findByUserId(userId);
         List<CrewList> crewLists = crewListRepository.findByUserAndApprovalStatus(user,1);
-
 
         return crewLists.size();
     }
