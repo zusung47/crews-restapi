@@ -52,13 +52,13 @@ public class CrewListController {
     }
 
     //크루원 거절하기 (거절상태는 approvalStatus = 2)
-    @PutMapping(value = "/rejectionstatus")
-    public ResponseEntity<ResponseDTO> updateStatusRejection(@RequestBody CrewListDTO crewListDTO) {
+    @PutMapping(value = "/disagreestatus")
+    public ResponseEntity<ResponseDTO> updateStatusDisagree(@RequestBody CrewListDTO crewListDTO) {
 
-        log.info("[CrewListController] updateStatusRejection CrewListDto ============> " + crewListDTO);
+        log.info("[CrewListController] updateStatusDisagree CrewListDto ============> " + crewListDTO);
 
         return ResponseEntity.ok()
-                .body(new ResponseDTO(HttpStatus.OK, "신청상태변경완료", crewListService.updateStatusRejection(crewListDTO)));
+                .body(new ResponseDTO(HttpStatus.OK, "신청상태변경완료", crewListService.updateStatusDisagree(crewListDTO)));
     }
 
     @GetMapping("/{userId}/crew")
