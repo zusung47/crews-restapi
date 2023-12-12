@@ -35,5 +35,5 @@ public interface CrewListRepository extends JpaRepository<CrewList, CrewListId> 
     List<CrewList> findByCrew(Crew crew);
 
 
-    Page<CrewList> findByCrew(Crew crew, Pageable pageing);
+    Page<CrewList> findByCrew(Crew crew, Pageable paging);
 }

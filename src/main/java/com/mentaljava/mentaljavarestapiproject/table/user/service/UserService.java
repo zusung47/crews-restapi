@@ -1,5 +1,6 @@
 package com.mentaljava.mentaljavarestapiproject.table.user.service;
 
+import com.mentaljava.mentaljavarestapiproject.table.user.dto.DiamondChangeDTO;
 import com.mentaljava.mentaljavarestapiproject.table.user.dto.UserDTO;
 import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
 import com.mentaljava.mentaljavarestapiproject.table.user.repository.UserRepository;
@@ -108,5 +109,28 @@ public class UserService {
             throw new RuntimeException(e);
         }
         return (result > 0) ? "다이아몬드 감소 성공" : "다이아몬드 감소 실패";
+    }
+
+    @Transactional
+    public String diamondSubmit(DiamondChangeDTO diamondChangeDTO) {
+
+        int result = 0;
+        try {
+            User user = userRepository.findByUserId(diamondChangeDTO.getUserId());
+            UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+            userDTO.setDiamondCount(userDTO.getDiamondCount() + diamondChangeDTO.getDiamond());
+
+            User newUser = modelMapper.map(userDTO, User.class);
+
+            userRepository.save(newUser);
+
+            result =1;
+        }catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return (result> 0) ? "평가하기 성공 ": "평가하기 실패";
+
+
     }
 }

@@ -204,10 +204,10 @@ public class CrewListService {
     public List<CrewListDTO> selectCrewUsertWithPaging(Integer crewId, Criteria cri) {
         int index = cri.getPageNum() - 1;
         int count = cri.getAmount();
-        Pageable pageing = PageRequest.of(index, count, Sort.by("user").descending());
+        Pageable paging = PageRequest.of(index, count, Sort.by("user").descending());
 
         Crew crew = crewRepository.findByCrewId(crewId);
-        Page<CrewList> result = crewListRepository.findByCrew(crew,pageing);
+        Page<CrewList> result = crewListRepository.findByCrew(crew,paging);
 
         List<CrewListDTO> crewListDTOS = result.stream()
                 .map(crewList -> modelMapper.map(crewList, CrewListDTO.class))
