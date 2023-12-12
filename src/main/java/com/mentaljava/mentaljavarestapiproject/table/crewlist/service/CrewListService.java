@@ -37,7 +37,6 @@ public class CrewListService {
     private final ModelMapper modelMapper;
 
 
-
     public List<CrewListDTO> selectCrewListByCrewId(Integer crewId) {
 
         List<CrewList> crewListByCrewId = crewListRepository.findAllById_CrewId(crewId);
@@ -145,12 +144,15 @@ public class CrewListService {
 
     public int seletTotalCrewList(String userId) {
         User user = userRepository.findByUserId(userId);
+
+
         List<CrewList> crewLists = crewListRepository.findByUserAndApprovalStatus(user,1);
+
 
         return crewLists.size();
     }
 
-    public List<CrewListDTO> selectCrewListWithPaging(String userId,Criteria cri) {
+    public List<CrewListDTO> selectCrewListWithPaging(String userId, Criteria cri) {
 
         int index = cri.getPageNum() - 1;
         int count = cri.getAmount();
@@ -158,7 +160,7 @@ public class CrewListService {
 
         User user = userRepository.findByUserId(userId);
 
-        Page<CrewList> result = crewListRepository.findByUserAndApprovalStatus(user,paging);
+        Page<CrewList> result = crewListRepository.findByUserAndApprovalStatus(user, paging);
 
         List<CrewListDTO> crewListDTOS = result.stream()
                 .map(crewList -> modelMapper.map(crewList, CrewListDTO.class))
@@ -175,7 +177,37 @@ public class CrewListService {
 
         User user = userRepository.findByUserId(userId);
 
-        Page<CrewList> result = crewListRepository.findByUserAndEndCrew(user,paging);
+        Page<CrewList> result = crewListRepository.findByUserAndEndCrew(user, paging);
+
+        List<CrewListDTO> crewListDTOS = result.stream()
+                .map(crewList -> modelMapper.map(crewList, CrewListDTO.class))
+                .collect(Collectors.toList());
+
+        return crewListDTOS;
+    }
+
+    public int seletTotalCrewLists(String userId) {
+        User user = userRepository.findByUserId(userId);
+        List<CrewList> crewLists = crewListRepository.findByUserAndApprovalStatusAndDate(user);
+
+        return crewLists.size();
+
+    }
+
+    public int selectTotalCrewUser(Integer crewId) {
+        Crew crew = crewRepository.findByCrewId(crewId);
+        List<CrewList> crewLists = crewListRepository.findByCrew(crew);
+
+        return crewLists.size();
+    }
+
+    public List<CrewListDTO> selectCrewUsertWithPaging(Integer crewId, Criteria cri) {
+        int index = cri.getPageNum() - 1;
+        int count = cri.getAmount();
+        Pageable pageing = PageRequest.of(index, count, Sort.by("user").descending());
+
+        Crew crew = crewRepository.findByCrewId(crewId);
+        Page<CrewList> result = crewListRepository.findByCrew(crew,pageing);
 
         List<CrewListDTO> crewListDTOS = result.stream()
                 .map(crewList -> modelMapper.map(crewList, CrewListDTO.class))

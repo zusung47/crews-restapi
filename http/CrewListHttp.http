@@ -35,6 +35,10 @@ GET http://localhost:8080/api/v1/crewlist/sean1007@naver.com/crew
 ###유저 가입 크루 조회2
 GET http://localhost:8080/api/v1/crewlist/sean1007@naver.com/endCrew
 
+
+###크루원 조회
+GET http://localhost:8080/api/v1/crewlist/2/users
+
 ###크루 가입 신청
 POST http://localhost:8080/api/v1/crewlist/apply/46
 Content-Type: application/json

@@ -28,4 +28,12 @@ public interface CrewListRepository extends JpaRepository<CrewList, CrewListId> 
 
     @Query("SELECT cl FROM CrewList cl WHERE cl.user = :user AND cl.approvalStatus = 1 AND cl.endDate <= CURRENT_DATE")
     Page<CrewList> findByUserAndEndCrew(User user, Pageable paging);
+
+    @Query("SELECT cl FROM CrewList cl WHERE cl.user = :user AND cl.approvalStatus = 1 AND cl.endDate <= CURRENT_DATE")
+    List<CrewList> findByUserAndApprovalStatusAndDate(User user);
+
+    List<CrewList> findByCrew(Crew crew);
+
+
+    Page<CrewList> findByCrew(Crew crew, Pageable pageing);
 }
