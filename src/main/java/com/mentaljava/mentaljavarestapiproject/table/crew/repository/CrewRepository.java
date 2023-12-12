@@ -21,6 +21,8 @@ public interface CrewRepository extends JpaRepository<Crew, Integer> {
 
     List<Crew> findByCrewNameContaining(String search);
 
+    Page<Crew> findByCrewNameContaining(String search, Pageable paging);
+
 
 
 

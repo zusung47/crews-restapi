@@ -140,6 +140,27 @@ public class CrewController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "카테고리 기타 조회 성공", pagingResponseDTO));
     }
 
+    //크루이름 검색해서 조회
+    @GetMapping("/list/search")
+    public ResponseEntity<ResponseDTO> selectSearchCrewList(
+            @RequestParam(name = "s", defaultValue = "all") String search, @RequestParam(value = "offset", defaultValue = "1") String offset) {
+
+        log.info("[CrewController] selectSearchCrewList start =============");
+        log.info("[CrewController] selectSearchCrewList offset : {} ", offset);
+
+        int total = crewService.selectSearchCrewList(search);
+
+        Criteria cri = new Criteria(Integer.valueOf(offset), 5);
+
+        PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
+
+        pagingResponseDTO.setData(crewService.selectSearchCrewListWithPaging(search, cri));
+        pagingResponseDTO.setPageInfo(new PagingDTO(cri, total));
+
+        return ResponseEntity.ok()
+                .body(new ResponseDTO(HttpStatus.OK, "검색 조회 성공", pagingResponseDTO));
+    }
+
     //모집상태1 조회
     @GetMapping("/list/recruitmentstatusok")
     public ResponseEntity<ResponseDTO> selectCrewListAboutRecruitmentStatusOk() {
@@ -191,15 +212,6 @@ public class CrewController {
         CrewDTO getCrewInfo = crewService.insertCrew(crewDTO);
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "크루 등록 성공", crewService.insertCrewList(getCrewInfo)));
-    }
-
-    //크루이름 검색해서 조회
-    @GetMapping("/list/search")
-    public ResponseEntity<ResponseDTO> selectSearchCrewList(
-            @RequestParam(name = "s", defaultValue = "all") String search) {
-
-        return ResponseEntity.ok()
-                .body(new ResponseDTO(HttpStatus.OK, "검색 조회 성공", crewService.selectSearchCrewList(search)));
     }
 
     //캡틴을 통해 크루 정보 조회 추후 필요한 데이터만 가져오도록 수정(내가 쓴 글 조회)

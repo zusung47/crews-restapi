@@ -327,19 +327,31 @@ public class CrewService {
         return crewDTOList;
     }
 
-    public List<CrewDTO> selectSearchCrewList(String search) {
-
+    public int selectSearchCrewList(String search) {
         log.info("[CrewService] selectSearchCrewList start ============");
         log.info("[CrewService] search : {} ", search);
 
         List<Crew> crewListWithSearchValue = crewRepository.findByCrewNameContaining(search);
 
-        List<CrewDTO> crewDTOList = crewListWithSearchValue.stream()
+        log.info("[CrewService] crewListWithSearchValue.size : {}", crewListWithSearchValue.size());
+        log.info("[CrewService] selectSearchCrewList end ============");
+        return crewListWithSearchValue.size();
+    }
+
+    public List<CrewDTO> selectSearchCrewListWithPaging(String search, Criteria cri) {
+
+        log.info("[CrewService] selectSearchCrewListWithPaging start ============");
+
+        int index = cri.getPageNum() - 1;
+        int count = cri.getAmount();
+        Pageable paging = PageRequest.of(index, count, Sort.by("crewId").descending());
+
+        Page<Crew> result = crewRepository.findByCrewNameContaining(search, paging);
+
+        List<CrewDTO> crewDTOList = result.stream()
                 .map(crew -> modelMapper.map(crew, CrewDTO.class)).collect(Collectors.toList());
 
-        log.info("[CrewService] selectSearchCrewList crewDTOList : " + crewDTOList);
-
-        log.info("[CrewService] selectSearchCrewList end ============");
+        log.info("[CrewService] selectSearchCrewListWithPaging end ============");
         return crewDTOList;
     }
 
@@ -405,4 +417,5 @@ public class CrewService {
 
         return (result>0)? "크루리스트 등록성공" : "크루리스트 등록 실패";
     }
+
 }
