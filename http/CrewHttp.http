@@ -64,3 +64,20 @@ GET http://localhost:8080/api/v1/crew/list/sean1007@naver.com/mypost
 
 ### 크루 삭제
 DELETE http://localhost:8080/api/v1/crew/crewdelete/36
+
+### 크루 업데이트
+PUT http://localhost:8080/api/v1/crew/update
+Content-Type: application/json
+
+{
+  "crewId": 1,
+  "crewName": "수정테스트",
+  "startDate": "2022-11-11",
+  "endDate": "2023-12-10",
+  "crewRecruitmentPost": "수정테스트중입니다",
+  "crewRecruitmentContent": "수정테스트내용입니다",
+  "recruitmentStatus": "0",
+  "crewCategoryCode": {
+    "categoryCode": 3
+  }
+}
