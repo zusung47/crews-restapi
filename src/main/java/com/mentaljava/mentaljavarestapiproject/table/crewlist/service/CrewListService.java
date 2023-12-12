@@ -72,7 +72,7 @@ public class CrewListService {
 
             crewList.setApprovalStatus(1);
             crewList.setIsCaptain("CREWON");
-            crewList.setEndDate(String.valueOf(crew.getEndDate()));
+            crewList.setEndDate(crew.getEndDate());
             result = 1;
         } catch (Exception e) {
             throw new RuntimeException(e);

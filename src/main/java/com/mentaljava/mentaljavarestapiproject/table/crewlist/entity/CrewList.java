@@ -6,6 +6,7 @@ import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "CREW_LIST")
@@ -36,6 +37,6 @@ public class CrewList {
     private String isCaptain;
 
     @Column(name = "END_DATE")
-    private String endDate;
+    private LocalDate endDate;
 
 }
