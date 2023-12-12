@@ -16,10 +16,10 @@ public class UsercalendarDTO {
 
     private Integer userCalendarId;
 
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "UTC") //날짜 형식 포맷 수정
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+9") //날짜 형식 포맷 수정
     private Date startDate;
 
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "UTC")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+9")
     private Date endDate;
 
     private String title;

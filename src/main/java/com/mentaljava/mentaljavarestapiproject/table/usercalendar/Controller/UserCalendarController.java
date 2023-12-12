@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -47,7 +48,10 @@ public class UserCalendarController {
             @PathVariable Integer userCalendarId,
             @RequestBody UsercalendarDTO usercalendarDTO) {
 
-        // 서비스 메서드를 호출하여 사용자 캘린더를 업데이트합니다.
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(usercalendarDTO.getEndDate());
+        cal.add(Calendar.DATE,1);
+        usercalendarDTO.setEndDate(cal.getTime());
         List<UsercalendarDTO> updatedUsercalendars = userCalendarService.updateUserCalendarByUserId(userId, userCalendarId, usercalendarDTO);
 
         log.info("[UserController] updateUserCalendarByUserId usercalendarDTO ===========> " + updatedUsercalendars);
@@ -71,6 +75,10 @@ public class UserCalendarController {
     @PostMapping("/regist/{userId}")
     public ResponseEntity<ResponseDTO> newCalendar(@PathVariable User userId, @RequestBody UsercalendarDTO usercalendarDTO) {
 
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(usercalendarDTO.getEndDate());
+        cal.add(Calendar.DATE,1);
+        usercalendarDTO.setEndDate(cal.getTime());
         log.info("[UserController] insertusercalnedar usercalendarDTO ===========> " + usercalendarDTO);
 
         return ResponseEntity.ok().body(
