@@ -214,6 +214,14 @@ public class CrewController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "크루 등록 성공", crewService.insertCrewList(getCrewInfo)));
     }
 
+    @PutMapping(value = "/update")
+    public ResponseEntity<ResponseDTO> updateCrew(@RequestBody CrewDTO crewDTO) {
+
+        log.info("[CrewController] updateCrew crewDTO ===========> " + crewDTO);
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "크루 수정 성공", crewService.updateCrew(crewDTO)));
+    }
+
     //캡틴을 통해 크루 정보 조회 추후 필요한 데이터만 가져오도록 수정(내가 쓴 글 조회)
     @GetMapping("/list/{captain}/mypost")
     public ResponseEntity<ResponseDTO> getCrewByCaptain(

@@ -4,6 +4,7 @@ import com.mentaljava.mentaljavarestapiproject.common.Criteria;
 import com.mentaljava.mentaljavarestapiproject.table.crew.dto.CrewDTO;
 import com.mentaljava.mentaljavarestapiproject.table.crew.entity.Crew;
 import com.mentaljava.mentaljavarestapiproject.table.crew.repository.CrewRepository;
+import com.mentaljava.mentaljavarestapiproject.table.crewcategory.entity.CrewCategory;
 import com.mentaljava.mentaljavarestapiproject.table.crewlist.dto.CrewListDTO;
 import com.mentaljava.mentaljavarestapiproject.table.crewlist.entity.CrewList;
 import com.mentaljava.mentaljavarestapiproject.table.crewlist.repository.CrewListRepository;
@@ -130,6 +131,33 @@ public class CrewService {
             Crew crew = crewRepository.findById(crewDTO.getCrewId()).get();
 
             crew.setIntroduction(crewDTO.getIntroduction());
+
+            result = 1;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return (result > 0) ? "정보 업데이트 성공" : "정보 업데이트 실패";
+    }
+
+    @Transactional
+    public String updateCrew(CrewDTO crewDTO) {
+
+        int result = 0;
+
+        try {
+            Crew crew = crewRepository.findById(crewDTO.getCrewId()).get();
+
+            CrewCategory crewCategory = new CrewCategory();
+            crewCategory.setCategoryCode(crewDTO.getCrewCategoryCode().getCategoryCode());
+
+            crew.setCrewCategoryCode(crewCategory);
+            crew.setCrewName(crewDTO.getCrewName());
+            crew.setCrewRecruitmentContent(crewDTO.getCrewRecruitmentContent());
+            crew.setCrewRecruitmentPost(crewDTO.getCrewRecruitmentPost());
+            crew.setStartDate(crewDTO.getStartDate());
+            crew.setEndDate(crewDTO.getEndDate());
+            crew.setRecruitmentStatus(crewDTO.getRecruitmentStatus());
 
             result = 1;
         } catch (Exception e) {
