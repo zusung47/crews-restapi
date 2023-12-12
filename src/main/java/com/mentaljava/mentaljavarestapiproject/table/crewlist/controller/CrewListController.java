@@ -61,13 +61,14 @@ public class CrewListController {
                 .body(new ResponseDTO(HttpStatus.OK, "신청상태변경완료", crewListService.updateStatusRejection(crewListDTO)));
     }
 
+    // 활동중인 크루 조회
     @GetMapping("/{userId}/crew")
     public ResponseEntity<ResponseDTO> getCrewListByUserId(
             @PathVariable String userId,
             @RequestParam(value = "offset", defaultValue = "1") String offset
             ) {
 
-        int total = crewListService.seletTotalCrewList("userId");
+        int total = crewListService.seletTotalCrewList(userId);
 
         Criteria cri = new Criteria(Integer.valueOf(offset),10);
 
@@ -83,12 +84,13 @@ public class CrewListController {
                 .body(new ResponseDTO(HttpStatus.OK, "회원의 크루조회 완료", pagingResponseDTO));
     }
 
+    // 활동이 끝난 크루조회
     @GetMapping("/{userId}/endCrew")
     public ResponseEntity<ResponseDTO> getEndCrew(
             @PathVariable String userId,
             @RequestParam(value = "offset", defaultValue = "1") String offset
-    ){
-        int total = crewListService.seletTotalCrewList("userId");
+             ){
+        int total = crewListService.seletTotalCrewLists(userId);
         Criteria cri = new Criteria(Integer.valueOf(offset), 5);
         PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
 
@@ -108,5 +110,21 @@ public class CrewListController {
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "크루신청완료",
                 crewListService.insertCrewListApply(crewId, crewListDTO)));
+    }
+
+    //크루에 소속된 크루원 조회
+    @GetMapping("/{crewId}/users")
+    public ResponseEntity<ResponseDTO> crewUserList(@PathVariable Integer crewId,
+                                                    @RequestParam(value = "offset", defaultValue = "1") String offset){
+        int total = crewListService.selectTotalCrewUser(crewId);
+
+        Criteria cri = new Criteria(Integer.valueOf(offset),10);
+
+        PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
+
+        pagingResponseDTO.setData(crewListService.selectCrewUsertWithPaging(crewId,cri));
+        pagingResponseDTO.setPageInfo(new PagingDTO(cri,total));
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,"크루원 조회 완료",pagingResponseDTO));
     }
 }
