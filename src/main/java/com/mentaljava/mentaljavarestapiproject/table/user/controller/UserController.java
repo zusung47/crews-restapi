@@ -1,6 +1,7 @@
 package com.mentaljava.mentaljavarestapiproject.table.user.controller;
 
 import com.mentaljava.mentaljavarestapiproject.common.ResponseDTO;
+import com.mentaljava.mentaljavarestapiproject.table.user.dto.DiamondChangeDTO;
 import com.mentaljava.mentaljavarestapiproject.table.user.dto.UserDTO;
 import com.mentaljava.mentaljavarestapiproject.table.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -57,6 +58,14 @@ public class UserController {
 
         return ResponseEntity.ok().body(
                 new ResponseDTO(HttpStatus.OK,"유저 다이아몬드 감소 성공" , userService.minusUserDiamond(userDTO)));
+    }
+
+    @PutMapping("/diamond")
+    public ResponseEntity<ResponseDTO> submitDiamond(@RequestBody DiamondChangeDTO diamondChangeDTO){
+
+        return ResponseEntity.ok().body(
+                new ResponseDTO(HttpStatus.OK,"다이아몬드 평가 성공", userService.diamondSubmit(diamondChangeDTO)));
+
     }
 
 }
