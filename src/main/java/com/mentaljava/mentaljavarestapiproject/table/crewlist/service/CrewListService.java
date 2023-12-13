@@ -145,9 +145,7 @@ public class CrewListService {
     public int seletTotalCrewList(String userId) {
         User user = userRepository.findByUserId(userId);
 
-
-        List<CrewList> crewLists = crewListRepository.findByUserAndApprovalStatus(user,1);
-
+        List<CrewList> crewLists = crewListRepository.findByUserAndApprovalStatus(user, 1);
 
         return crewLists.size();
     }
@@ -207,12 +205,34 @@ public class CrewListService {
         Pageable paging = PageRequest.of(index, count, Sort.by("user").descending());
 
         Crew crew = crewRepository.findByCrewId(crewId);
-        Page<CrewList> result = crewListRepository.findByCrew(crew,paging);
+        Page<CrewList> result = crewListRepository.findByCrew(crew, paging);
 
         List<CrewListDTO> crewListDTOS = result.stream()
                 .map(crewList -> modelMapper.map(crewList, CrewListDTO.class))
                 .collect(Collectors.toList());
 
         return crewListDTOS;
+    }
+
+    @Transactional
+    public String updateScoreStatus(CrewListDTO crewListDTO) {
+        int result = 0;
+
+        try {
+            CrewList crewList = crewListRepository.findById_CrewIdAndId_UserId(crewListDTO.getId().getCrewId(),
+                    crewListDTO.getId().getUserId());
+            CrewListDTO cld = modelMapper.map(crewList, CrewListDTO.class);
+            cld.setScoreStatus(crewListDTO.getScoreStatus());
+
+            CrewList cl = modelMapper.map(cld, CrewList.class);
+            log.info("변경된 status"+cl);
+
+            crewListRepository.save(cl);
+            result = 1;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return (result > 0) ? "status 변경성공" : "status 변경 실패";
     }
 }

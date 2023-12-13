@@ -39,4 +39,7 @@ public class CrewList {
     @Column(name = "END_DATE")
     private LocalDate endDate;
 
+    @Column(name = "SCORE_STATUS")
+    private String scoreStatus;
+
 }
