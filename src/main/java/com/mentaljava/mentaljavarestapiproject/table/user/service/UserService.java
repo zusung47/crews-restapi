@@ -1,5 +1,7 @@
 package com.mentaljava.mentaljavarestapiproject.table.user.service;
 
+import com.mentaljava.mentaljavarestapiproject.table.crewlist.entity.CrewList;
+import com.mentaljava.mentaljavarestapiproject.table.crewlist.repository.CrewListRepository;
 import com.mentaljava.mentaljavarestapiproject.table.user.dto.DiamondChangeDTO;
 import com.mentaljava.mentaljavarestapiproject.table.user.dto.UserDTO;
 import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
@@ -14,20 +16,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 @Slf4j
 public class UserService {
 
     private final UserRepository userRepository;
+    private final CrewListRepository crewListRepository;
+
     private final ModelMapper modelMapper;
 
-    public UserService(UserRepository userRepository, ModelMapper modelMapper){
-        this.userRepository = userRepository;
-        this.modelMapper = modelMapper;
-    }
-
-    public User findOne(String userID) {
-        return userRepository.findByUserId(userID);
-    }
 
     public List<UserDTO> findAllUserList() {
 

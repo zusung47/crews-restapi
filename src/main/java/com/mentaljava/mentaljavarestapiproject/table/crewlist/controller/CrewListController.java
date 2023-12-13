@@ -66,17 +66,16 @@ public class CrewListController {
     public ResponseEntity<ResponseDTO> getCrewListByUserId(
             @PathVariable String userId,
             @RequestParam(value = "offset", defaultValue = "1") String offset
-            ) {
+    ) {
 
         int total = crewListService.seletTotalCrewList(userId);
 
-        Criteria cri = new Criteria(Integer.valueOf(offset),10);
+        Criteria cri = new Criteria(Integer.valueOf(offset), 10);
 
         PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
 
-        pagingResponseDTO.setData(crewListService.selectCrewListWithPaging(userId,cri));
-        pagingResponseDTO.setPageInfo(new PagingDTO(cri,total));
-
+        pagingResponseDTO.setData(crewListService.selectCrewListWithPaging(userId, cri));
+        pagingResponseDTO.setPageInfo(new PagingDTO(cri, total));
 
         log.info("가입된 크루" + userId);
 
@@ -89,16 +88,16 @@ public class CrewListController {
     public ResponseEntity<ResponseDTO> getEndCrew(
             @PathVariable String userId,
             @RequestParam(value = "offset", defaultValue = "1") String offset
-             ){
+    ) {
         int total = crewListService.seletTotalCrewLists(userId);
         Criteria cri = new Criteria(Integer.valueOf(offset), 5);
         PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
 
-        pagingResponseDTO.setData(crewListService.selectEndCrewListWithPaging(userId,cri));
-        pagingResponseDTO.setPageInfo(new PagingDTO(cri,total));
+        pagingResponseDTO.setData(crewListService.selectEndCrewListWithPaging(userId, cri));
+        pagingResponseDTO.setPageInfo(new PagingDTO(cri, total));
 
         return ResponseEntity.ok()
-                .body(new ResponseDTO(HttpStatus.OK,"종료된 크루 조회 완료",pagingResponseDTO));
+                .body(new ResponseDTO(HttpStatus.OK, "종료된 크루 조회 완료", pagingResponseDTO));
     }
 
     //크루 신청하기
@@ -115,16 +114,23 @@ public class CrewListController {
     //크루에 소속된 크루원 조회
     @GetMapping("/{crewId}/users")
     public ResponseEntity<ResponseDTO> crewUserList(@PathVariable Integer crewId,
-                                                    @RequestParam(value = "offset", defaultValue = "1") String offset){
+                                                    @RequestParam(value = "offset", defaultValue = "1") String offset) {
         int total = crewListService.selectTotalCrewUser(crewId);
 
-        Criteria cri = new Criteria(Integer.valueOf(offset),10);
+        Criteria cri = new Criteria(Integer.valueOf(offset), 10);
 
         PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
 
-        pagingResponseDTO.setData(crewListService.selectCrewUsertWithPaging(crewId,cri));
-        pagingResponseDTO.setPageInfo(new PagingDTO(cri,total));
+        pagingResponseDTO.setData(crewListService.selectCrewUsertWithPaging(crewId, cri));
+        pagingResponseDTO.setPageInfo(new PagingDTO(cri, total));
 
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK,"크루원 조회 완료",pagingResponseDTO));
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "크루원 조회 완료", pagingResponseDTO));
+    }
+
+    @PutMapping("/change/status")
+    public ResponseEntity<ResponseDTO> changeStatus(@RequestBody CrewListDTO crewListDTO) {
+
+        return ResponseEntity.ok()
+                .body(new ResponseDTO(HttpStatus.OK, "status 변경 완료", crewListService.updateScoreStatus(crewListDTO)));
     }
 }

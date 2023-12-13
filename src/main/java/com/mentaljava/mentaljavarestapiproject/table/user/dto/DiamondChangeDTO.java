@@ -16,4 +16,6 @@ public class DiamondChangeDTO {
     private String userId;
 
     private Integer diamond;
+
+    private String scoreStatus;
 }

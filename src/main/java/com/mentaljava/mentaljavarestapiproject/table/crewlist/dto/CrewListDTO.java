@@ -27,4 +27,6 @@ public class CrewListDTO {
 
     private LocalDate endDate;
 
+    private String scoreStatus;
+
 }
