@@ -17,27 +17,32 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/api/v1/certificationPost")
+@RequestMapping("/api/v1/certificationpost")
 public class CertificationPostController {
 
     private final CertificationPostService certificationPostService;
     private final CertificationCommentService certificationCommentService;
-//
-//    @GetMapping("/list")
-//    public ResponseEntity<ResponseDTO> selectCertificationPostListWithPagingTen(
-//            @RequestParam(value = "offset", defaultValue = "1") String offset) {
-//
-//        int total = CertificationPostService.selectTotalPost();
-//
-//        Criteria cri = new Criteria(Integer.valueOf(offset), 10);
-//
-//        PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
-//
-//        pagingResponseDTO.setData(CertificationPostService.selectCertificationListWithPaging(cri));
-//        pagingResponseDTO.setPageInfo(new PagingDTO(cri, total));
-//
-//        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "인증게시글 리스트 조회 성공", pagingResponseDTO));
-//    }
+
+    //크루별 인증게시판조회 페이징10개씩
+    @GetMapping("/{crewId}/post")
+    public ResponseEntity<ResponseDTO> selectPostListByCrewIdWithPaging(
+            @PathVariable Integer crewId,
+            @RequestParam(value = "offset", defaultValue = "1") String offset) {
+
+        log.info("[CertificationPostController] selectPostListByCrewIdWithPaging START==============");
+        log.info("[CertificationPostController] selectPostListByCrewIdWithPaging offset : {} ", offset);
+
+        int total = certificationPostService.selectPostListByCrewId(crewId);
+
+        Criteria cri = new Criteria(Integer.valueOf(offset), 10);
+
+        PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
+
+        pagingResponseDTO.setData(certificationPostService.selectPostListByCrewIdWithPaging(crewId, cri));
+        pagingResponseDTO.setPageInfo(new PagingDTO(cri, total));
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "크루별 인증게시판조회 성공", pagingResponseDTO));
+    }
 
     @GetMapping("/{crewId}/list")
     public ResponseEntity<ResponseDTO> certificationPostList(@PathVariable Integer crewId) {

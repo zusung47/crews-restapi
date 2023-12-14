@@ -1,12 +1,14 @@
 ### 크루의 인증게시판 리스트 조회
-GET http://localhost:8080/api/v1/certificationPost/3/list
+GET http://localhost:8080/api/v1/certificationpost/2/list
 
+### 크루별 인증게시판 리스트 조회 페이징처리
+GET http://localhost:8080/api/v1/certificationpost/2/post
 
 ### 크루의 인증게시판 글의 상세조회 + 댓글
-GET http://localhost:8080/api/v1/certificationPost/1/list/detail
+GET http://localhost:8080/api/v1/certificationpost/1/list/detail
 
 ### 인증게시판 글 생성
-PUT http://localhost:8080/api/v1/certificationPost/2/regist
+PUT http://localhost:8080/api/v1/certificationpost/2/regist
 content-type: application/json
 
 {
@@ -16,7 +18,7 @@ content-type: application/json
 
 
 ### 인증 게시판에 댓글 등록
-PUT http://localhost:8080/api/v1/certificationPost/1/list/detail
+PUT http://localhost:8080/api/v1/certificationpost/1/list/detail
 content-type: application/json
 
 {

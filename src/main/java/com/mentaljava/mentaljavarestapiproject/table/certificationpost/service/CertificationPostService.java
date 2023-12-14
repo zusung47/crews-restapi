@@ -28,12 +28,15 @@ public class CertificationPostService {
 
     private final CertificationPostRepository certificationPostRepository;
     private final CrewRepository crewRepository;
+
     private final ModelMapper modelMapper;
 
     public List<CertificationPostDTO> findOnePost(Integer crewId) {
         Crew crew = crewRepository.findByCrewId(crewId);
+
+        Integer crewId2 = crew.getCrewId();
         log.info("[CertificationPost] crew ===========> " + crew);
-        List<CertificationPost> certificationPostList = certificationPostRepository.findByCrewId(crew);
+        List<CertificationPost> certificationPostList = certificationPostRepository.findByCrewId_CrewId(crewId2);
         List<CertificationPostDTO> certificationPostDTOList = certificationPostList.stream().map(certificationPost ->
                 modelMapper.map(certificationPost, CertificationPostDTO.class)).collect(Collectors.toList());
         return certificationPostDTOList;
@@ -60,27 +63,39 @@ public class CertificationPostService {
         return (result > 0) ? "댓글 등록 성공" : "댓글 등록 실패";
 
     }
-//
-//    public int selectTotalPost() {
-//        List<CertificationPost> certificationPosts = certificationPostRepository.findAll();
-//
-//        log.info("[CertificationPostService] certificationPosts.size : {}", certificationPosts.size());
-//
-//        return certificationPosts.size();
-//    }
-//
-//    public List<CertificationPostDTO> selectCertificationListWithPaging(Criteria cri) {
-//
-//        int index = cri.getPageNum() - 1;
-//        int count = cri.getAmount();
-//        Pageable paging = PageRequest.of(index, count, Sort.by("postId").descending());
-//
-//        Page<CertificationPost> result = certificationPostRepository.findAll(paging);
-//        List<CertificationPostDTO> certificationPostDTOList = result.stream()
-//                .map(certificationPost -> modelMapper.map(certificationPost, CertificationPostDTO.class))
-//                .collect(Collectors.toList());
-//
-//        return certificationPostDTOList;
-//
-//    }
+
+    public int selectPostListByCrewId(Integer crewId) {
+
+        log.info("[CertificationPostService] selectPostListByCrewId start =========");
+        Crew crew = crewRepository.findByCrewId(crewId);
+        Integer crewId2 = crew.getCrewId();
+        log.info("[CertificationPostService] selectPostListByCrewId crewId2 ========= {}", crewId2);
+
+        List<CertificationPost> certificationPostList = certificationPostRepository.findByCrewId_CrewId(crewId2);
+
+        log.info("[CertificationPostService] certificationPostList.size : {}", certificationPostList.size());
+        log.info("[CertificationPostService] selectPostListByCrewId end =========");
+
+        return certificationPostList.size();
+    }
+
+    public List<CertificationPostDTO> selectPostListByCrewIdWithPaging(Integer crewId, Criteria cri) {
+
+        log.info("[CertificationPostService] selectPostListByCrewIdWithPaging start =========");
+
+        Crew crew = crewRepository.findByCrewId(crewId);
+        Integer crewId2 = crew.getCrewId();
+
+        int index = cri.getPageNum() - 1;
+        int count = cri.getAmount();
+        Pageable paging = PageRequest.of(index, count, Sort.by("postId").descending());
+
+        Page<CertificationPost> result = certificationPostRepository.findByCrewId_CrewId(crewId2, paging);
+
+        List<CertificationPostDTO> certificationPostDTOList = result.stream()
+                .map(certificationPost -> modelMapper.map(certificationPost, CertificationPostDTO.class)).collect(Collectors.toList());
+
+        log.info("[CertificationPostService] selectPostListByCrewIdWithPaging end =========");
+        return certificationPostDTOList;
+    }
 }
