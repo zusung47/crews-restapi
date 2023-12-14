@@ -126,6 +126,7 @@ public class CrewListService {
             crewListDTO.setId(crewListIdDTO);
             crewListDTO.setCrew(crewDTO);
             crewListDTO.setApprovalStatus(0);
+            crewListDTO.setScoreStatus("no");
 
             CrewList newCrewList = modelMapper.map(crewListDTO, CrewList.class);
 
