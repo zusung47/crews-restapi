@@ -3,7 +3,6 @@ package com.mentaljava.mentaljavarestapiproject.table.certificationpost.reposito
 import com.mentaljava.mentaljavarestapiproject.table.certificationpost.entity.CertificationPost;
 import com.mentaljava.mentaljavarestapiproject.table.crew.entity.Crew;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

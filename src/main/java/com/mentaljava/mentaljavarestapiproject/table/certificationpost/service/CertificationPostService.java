@@ -1,5 +1,6 @@
 package com.mentaljava.mentaljavarestapiproject.table.certificationpost.service;
 
+import com.mentaljava.mentaljavarestapiproject.common.Criteria;
 import com.mentaljava.mentaljavarestapiproject.table.certificationpost.dto.CertificationPostDTO;
 import com.mentaljava.mentaljavarestapiproject.table.certificationpost.entity.CertificationPost;
 import com.mentaljava.mentaljavarestapiproject.table.certificationpost.repository.CertificationPostRepository;
@@ -13,6 +14,10 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,4 +60,27 @@ public class CertificationPostService {
         return (result > 0) ? "댓글 등록 성공" : "댓글 등록 실패";
 
     }
+//
+//    public int selectTotalPost() {
+//        List<CertificationPost> certificationPosts = certificationPostRepository.findAll();
+//
+//        log.info("[CertificationPostService] certificationPosts.size : {}", certificationPosts.size());
+//
+//        return certificationPosts.size();
+//    }
+//
+//    public List<CertificationPostDTO> selectCertificationListWithPaging(Criteria cri) {
+//
+//        int index = cri.getPageNum() - 1;
+//        int count = cri.getAmount();
+//        Pageable paging = PageRequest.of(index, count, Sort.by("postId").descending());
+//
+//        Page<CertificationPost> result = certificationPostRepository.findAll(paging);
+//        List<CertificationPostDTO> certificationPostDTOList = result.stream()
+//                .map(certificationPost -> modelMapper.map(certificationPost, CertificationPostDTO.class))
+//                .collect(Collectors.toList());
+//
+//        return certificationPostDTOList;
+//
+//    }
 }
