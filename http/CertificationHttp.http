@@ -1,5 +1,5 @@
 ### 크루의 인증게시판 리스트 조회
-GET http://localhost:8080/api/v1/certificationPost/3/list
+GET http://localhost:8080/api/v1/certificationPost/58/list
 
 
 ### 크루의 인증게시판 글의 상세조회 + 댓글

@@ -1,5 +1,6 @@
 package com.mentaljava.mentaljavarestapiproject.table.certificationpost.service;
 
+import com.mentaljava.mentaljavarestapiproject.common.Criteria;
 import com.mentaljava.mentaljavarestapiproject.table.certificationpost.dto.CertificationPostDTO;
 import com.mentaljava.mentaljavarestapiproject.table.certificationpost.entity.CertificationPost;
 import com.mentaljava.mentaljavarestapiproject.table.certificationpost.repository.CertificationPostRepository;
@@ -8,13 +9,15 @@ import com.mentaljava.mentaljavarestapiproject.table.crew.entity.Crew;
 import com.mentaljava.mentaljavarestapiproject.table.crew.repository.CrewRepository;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
@@ -43,7 +46,7 @@ public class CertificationPostService {
             certificationPostDTO.setCrewId(crewDTO);
             certificationPostDTO.setPostDate(LocalDate.now());
 
-            log.info("[certificationDTO] dto============="+certificationPostDTO);
+            log.info("[certificationDTO] dto=============" + certificationPostDTO);
 
             CertificationPost certificationPost = modelMapper.map(certificationPostDTO, CertificationPost.class);
             certificationPostRepository.save(certificationPost);
@@ -53,6 +56,35 @@ public class CertificationPostService {
         }
 
         return (result > 0) ? "댓글 등록 성공" : "댓글 등록 실패";
+
+    }
+
+    public int selectTotalCertificationPost(Integer crewId) {
+
+        Crew crew = crewRepository.findByCrewId(crewId);
+
+        List<CertificationPost> certificationPostList = certificationPostRepository.findByCrewId(crew);
+
+        return certificationPostList.size();
+
+    }
+
+    public List<CertificationPostDTO> selectCertificationPost(Integer crewId, Criteria cri) {
+
+        int index = cri.getPageNum() - 1;
+        int count = cri.getAmount();
+
+        Pageable paging = PageRequest.of(index, count, Sort.by("postId"));
+
+        Crew crew = crewRepository.findByCrewId(crewId);
+
+        Page<CertificationPost> result = certificationPostRepository.findByCrewId(crew, paging);
+
+        List<CertificationPostDTO> certificationPostDTOList = result.stream()
+                .map(certificationPost -> modelMapper.map(certificationPost, CertificationPostDTO.class))
+                .collect(Collectors.toList());
+
+        return certificationPostDTOList;
 
     }
 }
