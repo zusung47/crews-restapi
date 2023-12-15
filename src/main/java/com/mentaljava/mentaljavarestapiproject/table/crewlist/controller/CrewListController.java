@@ -133,4 +133,6 @@ public class CrewListController {
         return ResponseEntity.ok()
                 .body(new ResponseDTO(HttpStatus.OK, "status 변경 완료", crewListService.updateScoreStatus(crewListDTO)));
     }
+
+
 }

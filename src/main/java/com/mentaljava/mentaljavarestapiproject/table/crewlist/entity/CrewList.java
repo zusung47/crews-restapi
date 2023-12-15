@@ -42,4 +42,7 @@ public class CrewList {
     @Column(name = "SCORE_STATUS")
     private String scoreStatus;
 
+    @Column(name = "CHECK_COUNT")
+    private Integer checkCount;
+
 }
