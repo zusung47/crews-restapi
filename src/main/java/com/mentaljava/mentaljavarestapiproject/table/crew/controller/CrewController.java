@@ -226,7 +226,7 @@ public class CrewController {
     @GetMapping("/list/{captain}/mypost")
     public ResponseEntity<ResponseDTO> getCrewByCaptain(
             @PathVariable String captain
-            , @RequestParam(value = "offset", defaultValue = "1") String offset) {
+            ,@RequestParam(value = "offset", defaultValue = "1") String offset) {
         int total = crewService.getCrewByCaptainTotal(captain);
 
         Criteria cri = new Criteria(Integer.valueOf(offset), 5);

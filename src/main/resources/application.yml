@@ -30,6 +30,9 @@ spring:
         '[format_sql]': true
         ddl-auto: update
         show-sql: true
+jwt:
+  key: wERjtIdxQ8lNjF0w/AAiN6HqTASaCAUzSq6nbKefMwf5CbPE8GvwLsClz94uVt9Q1esxYwwXVU+BYn7/mR01Qg==
+  time: 180000
 
 kakao:
   client_id: 3506fa179cbeaf488ef2be30f802135d

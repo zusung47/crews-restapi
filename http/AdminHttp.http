@@ -18,3 +18,14 @@ GET http://localhost:8080/api/v1/admin/reportlist/user
 
 ### 신고대상크루 신고목록 조회
 GET http://localhost:8080/api/v1/admin/reportlist/crew
+
+###
+POST http://localhost:8080/admin/login
+Content-Type: application/json
+Accept: */*
+Access-Control-Allow-Origin: *
+
+{
+  "adminId": "admin1",
+  "adminPw": "admin"
+}
