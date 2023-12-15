@@ -10,11 +10,14 @@ Content-Type: application/json
 
 {
   "id": {
-    "userId": "zusung2",
-    "crewId": 1
+    "userId": "test1",
+    "crewId": 80
   },
   "crew": {
-    "crewId": 1
+    "crewId": 80
+  },
+  "user": {
+    "userId": "test1"
   }
 }
 
@@ -40,7 +43,7 @@ GET http://localhost:8080/api/v1/crewlist/sean1007@naver.com/endCrew
 GET http://localhost:8080/api/v1/crewlist/2/users
 
 ###크루 가입 신청
-POST http://localhost:8080/api/v1/crewlist/apply/61
+POST http://localhost:8080/api/v1/crewlist/apply/80
 Content-Type: application/json
 
 {
