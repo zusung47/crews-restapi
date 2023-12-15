@@ -4,7 +4,6 @@ import com.mentaljava.mentaljavarestapiproject.common.Criteria;
 import com.mentaljava.mentaljavarestapiproject.common.PagingDTO;
 import com.mentaljava.mentaljavarestapiproject.common.PagingResponseDTO;
 import com.mentaljava.mentaljavarestapiproject.common.ResponseDTO;
-import com.mentaljava.mentaljavarestapiproject.table.certificationcomment.service.CertificationCommentService;
 
 import com.mentaljava.mentaljavarestapiproject.table.certificationpost.dto.CertificationPostDTO;
 import com.mentaljava.mentaljavarestapiproject.table.certificationpost.service.CertificationPostService;
@@ -30,27 +29,6 @@ import org.springframework.web.bind.annotation.*;
 public class CertificationPostController {
 
     private final CertificationPostService certificationPostService;
-
-    //크루별 인증게시판조회 페이징10개씩
-    @GetMapping("/{crewId}/post")
-    public ResponseEntity<ResponseDTO> selectPostListByCrewIdWithPaging(
-            @PathVariable Integer crewId,
-            @RequestParam(value = "offset", defaultValue = "1") String offset) {
-
-        log.info("[CertificationPostController] selectPostListByCrewIdWithPaging START==============");
-        log.info("[CertificationPostController] selectPostListByCrewIdWithPaging offset : {} ", offset);
-
-        int total = certificationPostService.selectPostListByCrewId(crewId);
-
-        Criteria cri = new Criteria(Integer.valueOf(offset), 10);
-
-        PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
-
-        pagingResponseDTO.setData(certificationPostService.selectPostListByCrewIdWithPaging(crewId, cri));
-        pagingResponseDTO.setPageInfo(new PagingDTO(cri, total));
-
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "크루별 인증게시판조회 성공", pagingResponseDTO));
-    }
 
     @GetMapping("/{crewId}/list")
     public ResponseEntity<ResponseDTO> certificationPostList(

@@ -89,41 +89,7 @@ public class CertificationPostService {
                 .collect(Collectors.toList());
 
         return certificationPostDTOList;
-
-
-    public int selectPostListByCrewId(Integer crewId) {
-
-        log.info("[CertificationPostService] selectPostListByCrewId start =========");
-        Crew crew = crewRepository.findByCrewId(crewId);
-        Integer crewId2 = crew.getCrewId();
-        log.info("[CertificationPostService] selectPostListByCrewId crewId2 ========= {}", crewId2);
-
-        List<CertificationPost> certificationPostList = certificationPostRepository.findByCrewId_CrewId(crewId2);
-
-        log.info("[CertificationPostService] certificationPostList.size : {}", certificationPostList.size());
-        log.info("[CertificationPostService] selectPostListByCrewId end =========");
-
-        return certificationPostList.size();
     }
 
-    public List<CertificationPostDTO> selectPostListByCrewIdWithPaging(Integer crewId, Criteria cri) {
 
-        log.info("[CertificationPostService] selectPostListByCrewIdWithPaging start =========");
-
-        Crew crew = crewRepository.findByCrewId(crewId);
-        Integer crewId2 = crew.getCrewId();
-
-        int index = cri.getPageNum() - 1;
-        int count = cri.getAmount();
-        Pageable paging = PageRequest.of(index, count, Sort.by("postId").descending());
-
-        Page<CertificationPost> result = certificationPostRepository.findByCrewId_CrewId(crewId2, paging);
-
-        List<CertificationPostDTO> certificationPostDTOList = result.stream()
-                .map(certificationPost -> modelMapper.map(certificationPost, CertificationPostDTO.class)).collect(Collectors.toList());
-
-        log.info("[CertificationPostService] selectPostListByCrewIdWithPaging end =========");
-        return certificationPostDTOList;
-
-    }
 }
