@@ -5,6 +5,9 @@ import com.mentaljava.mentaljavarestapiproject.table.crew.dto.CrewDTO;
 import com.mentaljava.mentaljavarestapiproject.table.crew.entity.Crew;
 import com.mentaljava.mentaljavarestapiproject.table.crew.repository.CrewRepository;
 import com.mentaljava.mentaljavarestapiproject.table.crewcategory.entity.CrewCategory;
+import com.mentaljava.mentaljavarestapiproject.table.crewcheck.dto.CrewCheckDTO;
+import com.mentaljava.mentaljavarestapiproject.table.crewcheck.entity.CrewCheck;
+import com.mentaljava.mentaljavarestapiproject.table.crewcheck.repository.CrewCheckRepository;
 import com.mentaljava.mentaljavarestapiproject.table.crewlist.dto.CrewListDTO;
 import com.mentaljava.mentaljavarestapiproject.table.crewlist.entity.CrewList;
 import com.mentaljava.mentaljavarestapiproject.table.crewlist.repository.CrewListRepository;
@@ -22,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,6 +37,7 @@ public class CrewService {
     private final CrewRepository crewRepository;
     private final UserRepository userRepository;
     private final CrewListRepository crewListRepository;
+    private final CrewCheckRepository crewCheckRepository;
 
     private final ModelMapper modelMapper;
 
@@ -437,6 +442,27 @@ public class CrewService {
             CrewList crewList = modelMapper.map(crewListDTO, CrewList.class);
 
             crewListRepository.save(crewList);
+
+            LocalDate startDate = getCrewInfo.getStartDate();
+            LocalDate endDate = getCrewInfo.getEndDate();
+            log.info("startdate =========================== {}" , startDate);
+            log.info("endDate =========================== {}" , endDate);
+
+            long difference = ChronoUnit.DAYS.between(startDate, endDate) + 1;
+            log.info("difference =========================== {}" , difference);
+
+            for(long i = 0; i < difference; i++){
+                log.info("test code i ========================= {}" , i);
+                CrewCheckDTO crewCheckDTO = new CrewCheckDTO();
+                crewCheckDTO.setCrew(getCrewInfo);
+                crewCheckDTO.setUser(getCrewInfo.getCaptain());
+                crewCheckDTO.setIsCheck("N");
+                crewCheckDTO.setToday(startDate.plusDays(i));
+
+                CrewCheck crewCheck = modelMapper.map(crewCheckDTO, CrewCheck.class);
+
+                crewCheckRepository.save(crewCheck);
+            }
 
             result = 1;
 
