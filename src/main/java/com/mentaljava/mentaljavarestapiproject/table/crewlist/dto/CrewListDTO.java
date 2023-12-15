@@ -29,4 +29,6 @@ public class CrewListDTO {
 
     private String scoreStatus;
 
+    private Integer checkCount;
+
 }

@@ -438,6 +438,7 @@ public class CrewService {
             crewListDTO.setApprovalStatus(1);
             crewListDTO.setEndDate(getCrewInfo.getEndDate());
             crewListDTO.setScoreStatus("no");
+            crewListDTO.setCheckCount(0);
             crewListDTO.setId(new CrewListIdDTO(getCrewInfo.getCaptain().getUserId(),getCrewInfo.getCrewId()));
             CrewList crewList = modelMapper.map(crewListDTO, CrewList.class);
 

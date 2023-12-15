@@ -79,6 +79,7 @@ public class CrewListService {
             crewList.setApprovalStatus(1);
             crewList.setIsCaptain("CREWON");
             crewList.setEndDate(crew.getEndDate());
+            crewList.setCheckCount(0);
 
             LocalDate startDate = crew.getStartDate();
             LocalDate endDate = crew.getEndDate();
@@ -222,7 +223,7 @@ public class CrewListService {
 
     public int selectTotalCrewUser(Integer crewId) {
         Crew crew = crewRepository.findByCrewId(crewId);
-        List<CrewList> crewLists = crewListRepository.findByCrew(crew);
+        List<CrewList> crewLists = crewListRepository.findByCrewAndApprovalStatusNot(crew, 0);
 
         return crewLists.size();
     }
@@ -230,10 +231,10 @@ public class CrewListService {
     public List<CrewListDTO> selectCrewUsertWithPaging(Integer crewId, Criteria cri) {
         int index = cri.getPageNum() - 1;
         int count = cri.getAmount();
-        Pageable paging = PageRequest.of(index, count, Sort.by("user").descending());
+        Pageable paging = PageRequest.of(index, count, Sort.by("isCaptain"));
 
         Crew crew = crewRepository.findByCrewId(crewId);
-        Page<CrewList> result = crewListRepository.findByCrew(crew, paging);
+        Page<CrewList> result = crewListRepository.findByCrewAndApprovalStatusNot(crew, 0, paging);
 
         List<CrewListDTO> crewListDTOS = result.stream()
                 .map(crewList -> modelMapper.map(crewList, CrewListDTO.class))
