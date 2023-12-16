@@ -54,6 +54,8 @@ public class UserCalendarService {
                 userCalendar.setDeleteStatus(usercalendarDTO.getDeleteStatus());
                 userCalendar.setTime(usercalendarDTO.getTime());
                 userCalendar.setColor(usercalendarDTO.getColor());
+                userCalendar.setBorderColor(usercalendarDTO.getBorderColor());
+                userCalendar.setTextColor(usercalendarDTO.getTextColor());
 
                 updatedUserCalendars.add(userCalendarRepository.save(userCalendar));
             }

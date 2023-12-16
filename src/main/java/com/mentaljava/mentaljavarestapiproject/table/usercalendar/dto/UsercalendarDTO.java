@@ -33,4 +33,8 @@ public class UsercalendarDTO {
     private Time time;
 
     private String color;
+
+    private String borderColor;
+
+    private String textColor;
 }

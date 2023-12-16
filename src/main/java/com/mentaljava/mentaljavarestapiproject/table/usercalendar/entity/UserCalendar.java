@@ -42,9 +42,14 @@ public class UserCalendar {
     @Column(name = "TIME")
     private Time time;
 
-
     @Column(name = "COLOR")
     private String color;
+
+    @Column(name = "BORDER_COLOR")
+    private String borderColor;
+
+    @Column(name = "TEXT_COLOR")
+    private String textColor;
 
     public UserCalendar() {}
 
@@ -81,4 +86,8 @@ public class UserCalendar {
     }
 
     public void setColor(String color) { this.color = color; }
+
+    public void setBorderColor(String borderColor) { this.borderColor = borderColor; }
+
+    public void setTextColor(String textColor) { this.textColor = textColor; }
 }
