@@ -29,17 +29,6 @@ public class CertificationPostService {
 
     private final ModelMapper modelMapper;
 
-    public List<CertificationPostDTO> findOnePost(Integer crewId) {
-        Crew crew = crewRepository.findByCrewId(crewId);
-
-        Integer crewId2 = crew.getCrewId();
-        log.info("[CertificationPost] crew ===========> " + crew);
-        List<CertificationPost> certificationPostList = certificationPostRepository.findByCrewId_CrewId(crewId2);
-        List<CertificationPostDTO> certificationPostDTOList = certificationPostList.stream().map(certificationPost ->
-                modelMapper.map(certificationPost, CertificationPostDTO.class)).collect(Collectors.toList());
-        return certificationPostDTOList;
-    }
-
 
     public String registComment(Integer crewId, CertificationPostDTO certificationPostDTO) {
         int result = 0;
@@ -92,4 +81,9 @@ public class CertificationPostService {
     }
 
 
+    public CertificationPostDTO findOne(Integer postId) {
+        CertificationPost certificationPost = certificationPostRepository.findByPostId(postId);
+        CertificationPostDTO certificationPostDTO = modelMapper.map(certificationPost, CertificationPostDTO.class);
+        return certificationPostDTO;
+    }
 }

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/api/v1/certificationPost")
+@RequestMapping("/api/v1/certificationcomment")
 @Slf4j
 @RequiredArgsConstructor
 public class CertificationCommentController {

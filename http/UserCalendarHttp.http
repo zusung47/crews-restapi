@@ -32,7 +32,10 @@ Content-Type: application/json
   "title": "레스트 성공?",
   "calendarContent": " 응 성공",
   "deleteStatus": 0,
-  "time": "13:30:00"
+  "time": "13:30:00",
+  "color": "#000000",
+  "borderColor": "#000000",
+  "textColor": "#DEDEDE"
 }
 
 ### 유저 캘린더 추가
@@ -45,7 +48,10 @@ Content-Type: application/json
   "title": "날짜 테스트",
   "calendarContent": "날짜 테스트",
   "deleteStatus": "0",
-  "time": "13:30:00"
+  "time": "13:30:00",
+  "color": "#000000",
+  "borderColor": "#000000",
+  "textColor": "#DEDEDE"
 }
 
 ### 유저 캘린더 삭제

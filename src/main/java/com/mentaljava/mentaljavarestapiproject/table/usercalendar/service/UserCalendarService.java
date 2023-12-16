@@ -41,22 +41,22 @@ public class UserCalendarService {
                 .collect(Collectors.toList());
     }
     public List<UsercalendarDTO> updateUserCalendarByUserId(User userId, Integer userCalendarId, UsercalendarDTO usercalendarDTO) {
-        // userId를 사용하여 유저 캘린더를 조회합니다.
         List<UserCalendar> userCalendars = userCalendarRepository.findForUpdateByUserId(userId);
 
-        // 조회된 유저 캘린더들을 각각 업데이트합니다.
         List<UserCalendar> updatedUserCalendars = new ArrayList<>();
         for (UserCalendar userCalendar : userCalendars) {
             if (userCalendar.getUserCalendarId().equals(userCalendarId)) {
-                // 해당하는 userCalendarId를 가진 이벤트에 대해서만 값을 업데이트합니다.
+
                 userCalendar.setStartDate(usercalendarDTO.getStartDate());
                 userCalendar.setEndDate(usercalendarDTO.getEndDate());
                 userCalendar.setTitle(usercalendarDTO.getTitle());
                 userCalendar.setCalendarContent(usercalendarDTO.getCalendarContent());
                 userCalendar.setDeleteStatus(usercalendarDTO.getDeleteStatus());
                 userCalendar.setTime(usercalendarDTO.getTime());
+                userCalendar.setColor(usercalendarDTO.getColor());
+                userCalendar.setBorderColor(usercalendarDTO.getBorderColor());
+                userCalendar.setTextColor(usercalendarDTO.getTextColor());
 
-                // 업데이트된 유저 캘린더를 저장하고 리스트에 추가합니다.
                 updatedUserCalendars.add(userCalendarRepository.save(userCalendar));
             }
         }
