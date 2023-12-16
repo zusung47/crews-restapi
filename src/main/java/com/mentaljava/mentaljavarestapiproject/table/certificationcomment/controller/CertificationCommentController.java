@@ -1,5 +1,8 @@
 package com.mentaljava.mentaljavarestapiproject.table.certificationcomment.controller;
 
+import com.mentaljava.mentaljavarestapiproject.common.Criteria;
+import com.mentaljava.mentaljavarestapiproject.common.PagingDTO;
+import com.mentaljava.mentaljavarestapiproject.common.PagingResponseDTO;
 import com.mentaljava.mentaljavarestapiproject.common.ResponseDTO;
 import com.mentaljava.mentaljavarestapiproject.table.certificationcomment.dto.CertificationCommentDTO;
 import com.mentaljava.mentaljavarestapiproject.table.certificationcomment.entity.CertificationComment;
@@ -27,10 +30,20 @@ public class CertificationCommentController {
     private final CertificationCommentService certificationCommentService;
 
     @GetMapping("/{postId}/list/detail")
-    public ResponseEntity<ResponseDTO> postDetail(@PathVariable Integer postId) {
-        List<CertificationCommentDTO> certificationCommentDTOList = certificationCommentService.findCommentList(postId);
+    public ResponseEntity<ResponseDTO> postDetail(
+            @PathVariable Integer postId,
+            @RequestParam(value = "offset", defaultValue = "1") String offset
+        ) {
+        int total = certificationCommentService.selectTotalComment(postId);
+
+        Criteria cri = new Criteria(Integer.valueOf(offset),10);
+        PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
+
+        pagingResponseDTO.setData(certificationCommentService.selectComment(postId,cri));
+        pagingResponseDTO.setPageInfo(new PagingDTO(cri, total));
+
         return ResponseEntity.ok().body(
-                new ResponseDTO(HttpStatus.OK, "댓글 게시판 조회", certificationCommentDTOList));
+                new ResponseDTO(HttpStatus.OK, "댓글 게시판 조회", pagingResponseDTO));
     }
 
     @PutMapping("/{postId}/list/detail")

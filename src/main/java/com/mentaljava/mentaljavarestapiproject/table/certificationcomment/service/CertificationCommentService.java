@@ -1,5 +1,6 @@
 package com.mentaljava.mentaljavarestapiproject.table.certificationcomment.service;
 
+import com.mentaljava.mentaljavarestapiproject.common.Criteria;
 import com.mentaljava.mentaljavarestapiproject.table.certificationcomment.dto.CertificationCommentDTO;
 import com.mentaljava.mentaljavarestapiproject.table.certificationcomment.entity.CertificationComment;
 import com.mentaljava.mentaljavarestapiproject.table.certificationcomment.repository.CertificationCommentRepository;
@@ -17,6 +18,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.asm.Advice.Local;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,5 +70,33 @@ public class CertificationCommentService {
         }
 
         return (result > 0) ? "댓글 등록 성공" : "댓글 등록 실패";
+    }
+
+    public int selectTotalComment(Integer postId) {
+
+        CertificationPost certificationPost = certificationPostRepository.findByPostId(postId);
+
+        List<CertificationComment> certificationCommentList = certificationCommentRepository.findByPostId(certificationPost);
+
+        return certificationCommentList.size();
+
+    }
+
+    public List<CertificationCommentDTO> selectComment(Integer postId, Criteria cri) {
+        int index = cri.getPageNum() - 1;
+        int count = cri.getAmount();
+
+        Pageable paging = PageRequest.of(index, count, Sort.by("commentId"));
+
+        CertificationPost certificationPost = certificationPostRepository.findByPostId(postId);
+
+        Page<CertificationComment> result = certificationCommentRepository.findByPostId(certificationPost,paging);
+
+        List<CertificationCommentDTO> certificationCommentDTOList = result.stream()
+                .map(certificationComment -> modelMapper.map(certificationComment, CertificationCommentDTO.class))
+                .collect(Collectors.toList());
+
+        return certificationCommentDTOList;
+
     }
 }
