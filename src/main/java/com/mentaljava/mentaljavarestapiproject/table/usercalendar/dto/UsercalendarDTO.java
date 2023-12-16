@@ -31,4 +31,6 @@ public class UsercalendarDTO {
     private UserDTO userId;
 
     private Time time;
+
+    private String color;
 }

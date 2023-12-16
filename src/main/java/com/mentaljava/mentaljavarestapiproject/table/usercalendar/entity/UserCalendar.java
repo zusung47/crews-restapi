@@ -42,6 +42,10 @@ public class UserCalendar {
     @Column(name = "TIME")
     private Time time;
 
+
+    @Column(name = "COLOR")
+    private String color;
+
     public UserCalendar() {}
 
     public void setUserCalendarId(Integer userCalendarId) {
@@ -75,4 +79,6 @@ public class UserCalendar {
     public void setTime(Time time) {
         this.time = time;
     }
+
+    public void setColor(String color) { this.color = color; }
 }
