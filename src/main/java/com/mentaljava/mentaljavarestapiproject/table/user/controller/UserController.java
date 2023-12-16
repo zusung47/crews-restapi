@@ -1,5 +1,8 @@
 package com.mentaljava.mentaljavarestapiproject.table.user.controller;
 
+import com.mentaljava.mentaljavarestapiproject.common.Criteria;
+import com.mentaljava.mentaljavarestapiproject.common.PagingDTO;
+import com.mentaljava.mentaljavarestapiproject.common.PagingResponseDTO;
 import com.mentaljava.mentaljavarestapiproject.common.ResponseDTO;
 import com.mentaljava.mentaljavarestapiproject.table.user.dto.DiamondChangeDTO;
 import com.mentaljava.mentaljavarestapiproject.table.user.dto.UserDTO;
@@ -66,6 +69,22 @@ public class UserController {
         return ResponseEntity.ok().body(
                 new ResponseDTO(HttpStatus.OK,"다이아몬드 평가 성공", userService.diamondSubmit(diamondChangeDTO)));
 
+    }
+
+    @GetMapping("/userlist")
+    public ResponseEntity<ResponseDTO> selectUserListWithPagingTen(
+            @RequestParam(value = "offset", defaultValue = "1") String offset) {
+
+        int total = userService.seletTotalUser();
+
+        Criteria cri = new Criteria(Integer.valueOf(offset), 10);
+
+        PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
+
+        pagingResponseDTO.setData(userService.selectUserListWithPaging(cri));
+        pagingResponseDTO.setPageInfo(new PagingDTO(cri, total));
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "전체 유저 리스트 조회 성공", pagingResponseDTO));
     }
 
 

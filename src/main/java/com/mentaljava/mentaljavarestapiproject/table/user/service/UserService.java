@@ -1,5 +1,8 @@
 package com.mentaljava.mentaljavarestapiproject.table.user.service;
 
+import com.mentaljava.mentaljavarestapiproject.common.Criteria;
+import com.mentaljava.mentaljavarestapiproject.table.crew.dto.CrewDTO;
+import com.mentaljava.mentaljavarestapiproject.table.crew.entity.Crew;
 import com.mentaljava.mentaljavarestapiproject.table.crewlist.entity.CrewList;
 import com.mentaljava.mentaljavarestapiproject.table.crewlist.repository.CrewListRepository;
 import com.mentaljava.mentaljavarestapiproject.table.user.dto.DiamondChangeDTO;
@@ -9,6 +12,10 @@ import com.mentaljava.mentaljavarestapiproject.table.user.repository.UserReposit
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +38,28 @@ public class UserService {
         List<User> userList = userRepository.findAll();
         List<UserDTO> userDTOList = userList.stream().map(user -> modelMapper.map(user, UserDTO.class)).collect(Collectors.toList());
         return userDTOList;
+    }
+
+    public int seletTotalUser() {
+
+        List<User> userList = userRepository.findAll();
+
+        return userList.size();
+    }
+
+    public List<UserDTO> selectUserListWithPaging(Criteria cri) {
+
+        int index = cri.getPageNum() - 1;
+        int count = cri.getAmount();
+        Pageable paging = PageRequest.of(index, count, Sort.by("userId").descending());
+
+        Page<User> result = userRepository.findAll(paging);
+        List<UserDTO> userDTOList = result.stream()
+                .map(user -> modelMapper.map(user, UserDTO.class))
+                .collect(Collectors.toList());
+
+        return userDTOList;
+
     }
 
     @Transactional
