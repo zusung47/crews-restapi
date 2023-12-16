@@ -5,8 +5,10 @@ GET http://localhost:8080/api/v1/certificationpost/58/list
 ### 크루별 인증게시판 리스트 조회 페이징처리
 GET http://localhost:8080/api/v1/certificationpost/2/post
 
-### 크루의 인증게시판 글의 상세조회 + 댓글
-GET http://localhost:8080/api/v1/certificationpost/1/list/detail
+### 포스트 상세조회
+GET http://localhost:8080/api/v1/certificationpost/2/list/details
+
+
 
 ### 인증게시판 글 생성
 PUT http://localhost:8080/api/v1/certificationpost/2/regist
