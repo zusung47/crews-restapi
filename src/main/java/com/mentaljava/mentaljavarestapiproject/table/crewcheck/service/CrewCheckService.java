@@ -6,6 +6,8 @@ import com.mentaljava.mentaljavarestapiproject.table.crewcheck.entity.CrewCheck;
 import com.mentaljava.mentaljavarestapiproject.table.crew.entity.Crew;
 import com.mentaljava.mentaljavarestapiproject.table.crew.repository.CrewRepository;
 import com.mentaljava.mentaljavarestapiproject.table.crewcheck.repository.CrewCheckRepository;
+import com.mentaljava.mentaljavarestapiproject.table.crewlist.entity.CrewList;
+import com.mentaljava.mentaljavarestapiproject.table.crewlist.repository.CrewListRepository;
 import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
 import com.mentaljava.mentaljavarestapiproject.table.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +31,7 @@ public class CrewCheckService {
     private final CrewCheckRepository crewCheckRepository;
     private final CrewRepository crewRepository;
     private final UserRepository userRepository;
+    private final CrewListRepository crewListRepository;
 
     private final ModelMapper modelMapper;
 
@@ -55,5 +59,30 @@ public class CrewCheckService {
                 .map(crewCheck -> modelMapper.map(crewCheck, CrewCheckDTO.class)).collect(Collectors.toList());
 
         return crewCheckDTOS;
+    }
+
+    @Transactional
+    public String updateCrewCheck(CrewCheckDTO crewCheckDTO) {
+
+        int result = 0;
+
+        try{
+            Crew crew = crewRepository.findByCrewId(crewCheckDTO.getCrew().getCrewId());
+            User user = userRepository.findByUserId(crewCheckDTO.getUser().getUserId());
+
+            CrewCheck crewCheck = crewCheckRepository.findByCrewAndUserAndToday(crew, user, crewCheckDTO.getToday());
+
+            crewCheck.setIsCheck("Y");
+
+            CrewList crewList = crewListRepository.findByCrewAndUser(crew, user);
+
+            crewList.setCheckCount(crewList.getCheckCount()+1);
+
+            result = 1;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return (result > 0) ? "정보 업데이트 성공" : "정보 업데이트 실패";
     }
 }

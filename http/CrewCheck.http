@@ -1,2 +1,16 @@
-###test
+###크루소속원별 조회
 GET http://localhost:8080/api/v1/crewcheck/list/80/test1
+
+###체크박스정보변경
+PUT http://localhost:8080/api/v1/crewcheck/list/update
+Content-Type: application/json
+
+{
+  "crew": {
+    "crewId": 80
+  },
+  "user": {
+    "userId": "jus789@naver.com"
+  },
+  "today": "2023-12-17"
+}
