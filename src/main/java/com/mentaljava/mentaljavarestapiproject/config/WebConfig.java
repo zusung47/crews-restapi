@@ -29,7 +29,7 @@ public class WebConfig {
         Function<HttpClient, HttpClient> mapper = client -> {
 
             return HttpClient.create()
-                    .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 1000)
+                    .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 100000)
                     .doOnConnected(connection -> {
                         connection.addHandlerLast(new ReadTimeoutHandler(10))
                                 .addHandlerLast(new WriteTimeoutHandler(10));

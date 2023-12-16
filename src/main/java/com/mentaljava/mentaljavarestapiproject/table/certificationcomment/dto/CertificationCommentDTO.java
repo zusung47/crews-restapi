@@ -26,4 +26,6 @@ public class CertificationCommentDTO {
     private LocalDate writeDate;
 
     private Integer deleteStatus;
+
+    private String commentImageUrl;
 }

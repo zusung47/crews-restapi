@@ -38,6 +38,9 @@ public class CertificationComment {
     @Column(name = "DELETE_STATUS")
     private Integer deleteStatus;
 
+    @Column(name = "COMMENT_IMAGE_URL")
+    private String commentImageUrl;
+
     public CertificationComment() {}
 
     public void setCommentId(Integer commentId) {
