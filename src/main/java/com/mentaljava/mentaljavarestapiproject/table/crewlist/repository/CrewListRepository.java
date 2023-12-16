@@ -34,9 +34,11 @@ public interface CrewListRepository extends JpaRepository<CrewList, CrewListId> 
 
     List<CrewList> findByCrew(Crew crew);
 
-    List<CrewList> findByCrewAndApprovalStatusNot(Crew crew, Integer approvalStatus);
-
     Page<CrewList> findByCrew(Crew crew, Pageable paging);
 
-    Page<CrewList> findByCrewAndApprovalStatusNot(Crew crew, Integer approvalStatus, Pageable paging);
+    Page<CrewList> findByCrewAndApprovalStatus(Crew crew, Integer approvalStatus, Pageable paging);
+
+    CrewList findByCrewAndUser(Crew crew, User user);
+
+    List<CrewList> findByCrewAndApprovalStatus(Crew crew, int i);
 }

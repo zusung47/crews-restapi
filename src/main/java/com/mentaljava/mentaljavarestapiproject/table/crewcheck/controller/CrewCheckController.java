@@ -4,6 +4,7 @@ import com.mentaljava.mentaljavarestapiproject.common.Criteria;
 import com.mentaljava.mentaljavarestapiproject.common.PagingDTO;
 import com.mentaljava.mentaljavarestapiproject.common.PagingResponseDTO;
 import com.mentaljava.mentaljavarestapiproject.common.ResponseDTO;
+import com.mentaljava.mentaljavarestapiproject.table.crewcheck.dto.CrewCheckDTO;
 import com.mentaljava.mentaljavarestapiproject.table.crewcheck.service.CrewCheckService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -40,4 +41,11 @@ public class CrewCheckController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "크루소속원별활동조회성공", pagingResponseDTO));
     }
 
+    @PutMapping("/list/update")
+    public ResponseEntity<ResponseDTO> updateCrewCheck(@RequestBody CrewCheckDTO crewCheckDTO) {
+
+        log.info("[CrewCheckController] updateCrewCheck crewCheckDTO ==========> " + crewCheckDTO);
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "크루체크수정성공", crewCheckService.updateCrewCheck(crewCheckDTO)));
+    }
 }

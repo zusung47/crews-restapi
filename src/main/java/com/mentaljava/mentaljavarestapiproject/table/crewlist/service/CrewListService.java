@@ -223,7 +223,7 @@ public class CrewListService {
 
     public int selectTotalCrewUser(Integer crewId) {
         Crew crew = crewRepository.findByCrewId(crewId);
-        List<CrewList> crewLists = crewListRepository.findByCrewAndApprovalStatusNot(crew, 0);
+        List<CrewList> crewLists = crewListRepository.findByCrewAndApprovalStatus(crew, 1);
 
         return crewLists.size();
     }
@@ -234,7 +234,7 @@ public class CrewListService {
         Pageable paging = PageRequest.of(index, count, Sort.by("isCaptain"));
 
         Crew crew = crewRepository.findByCrewId(crewId);
-        Page<CrewList> result = crewListRepository.findByCrewAndApprovalStatusNot(crew, 0, paging);
+        Page<CrewList> result = crewListRepository.findByCrewAndApprovalStatus(crew, 1, paging);
 
         List<CrewListDTO> crewListDTOS = result.stream()
                 .map(crewList -> modelMapper.map(crewList, CrewListDTO.class))
