@@ -59,4 +59,13 @@ public class CertificationPostController {
 
     }
 
+    @GetMapping("/{postId}/list/details")
+    public ResponseEntity<ResponseDTO> certificationPostDetail(
+            @PathVariable Integer postId) {
+
+        return ResponseEntity.ok().body(
+                new ResponseDTO(HttpStatus.OK, "post상세", certificationPostService.findOne(postId)));
+    }
+
+
 }
