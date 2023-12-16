@@ -12,6 +12,8 @@ GET http://localhost:8080/api/v1/certificationpost/2/list/details
 ### 포스트 상세조회
 GET http://localhost:8080/api/v1/certificationcomment/2/list/detail
 
+
+
 ### 인증게시판 글 생성
 PUT http://localhost:8080/api/v1/certificationpost/2/regist
 content-type: application/json
@@ -23,7 +25,7 @@ content-type: application/json
 
 
 ### 인증 게시판에 댓글 등록
-PUT http://localhost:8080/api/v1/certificationpost/1/list/detail
+PUT http://localhost:8080/api/v1/certificationcomment/2/list/comment
 content-type: application/json
 
 {

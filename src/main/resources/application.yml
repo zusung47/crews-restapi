@@ -38,3 +38,11 @@ kakao:
   client_id: 3506fa179cbeaf488ef2be30f802135d
   redirect_uri: http://localhost:8080/oauth
 
+image:
+  ## WebConfig\uC5D0 \uC138\uD305
+  add-resource-locations: classpath:/static/commentImage/
+  add-resource-handler: /commentImage/**
+
+  image-dir: src/main/resources/static/commentImage
+  image-url: http://localhost:8080/commentImage/
+

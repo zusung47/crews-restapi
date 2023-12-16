@@ -10,20 +10,22 @@ import com.mentaljava.mentaljavarestapiproject.table.certificationpost.repositor
 import com.mentaljava.mentaljavarestapiproject.table.user.dto.UserDTO;
 import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
 import com.mentaljava.mentaljavarestapiproject.table.user.repository.UserRepository;
+import com.mentaljava.mentaljavarestapiproject.util.FileUploadUtils;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.bytebuddy.asm.Advice.Local;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
@@ -34,6 +36,12 @@ public class CertificationCommentService {
     private final CertificationPostRepository certificationPostRepository;
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+
+    @Value("${image.image-dir}")
+    private String IMAGE_DIR;
+
+    @Value("${image.image-url}")
+    private String IMAGE_URL;
 
     public List<CertificationCommentDTO> findCommentList(Integer postId) {
         CertificationPost certificationPost = certificationPostRepository.findByPostId(postId);
@@ -49,21 +57,23 @@ public class CertificationCommentService {
     }
 
     @Transactional
-    public String addComment(Integer postId, CertificationCommentDTO certificationCommentDTO) {
+    public String addComment(CertificationCommentDTO certificationCommentDTO,
+                             MultipartFile commentImage) {
         int result = 0;
+        String imageName = UUID.randomUUID().toString().replace("-", "");
+        String replaceFileName = null;
         try {
-            CertificationPost certificationPost = certificationPostRepository.findByPostId(postId);
-            CertificationPostDTO certificationPostDTO = modelMapper.map(certificationPost, CertificationPostDTO.class);
-            User user = userRepository.findByUserId("seyoung2");
-            UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+            replaceFileName = FileUploadUtils.saveFile(IMAGE_DIR, imageName, commentImage);
 
-            certificationCommentDTO.setPostId(certificationPostDTO);
-            certificationCommentDTO.setUserId(userDTO);
-            certificationCommentDTO.setWriteDate(LocalDate.now());
+
+            certificationCommentDTO.setCommentImageUrl(replaceFileName);
             certificationCommentDTO.setDeleteStatus(0);
-            CertificationComment certificationComment = modelMapper.map(certificationCommentDTO,
-                    CertificationComment.class);
+            certificationCommentDTO.setWriteDate(LocalDate.now());
+
+            CertificationComment certificationComment = modelMapper.map(certificationCommentDTO, CertificationComment.class);
+
             certificationCommentRepository.save(certificationComment);
+
             result = 1;
         } catch (Exception e) {
             throw new RuntimeException(e);
