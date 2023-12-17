@@ -33,7 +33,7 @@ public class CertificationCommentController {
         ) {
         int total = certificationCommentService.selectTotalComment(postId);
 
-        Criteria cri = new Criteria(Integer.valueOf(offset),3);
+        Criteria cri = new Criteria(Integer.valueOf(offset),5);
         PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
 
         pagingResponseDTO.setData(certificationCommentService.selectComment(postId,cri));
@@ -43,14 +43,6 @@ public class CertificationCommentController {
                 new ResponseDTO(HttpStatus.OK, "댓글 게시판 조회", pagingResponseDTO));
     }
 
-//    @PostMapping("/regist/comment")
-//    public ResponseEntity<ResponseDTO> registComment(@ModelAttribute CertificationCommentDTO certificationCommentDTO,
-//                                                     MultipartFile commentImage) {
-//        log.info("[registComment] DTO ===========> " + certificationCommentDTO);
-//        return ResponseEntity.ok().body(
-//                new ResponseDTO(HttpStatus.OK, "댓글 등록 성공", certificationCommentService.insertComment(certificationCommentDTO,commentImage)));
-//
-//    }
     @PostMapping("/regist/comment")
     public ResponseEntity<ResponseDTO> registComment(@RequestParam String commentContent,
                                                      @RequestParam String userId,
@@ -73,6 +65,12 @@ public class CertificationCommentController {
         return ResponseEntity.ok().body(
                 new ResponseDTO(HttpStatus.OK, "댓글 등록 성공",
                         certificationCommentService.insertComment(certificationCommentDTO, commentImage)));
+    }
+
+    @DeleteMapping("/commentdelete/{commentId}")
+    public ResponseEntity<ResponseDTO> deleteCertificationComment(@PathVariable Integer commentId){
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "인증댓글 삭제 성공", certificationCommentService.deleteComment(commentId)));
     }
 
 }
