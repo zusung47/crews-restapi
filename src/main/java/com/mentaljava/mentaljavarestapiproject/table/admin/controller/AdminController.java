@@ -86,7 +86,7 @@ public class AdminController {
     }
 
     // 신고대상 크루 조회 페이징처리 10개씩
-    @GetMapping("/crewReportList")
+    @GetMapping("/crewreportlist")
     public ResponseEntity<ResponseDTO> selectCrewReportListWithPagingTen(
             @RequestParam(value = "offset", defaultValue = "1") String offset) {
 
@@ -110,7 +110,7 @@ public class AdminController {
     }
 
     // 신고대상 유저 조회 페이징처리 10개씩
-    @GetMapping("/userReportList")
+    @GetMapping("/userreportlist")
     public ResponseEntity<ResponseDTO> selectUserReportListWithPagingTen(
             @RequestParam(value = "offset", defaultValue = "1") String offset) {
 

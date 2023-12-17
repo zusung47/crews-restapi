@@ -19,6 +19,9 @@ GET http://localhost:8080/api/v1/admin/reportlist/user
 ### 신고대상크루 신고목록 조회
 GET http://localhost:8080/api/v1/admin/reportlist/crew
 
+### 관리자화면 크루 신고목록 조회
+GET http://localhost:8080/api/v1/admin/crewreportlist
+
 ###
 POST http://localhost:8080/admin/login
 Content-Type: application/json
