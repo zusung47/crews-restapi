@@ -25,6 +25,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
@@ -56,17 +58,77 @@ public class CertificationCommentService {
         return certificationCommentDTOList;
     }
 
+//    @Transactional
+//    public String insertComment(CertificationCommentDTO certificationCommentDTO, MultipartFile commentImage) {
+//        log.info("[CertificationCommentService] insertComment start ==================");
+//        log.info("[CertificationCommentService] dto =============== : " + certificationCommentDTO);
+//
+//        String imageName = UUID.randomUUID().toString().replace("-", "");
+//        String replaceFileName = null;
+//
+//        int result = 0;
+//
+//        try {
+//            // Find CertificationPost by postId
+//            CertificationPost certificationPost = certificationPostRepository.findById(certificationCommentDTO.getPostId().getPostId())
+//                    .orElseThrow(() -> new RuntimeException("Post not found: " + certificationCommentDTO.getPostId().getPostId()));
+//
+//            CertificationPostDTO certificationPostDTO = modelMapper.map(certificationPost, CertificationPostDTO.class);
+//
+//            // Find User by userId
+//            User user = userRepository.findById(certificationCommentDTO.getUserId().getUserId())
+//                    .orElseThrow(() -> new RuntimeException("User not found: " + certificationCommentDTO.getUserId().getUserId()));
+//
+//            UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+//
+//            replaceFileName = FileUploadUtils.saveFile(IMAGE_DIR, imageName, commentImage);
+//
+//            certificationCommentDTO.setCommentImageUrl(replaceFileName);
+//            log.info("[CertificationCommentService] insert Image Name : ", replaceFileName);
+//
+//
+//            certificationCommentDTO.setDeleteStatus(0);
+//            certificationCommentDTO.setWriteDate(LocalDate.now());
+//            certificationCommentDTO.setPostId(certificationPostDTO);
+//            certificationCommentDTO.setUserId(userDTO);
+//
+//            CertificationComment certificationComment = modelMapper.map(certificationCommentDTO, CertificationComment.class);
+//
+//            certificationCommentRepository.save(certificationComment);
+//
+//            result = 1;
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        return (result > 0) ? "댓글 등록 성공" : "댓글 등록 실패";
+//    }
+
     @Transactional
-    public String addComment(CertificationCommentDTO certificationCommentDTO,
-                             MultipartFile commentImage) {
-        int result = 0;
+    public String insertComment(CertificationCommentDTO certificationCommentDTO,
+                                MultipartFile commentImage) {
+        log.info("[CertificationCommentService] insertComment start ==================");
+        log.info("[CertificationCommentService] dto =============== : " + certificationCommentDTO);
+
         String imageName = UUID.randomUUID().toString().replace("-", "");
         String replaceFileName = null;
+
+        int result = 0;
+
         try {
+            // Find CertificationPost by postId
+            CertificationPost certificationPost = certificationPostRepository.findById(certificationCommentDTO.getPostId().getPostId())
+                    .orElseThrow(() -> new RuntimeException("Post not found: " + certificationCommentDTO.getPostId().getPostId()));
+
+            // Find User by userId
+            User user = userRepository.findById(certificationCommentDTO.getUserId().getUserId())
+                    .orElseThrow(() -> new RuntimeException("User not found: " + certificationCommentDTO.getUserId().getUserId()));
+
             replaceFileName = FileUploadUtils.saveFile(IMAGE_DIR, imageName, commentImage);
 
-
             certificationCommentDTO.setCommentImageUrl(replaceFileName);
+            log.info("[CertificationCommentService] insert Image Name : ", replaceFileName);
+
             certificationCommentDTO.setDeleteStatus(0);
             certificationCommentDTO.setWriteDate(LocalDate.now());
 

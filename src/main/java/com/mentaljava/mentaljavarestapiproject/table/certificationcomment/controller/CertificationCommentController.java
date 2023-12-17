@@ -5,21 +5,16 @@ import com.mentaljava.mentaljavarestapiproject.common.PagingDTO;
 import com.mentaljava.mentaljavarestapiproject.common.PagingResponseDTO;
 import com.mentaljava.mentaljavarestapiproject.common.ResponseDTO;
 import com.mentaljava.mentaljavarestapiproject.table.certificationcomment.dto.CertificationCommentDTO;
-import com.mentaljava.mentaljavarestapiproject.table.certificationcomment.entity.CertificationComment;
 import com.mentaljava.mentaljavarestapiproject.table.certificationcomment.service.CertificationCommentService;
-import java.util.List;
+
+
+import com.mentaljava.mentaljavarestapiproject.table.certificationpost.dto.CertificationPostDTO;
+import com.mentaljava.mentaljavarestapiproject.table.user.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -48,14 +43,36 @@ public class CertificationCommentController {
                 new ResponseDTO(HttpStatus.OK, "댓글 게시판 조회", pagingResponseDTO));
     }
 
-    @PutMapping("/{postId}/list/comment")
-    public ResponseEntity<ResponseDTO> registComment(@PathVariable Integer postId,
-                                                     @RequestBody CertificationCommentDTO certificationCommentDTO,
-                                                     MultipartFile commentImage) {
-        log.info("[registComment] DTO ===========> " + certificationCommentDTO);
-        return ResponseEntity.ok().body(
-                new ResponseDTO(HttpStatus.OK, "댓글 게시판 조회", certificationCommentService.addComment(certificationCommentDTO,commentImage)));
+//    @PostMapping("/regist/comment")
+//    public ResponseEntity<ResponseDTO> registComment(@ModelAttribute CertificationCommentDTO certificationCommentDTO,
+//                                                     MultipartFile commentImage) {
+//        log.info("[registComment] DTO ===========> " + certificationCommentDTO);
+//        return ResponseEntity.ok().body(
+//                new ResponseDTO(HttpStatus.OK, "댓글 등록 성공", certificationCommentService.insertComment(certificationCommentDTO,commentImage)));
+//
+//    }
+    @PostMapping("/regist/comment")
+    public ResponseEntity<ResponseDTO> registComment(@RequestParam String commentContent,
+                                                     @RequestParam String userId,
+                                                     @RequestParam String postId,
+                                                     @RequestParam("commentImage") MultipartFile commentImage) {
+        CertificationCommentDTO certificationCommentDTO = new CertificationCommentDTO();
 
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUserId(userId);
+        certificationCommentDTO.setUserId(userDTO);
+
+        CertificationPostDTO certificationPostDTO = new CertificationPostDTO();
+        certificationPostDTO.setPostId((int) Long.parseLong(postId));
+        certificationCommentDTO.setPostId(certificationPostDTO);
+
+        certificationCommentDTO.setCommentContent(commentContent);
+
+        log.info("[registComment] DTO ===========> " + certificationCommentDTO);
+
+        return ResponseEntity.ok().body(
+                new ResponseDTO(HttpStatus.OK, "댓글 등록 성공",
+                        certificationCommentService.insertComment(certificationCommentDTO, commentImage)));
     }
 
 }
