@@ -47,15 +47,15 @@ public class CertificationPostController {
                 new ResponseDTO(HttpStatus.OK, "크루의 인증게시판 글 리스트 조회", pagingResponseDTO));
     }
 
-    @PutMapping("/{crewIds}/regist")
-    public ResponseEntity<ResponseDTO> registPost(@PathVariable Integer crewIds,
+    @PostMapping("/{crewId}/regist")
+    public ResponseEntity<ResponseDTO> registPost(@PathVariable Integer crewId,
                                                   @RequestBody CertificationPostDTO certificationPostDTO) {
 
         log.info("[CertificationPost] CertificationDTO ===========> " + certificationPostDTO);
 
         return ResponseEntity.ok().body(
                 new ResponseDTO(HttpStatus.OK, "크루의 인증게시판 글 만들",
-                        certificationPostService.registComment(crewIds, certificationPostDTO)));
+                        certificationPostService.registComment(crewId, certificationPostDTO)));
 
     }
 
@@ -65,6 +65,12 @@ public class CertificationPostController {
 
         return ResponseEntity.ok().body(
                 new ResponseDTO(HttpStatus.OK, "post상세", certificationPostService.findOne(postId)));
+    }
+
+    @DeleteMapping("/postdelete/{postId}")
+    public ResponseEntity<ResponseDTO> deleteCertificationPost(@PathVariable Integer postId){
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "인증게시판 글 삭제 성공", certificationPostService.deletePost(postId)));
     }
 
 
