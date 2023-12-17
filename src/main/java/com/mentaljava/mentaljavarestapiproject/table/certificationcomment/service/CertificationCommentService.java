@@ -58,52 +58,6 @@ public class CertificationCommentService {
         return certificationCommentDTOList;
     }
 
-//    @Transactional
-//    public String insertComment(CertificationCommentDTO certificationCommentDTO, MultipartFile commentImage) {
-//        log.info("[CertificationCommentService] insertComment start ==================");
-//        log.info("[CertificationCommentService] dto =============== : " + certificationCommentDTO);
-//
-//        String imageName = UUID.randomUUID().toString().replace("-", "");
-//        String replaceFileName = null;
-//
-//        int result = 0;
-//
-//        try {
-//            // Find CertificationPost by postId
-//            CertificationPost certificationPost = certificationPostRepository.findById(certificationCommentDTO.getPostId().getPostId())
-//                    .orElseThrow(() -> new RuntimeException("Post not found: " + certificationCommentDTO.getPostId().getPostId()));
-//
-//            CertificationPostDTO certificationPostDTO = modelMapper.map(certificationPost, CertificationPostDTO.class);
-//
-//            // Find User by userId
-//            User user = userRepository.findById(certificationCommentDTO.getUserId().getUserId())
-//                    .orElseThrow(() -> new RuntimeException("User not found: " + certificationCommentDTO.getUserId().getUserId()));
-//
-//            UserDTO userDTO = modelMapper.map(user, UserDTO.class);
-//
-//            replaceFileName = FileUploadUtils.saveFile(IMAGE_DIR, imageName, commentImage);
-//
-//            certificationCommentDTO.setCommentImageUrl(replaceFileName);
-//            log.info("[CertificationCommentService] insert Image Name : ", replaceFileName);
-//
-//
-//            certificationCommentDTO.setDeleteStatus(0);
-//            certificationCommentDTO.setWriteDate(LocalDate.now());
-//            certificationCommentDTO.setPostId(certificationPostDTO);
-//            certificationCommentDTO.setUserId(userDTO);
-//
-//            CertificationComment certificationComment = modelMapper.map(certificationCommentDTO, CertificationComment.class);
-//
-//            certificationCommentRepository.save(certificationComment);
-//
-//            result = 1;
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        return (result > 0) ? "댓글 등록 성공" : "댓글 등록 실패";
-//    }
-
     @Transactional
     public String insertComment(CertificationCommentDTO certificationCommentDTO,
                                 MultipartFile commentImage) {
@@ -175,5 +129,21 @@ public class CertificationCommentService {
 
         return certificationCommentDTOList;
 
+    }
+
+    public String deleteComment(Integer commentId) {
+        int result = 0;
+
+        try {
+            CertificationComment certificationComment = certificationCommentRepository.findByCommentId(commentId);
+            if(certificationComment != null) {
+                certificationCommentRepository.delete(certificationComment);
+
+                result = 1;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return (result > 0) ? "댓글 삭제 성공" : "댓글 삭제 실패";
     }
 }
