@@ -33,7 +33,7 @@ public class CertificationCommentController {
         ) {
         int total = certificationCommentService.selectTotalComment(postId);
 
-        Criteria cri = new Criteria(Integer.valueOf(offset),10);
+        Criteria cri = new Criteria(Integer.valueOf(offset),3);
         PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
 
         pagingResponseDTO.setData(certificationCommentService.selectComment(postId,cri));
