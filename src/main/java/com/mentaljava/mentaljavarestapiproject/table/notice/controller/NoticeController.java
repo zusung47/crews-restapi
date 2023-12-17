@@ -52,12 +52,12 @@ public class NoticeController {
     }
 
     // 공지사항 수정
-    @PutMapping("/list/update")
-    public ResponseEntity<ResponseDTO> updateNotice(@RequestBody NoticeDTO noticeDTO) {
+    @PutMapping("/list/{noticeId}/update")
+    public ResponseEntity<ResponseDTO> updateNotice(@PathVariable("noticeId") Integer noticeId,@RequestBody NoticeDTO noticeDTO) {
         log.info("[NoticeController] updateNotice noticeDTO ===========> " + noticeDTO);
 
         return ResponseEntity.ok().body(
-                new ResponseDTO(HttpStatus.OK, "공지사항 수정 성공", noticeService.updateNotice(noticeDTO)));
+                new ResponseDTO(HttpStatus.OK, "공지사항 수정 성공", noticeService.updateNotice(noticeId,noticeDTO)));
     }
 
     //공지사항 등록

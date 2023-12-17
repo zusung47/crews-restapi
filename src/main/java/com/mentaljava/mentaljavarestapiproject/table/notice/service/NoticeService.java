@@ -83,12 +83,16 @@ public class NoticeService {
     }
 
     @Transactional
-    public String updateNotice(NoticeDTO noticeDTO) {
+    public String updateNotice(Integer noticeId, NoticeDTO noticeDTO) {
 
         int result = 0;
 
         try {
-            Notice notice = noticeRepository.findByNoticeId(noticeDTO.getNoticeId());
+            Notice notice = noticeRepository.findByNoticeId(noticeId);
+
+            if (notice == null) {
+                throw new IllegalArgumentException("해당 공지사항이 존재하지 않습니다. id=" + noticeId);
+            }
 
             notice.setNoticeContent(noticeDTO.getNoticeContent());
             notice.setNoticeTitle(noticeDTO.getNoticeTitle());
