@@ -58,7 +58,7 @@ public class ReportService {
 
     public int seletTotalUserReport() {
 
-        List<Report> userReportList = reportRepository.findAll();
+        List<Report> userReportList = reportRepository.findAllReportsWithoutCrew();
 
         return userReportList.size();
     }
@@ -111,7 +111,7 @@ public class ReportService {
 
         int index = cri.getPageNum() - 1;
         int count = cri.getAmount();
-        Pageable paging = PageRequest.of(index, count, Sort.by("crewId").descending());
+        Pageable paging = PageRequest.of(index, count, Sort.by("reportId").descending());
 
         Page<Report> result = reportRepository.findAllReportsWithoutUser(paging);
         List<ReportDTO> reportDTOList = result.stream()
@@ -126,9 +126,9 @@ public class ReportService {
 
         int index = cri.getPageNum() - 1;
         int count = cri.getAmount();
-        Pageable paging = PageRequest.of(index, count, Sort.by("userId").descending());
+        Pageable paging = PageRequest.of(index, count, Sort.by("reportId").descending());
 
-        Page<Report> result = reportRepository.findAll(paging);
+        Page<Report> result = reportRepository.findAllReportsWithoutCrew(paging);
         List<ReportDTO> reportDTOList = result.stream()
                 .map(report -> modelMapper.map(report, ReportDTO.class))
                 .collect(Collectors.toList());
