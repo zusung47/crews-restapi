@@ -86,4 +86,20 @@ public class CertificationPostService {
         CertificationPostDTO certificationPostDTO = modelMapper.map(certificationPost, CertificationPostDTO.class);
         return certificationPostDTO;
     }
+
+    public String deletePost(Integer postId) {
+        int result = 0;
+
+        try {
+            CertificationPost certificationPost = certificationPostRepository.findByPostId(postId);
+            if (certificationPost != null) {
+                certificationPostRepository.delete(certificationPost);
+
+                result = 1;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return (result > 0) ? "글 삭제 성공" : "글 삭제 실패";
+    }
 }

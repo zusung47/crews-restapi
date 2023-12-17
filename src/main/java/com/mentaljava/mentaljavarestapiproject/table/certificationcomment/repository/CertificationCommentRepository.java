@@ -12,4 +12,6 @@ public interface CertificationCommentRepository extends JpaRepository<Certificat
 
 
     Page<CertificationComment> findByPostId(CertificationPost certificationPost, Pageable paging);
+
+    CertificationComment findByCommentId(Integer commentId);
 }
