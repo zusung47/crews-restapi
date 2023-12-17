@@ -78,17 +78,51 @@ public class AdminController {
                 new ResponseDTO(HttpStatus.OK,"크루 삭제 성공",crewService.deleteCrew(crewId)));
     }
 
-    // 신고대상크루 목록 조회
+    // 신고대상 크루 목록 조회
     @GetMapping("/reportlist/crew")
     public ResponseEntity<ResponseDTO> findReportListWithoutReportCrew(){
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "신고대상크루 목록 조회", reportService.findReportListAboutReportCrew()));
     }
 
-    // 신고대상유저 목록 조회
+    // 신고대상 크루 조회 페이징처리 10개씩
+    @GetMapping("/crewReportList")
+    public ResponseEntity<ResponseDTO> selectCrewReportListWithPagingTen(
+            @RequestParam(value = "offset", defaultValue = "1") String offset) {
+
+        int total = reportService.seletTotalCrewReport();
+
+        Criteria cri = new Criteria(Integer.valueOf(offset), 10);
+
+        PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
+
+        pagingResponseDTO.setData(reportService.selectCrewReportListWithPaging(cri));
+        pagingResponseDTO.setPageInfo(new PagingDTO(cri, total));
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "전체 크루 신고 리스트 조회 성공", pagingResponseDTO));
+    }
+
+    // 신고대상 유저 목록 조회
     @GetMapping("/reportlist/user")
     public ResponseEntity<ResponseDTO> findReportListWithoutReportTarget(){
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "신고대상유저 목록 조회", reportService.findReportListAboutReportUser()));
+    }
+
+    // 신고대상 유저 조회 페이징처리 10개씩
+    @GetMapping("/userReportList")
+    public ResponseEntity<ResponseDTO> selectUserReportListWithPagingTen(
+            @RequestParam(value = "offset", defaultValue = "1") String offset) {
+
+        int total = reportService.seletTotalUserReport();
+
+        Criteria cri = new Criteria(Integer.valueOf(offset), 10);
+
+        PagingResponseDTO pagingResponseDTO = new PagingResponseDTO();
+
+        pagingResponseDTO.setData(reportService.selectUserReportListWithPaging(cri));
+        pagingResponseDTO.setPageInfo(new PagingDTO(cri, total));
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "전체 유저 신고 리스트 조회 성공", pagingResponseDTO));
     }
 }
