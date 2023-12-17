@@ -20,10 +20,10 @@ GET http://localhost:8080/api/v1/admin/reportlist/user
 GET http://localhost:8080/api/v1/admin/reportlist/crew
 
 ###신고크루조회 페이징
-GET http://localhost:8080/api/v1/admin/crewreportList
+GET http://localhost:8080/api/v1/admin/crewreportlist
 
 ###신고유저조회 페이징
-GET http://localhost:8080/api/v1/admin/userreportList
+GET http://localhost:8080/api/v1/admin/userreportlist
 
 ###
 POST http://localhost:8080/admin/login
