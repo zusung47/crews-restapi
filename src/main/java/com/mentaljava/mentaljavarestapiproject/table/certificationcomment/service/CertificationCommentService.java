@@ -168,6 +168,11 @@ public class CertificationCommentService {
                 .map(certificationComment -> modelMapper.map(certificationComment, CertificationCommentDTO.class))
                 .collect(Collectors.toList());
 
+
+        for(int i = 0; i < certificationCommentDTOList.size(); i++){
+            certificationCommentDTOList.get(i).setCommentImageUrl(IMAGE_URL + certificationCommentDTOList.get(i).getCommentImageUrl());
+        }
+
         return certificationCommentDTOList;
 
     }
