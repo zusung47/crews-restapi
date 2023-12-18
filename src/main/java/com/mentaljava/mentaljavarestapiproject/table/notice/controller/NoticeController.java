@@ -59,7 +59,7 @@ public class NoticeController {
         return ResponseEntity.ok().body(
                 new ResponseDTO(HttpStatus.OK, "공지사항 수정 성공", noticeService.updateNotice(noticeId,noticeDTO)));
     }
-
+//수정
     //공지사항 등록
     @PutMapping("/regist")
     public ResponseEntity<ResponseDTO> newNotice(@RequestBody NoticeDTO noticeDTO) {
