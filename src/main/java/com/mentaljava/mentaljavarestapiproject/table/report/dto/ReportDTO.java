@@ -21,7 +21,5 @@ public class ReportDTO {
 
     private Integer reportCategory;
 
-    private Integer reportStatus;
-
     private CrewDTO reportCrew;
 }

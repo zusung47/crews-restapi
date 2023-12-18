@@ -69,8 +69,6 @@ public class ReportService {
 
         int result = 0;
 
-        reportDTO.setReportStatus(0);
-
         try {
             Report report = modelMapper.map(reportDTO, Report.class);
             reportRepository.save(report);
@@ -90,8 +88,6 @@ public class ReportService {
         log.info("[ReportService] insertReportUser START =====================");
 
         int result = 0;
-
-        reportDTO.setReportStatus(0);
 
         try {
             Report report = modelMapper.map(reportDTO, Report.class);
