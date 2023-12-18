@@ -15,4 +15,5 @@ public interface UserCalendarRepository extends JpaRepository<UserCalendar, Inte
 
     List<UserCalendar> findByStartDate(Date startDate);
     List<UserCalendar> findByEndDate(Date endDate);
+
 }
