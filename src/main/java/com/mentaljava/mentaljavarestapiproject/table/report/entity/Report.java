@@ -32,9 +32,6 @@ public class Report {
     @Column(name = "REPORT_CATEGORY")
     private Integer reportCategory;
 
-    @Column(name = "REPORT_STATUS")
-    private Integer reportStatus;
-
     @ManyToOne
     @JoinColumn(name = "REPORT_CREW")
     private Crew reportCrew;
@@ -59,10 +56,6 @@ public class Report {
 
     public void setReportCategory(Integer reportCategory) {
         this.reportCategory = reportCategory;
-    }
-
-    public void setReportStatus(Integer reportStatus) {
-        this.reportStatus = reportStatus;
     }
 
     public void setReportCrew(Crew reportCrew) { this.reportCrew = reportCrew; }
