@@ -30,7 +30,8 @@ public class UserCalendarService {
 
     public List<UsercalendarDTO> findAllUserCalendarList() {
         List<UserCalendar> userCalendarList = userCalendarRepository.findAll();
-        List<UsercalendarDTO> usercalendarDTOList = userCalendarList.stream().map(userCalendar -> modelMapper.map(userCalendar, UsercalendarDTO.class)).collect(Collectors.toList());
+        List<UsercalendarDTO> usercalendarDTOList = userCalendarList.stream()
+                .map(userCalendar -> modelMapper.map(userCalendar, UsercalendarDTO.class)).collect(Collectors.toList());
         return usercalendarDTOList;
     }
 
@@ -40,7 +41,9 @@ public class UserCalendarService {
                 .map(userCalendar -> modelMapper.map(userCalendar, UsercalendarDTO.class))
                 .collect(Collectors.toList());
     }
-    public List<UsercalendarDTO> updateUserCalendarByUserId(User userId, Integer userCalendarId, UsercalendarDTO usercalendarDTO) {
+
+    public List<UsercalendarDTO> updateUserCalendarByUserId(User userId, Integer userCalendarId,
+                                                            UsercalendarDTO usercalendarDTO) {
         List<UserCalendar> userCalendars = userCalendarRepository.findForUpdateByUserId(userId);
 
         List<UserCalendar> updatedUserCalendars = new ArrayList<>();
@@ -68,7 +71,6 @@ public class UserCalendarService {
     }
 
 
-
     public List<UsercalendarDTO> findUserCalendarsByStartDate(Date startDate) {
         List<UserCalendar> userCalendarList = userCalendarRepository.findByStartDate(startDate);
         return userCalendarList.stream()
@@ -82,6 +84,7 @@ public class UserCalendarService {
                 .map(userCalendar -> modelMapper.map(userCalendar, UsercalendarDTO.class))
                 .collect(Collectors.toList());
     }
+
     @Transactional
     public UsercalendarDTO insertUsercalendar(User userId, UsercalendarDTO usercalendarDTO) {
         UserCalendar newUserCalendar = new UserCalendar();
@@ -99,6 +102,7 @@ public class UserCalendarService {
         UserCalendar savedUserCalendar = userCalendarRepository.save(newUserCalendar);
         return modelMapper.map(savedUserCalendar, UsercalendarDTO.class);
     }
+
     public String deleteUserCalendar(User userId, Integer userCalendarId) {
         // userId를 사용하여 유저 캘린더를 조회합니다.
         List<UserCalendar> userCalendars = userCalendarRepository.findForUpdateByUserId(userId);
