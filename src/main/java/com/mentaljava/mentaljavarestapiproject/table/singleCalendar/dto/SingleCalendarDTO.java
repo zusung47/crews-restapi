@@ -25,4 +25,10 @@ public class SingleCalendarDTO {
 
     private String title;
 
+    private Date firstDate;
+
+    private Date lastDate;
+
+    private Integer repeatNum;
+
 }
