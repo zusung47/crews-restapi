@@ -25,4 +25,14 @@ public class SingleCalendarDTO {
 
     private String title;
 
+
+    //첫번째 날짜(for문)
+    private Date firstDate;
+
+    //마지막 날짜(for문)
+    private Date lastDate;
+
+    //반복주트
+    private Integer repeatNum;
+
 }
