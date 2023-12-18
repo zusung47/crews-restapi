@@ -68,6 +68,14 @@ public class UserCalendarController {
             @PathVariable Integer userCalendarId,
             @RequestBody UsercalendarDTO usercalendarDTO) {
 
+        Calendar cal = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        cal.setTime(usercalendarDTO.getEndDate());
+        cal2.setTime(usercalendarDTO.getStartDate());
+        cal.add(Calendar.DATE,1);
+        cal2.add(Calendar.DATE,1);
+        usercalendarDTO.setEndDate(cal.getTime());
+        usercalendarDTO.setStartDate(cal2.getTime());
         List<UsercalendarDTO> updatedUsercalendars = userCalendarService.updateUserCalendarByUserIdWithDrag(userId, userCalendarId, usercalendarDTO);
 
         log.info("[UserController] updateUserCalendarByUserId usercalendarDTO ===========> " + updatedUsercalendars);
