@@ -159,4 +159,40 @@ public class UserService {
 
 
     }
+
+    @Transactional
+    public String updateReportStatusOne(String userId) {
+
+        int result = 0;
+
+        try {
+            User user = userRepository.findByUserId(userId);
+
+            user.setReportStatus("1");
+
+            result = 1;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return (result > 0) ? "유저 제재 성공" : "유저 제재 실패";
+    }
+
+    @Transactional
+    public String updateReportStatusZero(String userId) {
+
+        int result = 0;
+
+        try {
+            User user = userRepository.findByUserId(userId);
+
+            user.setReportStatus("0");
+
+            result = 1;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return (result > 0) ? "유저 반성 성공" : "유저 반성 실패";
+    }
 }

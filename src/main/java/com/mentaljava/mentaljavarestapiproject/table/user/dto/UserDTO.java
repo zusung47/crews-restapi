@@ -24,5 +24,7 @@ public class UserDTO {
     private String permissionType;
 
     private String token;
+
+    private String reportStatus;
 }
 

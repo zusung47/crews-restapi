@@ -32,6 +32,9 @@ public class User {
     @Column(name = "PERMISSION_TYPE")
     private String permissionType;
 
+    @Column(name = "REPORT_STATUS")
+    private String reportStatus;
+
     public User() {}
 
     public void setUserId(String userId) {
@@ -58,13 +61,16 @@ public class User {
         this.permissionType = permissionType;
     }
 
+    public void setReportStatus(String reportStatus) { this.reportStatus = reportStatus; }
+
     @Builder
-    public User(String email,String nickname, LocalDate joinDate, Integer daimondCount,String permissionType) {
+    public User(String email,String nickname, LocalDate joinDate, Integer daimondCount,String permissionType, String reportStatus) {
         this.userId = email;
         this.nickname = nickname;
         this.joinDate = joinDate;
         this.diamondCount = daimondCount;
         this.permissionType = permissionType;
+        this.reportStatus = reportStatus;
     }
 
 

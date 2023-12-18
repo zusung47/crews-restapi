@@ -98,6 +98,7 @@ public class KakaoService {
                     .daimondCount(50)
                     .joinDate(LocalDate.now())
                     .permissionType("0")
+                    .reportStatus("0")
                     .build();
 
             UserDTO userDTO = modelMapper.map(newUser, UserDTO.class);
