@@ -1,12 +1,15 @@
 package com.mentaljava.mentaljavarestapiproject.table.singleCalendar.service;
 
 import com.mentaljava.mentaljavarestapiproject.table.singleCalendar.dto.CalendarRequest;
+import com.mentaljava.mentaljavarestapiproject.table.singleCalendar.dto.RepeatDTO;
 import com.mentaljava.mentaljavarestapiproject.table.singleCalendar.dto.SingleCalendarDTO;
 import com.mentaljava.mentaljavarestapiproject.table.singleCalendar.entitiy.SingleCalendar;
 import com.mentaljava.mentaljavarestapiproject.table.singleCalendar.repository.SingleCalendarRepository;
 import com.mentaljava.mentaljavarestapiproject.table.user.dto.UserDTO;
 import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
 import com.mentaljava.mentaljavarestapiproject.table.user.repository.UserRepository;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +42,37 @@ public class SingleCalendarService {
     }
 
     @Transactional
-    public CalendarRequest insertSingleCalendar(String userId, CalendarRequest calendarRequest) {
-        return null;
+    public List<SingleCalendarDTO> insertSingleCalendar(String userId, CalendarRequest calendarRequest) {
+
+        User user = userRepository.findByUserId(userId);
+        UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+
+        SingleCalendarDTO singleCalendarDTO = calendarRequest.getSingleCalendarDTO();
+        RepeatDTO repeatDTO = calendarRequest.getRepeatDTO();
+
+        List<SingleCalendarDTO> generatedCalendars = generateCalendars(singleCalendarDTO, repeatDTO);
+
+        // 생성된 SingleCalendar 데이터를 저장
+        for (SingleCalendarDTO generatedCalendar : generatedCalendars) {
+            generatedCalendar.setUserId(userDTO);
+            SingleCalendar singleCalendar = modelMapper.map(generatedCalendar, SingleCalendar.class);
+
+            singleCalendarRepository.save(singleCalendar);
+        }
+
+
+
+        return generatedCalendars;
+    }
+
+    private List<SingleCalendarDTO> generateCalendars(SingleCalendarDTO singleCalendarDTO, RepeatDTO repeatDTO) {
+        List<SingleCalendarDTO> generatedCalendars = new ArrayList<>();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(repeatDTO.getStartDate());
+
+
+
+        return generatedCalendars;
     }
 }
