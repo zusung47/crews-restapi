@@ -1,7 +1,5 @@
 package com.mentaljava.mentaljavarestapiproject.table.singleCalendar.service;
 
-import com.mentaljava.mentaljavarestapiproject.table.singleCalendar.dto.CalendarRequest;
-import com.mentaljava.mentaljavarestapiproject.table.singleCalendar.dto.RepeatDTO;
 import com.mentaljava.mentaljavarestapiproject.table.singleCalendar.dto.SingleCalendarDTO;
 import com.mentaljava.mentaljavarestapiproject.table.singleCalendar.entitiy.SingleCalendar;
 import com.mentaljava.mentaljavarestapiproject.table.singleCalendar.repository.SingleCalendarRepository;
@@ -42,24 +40,21 @@ public class SingleCalendarService {
     }
 
     @Transactional
-    public List<SingleCalendarDTO> insertSingleCalendar(String userId, CalendarRequest calendarRequest) {
+    public List<SingleCalendarDTO> insertSingleCalendar(String userId, SingleCalendarDTO singleCalendarDTO) {
 
         User user = userRepository.findByUserId(userId);
         UserDTO userDTO = modelMapper.map(user, UserDTO.class);
 
-        SingleCalendarDTO singleCalendarDTO = calendarRequest.getSingleCalendarDTO();
-        RepeatDTO repeatDTO = calendarRequest.getRepeatDTO();
 
-        List<SingleCalendarDTO> generatedCalendars = generateCalendars(singleCalendarDTO, repeatDTO);
+        List<SingleCalendarDTO> generatedCalendars = generateCalendars(singleCalendarDTO);
 
-        // 생성된 SingleCalendar 데이터를 저장
+         // 생성된 SingleCalendar 데이터를 저장
+        //수정
         for (SingleCalendarDTO generatedCalendar : generatedCalendars) {
 
             SingleCalendar singleCalendar = modelMapper.map(generatedCalendar, SingleCalendar.class);
             singleCalendarRepository.save(singleCalendar);
         }
-
-
 
         return generatedCalendars;
     }
