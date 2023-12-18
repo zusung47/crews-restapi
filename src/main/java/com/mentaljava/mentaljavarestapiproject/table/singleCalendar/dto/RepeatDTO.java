@@ -1,28 +1,22 @@
 package com.mentaljava.mentaljavarestapiproject.table.singleCalendar.dto;
 
-import com.mentaljava.mentaljavarestapiproject.table.user.dto.UserDTO;
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
-public class SingleCalendarDTO {
-
-    private Integer singleCalendarId;
-
-    private UserDTO userId;
+public class RepeatDTO {
 
     private Date startDate;
 
-    private String groupId;
+    private Date endDate;
 
-    private String title;
-
+    private Integer repeatNum;
 }
