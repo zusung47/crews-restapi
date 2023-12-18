@@ -25,4 +25,11 @@ public class SingleCalendarDTO {
 
     private String title;
 
+     private Date firstDate;
+// 시작일
+    private Date lastDate;
+//종료일
+    private Integer repeatNum;
+//    일정이 이벤트에 찍히는 주기
+
 }
