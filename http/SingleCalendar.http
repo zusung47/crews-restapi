@@ -2,11 +2,12 @@
 GET http://localhost:8080/api/v1/singleCalendar/sean1007@naver.com/list
 
 ### 유저 캘린더 추가
-POST http://localhost:8080/api/v1/singleCalendar/regist/sean1007@naver.com
+PUT http://localhost:8080/api/v1/singleCalendar/add/sean1007@naver.com
 Content-Type: application/json
 
 {
-  "startDate": "2023-12-08",
-  "title": "날짜 테스트",
-
+  "title": "날짜 테스트123",
+  "firstDate": "2023-12-01",
+  "lastDate": "2023-12-10",
+  "repeatNum": 3
 }

@@ -41,26 +41,45 @@ public class SingleCalendarService {
 
     @Transactional
     public List<SingleCalendarDTO> insertSingleCalendar(String userId, SingleCalendarDTO singleCalendarDTO) {
-
         User user = userRepository.findByUserId(userId);
+
         UserDTO userDTO = modelMapper.map(user, UserDTO.class);
 
+        List<SingleCalendarDTO> generatedCalendars = generateCalendars(singleCalendarDTO, userDTO);
 
-        List<SingleCalendarDTO> generatedCalendars = generateCalendars(singleCalendarDTO);
-
-         // 생성된 SingleCalendar 데이터를 저장
-        //수정
+        // 생성된 SingleCalendar 데이터를 저장
+        List<SingleCalendarDTO> savedCalendars = new ArrayList<>();
         for (SingleCalendarDTO generatedCalendar : generatedCalendars) {
-
             SingleCalendar singleCalendar = modelMapper.map(generatedCalendar, SingleCalendar.class);
+            singleCalendar.setUserId(user);
             singleCalendarRepository.save(singleCalendar);
+            savedCalendars.add(modelMapper.map(singleCalendar, SingleCalendarDTO.class));
+        }
+
+        return savedCalendars;
+    }
+
+    private List<SingleCalendarDTO> generateCalendars(SingleCalendarDTO singleCalendarDTO, UserDTO userDTO) {
+        List<SingleCalendarDTO> generatedCalendars = new ArrayList<>();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(singleCalendarDTO.getFirstDate());
+
+        for (int i = 0; i < singleCalendarDTO.getRepeatNum(); i++) {
+            SingleCalendarDTO generatedCalendar = new SingleCalendarDTO();
+            generatedCalendar.setStartDate(calendar.getTime());
+            generatedCalendar.setUserId(userDTO);
+            generatedCalendar.setGroupId(singleCalendarDTO.getGroupId());
+            generatedCalendar.setTitle(singleCalendarDTO.getTitle());
+
+            // 기타 필요한 데이터 설정
+
+            generatedCalendars.add(generatedCalendar);
+
+            // 다음 반복일 계산
+            calendar.add(Calendar.DAY_OF_MONTH, singleCalendarDTO.getRepeatNum());
         }
 
         return generatedCalendars;
-    }
-
-    private List<SingleCalendarDTO> generateCalendars(SingleCalendarDTO singleCalendarDTO) {
-
-        return null;
     }
 }

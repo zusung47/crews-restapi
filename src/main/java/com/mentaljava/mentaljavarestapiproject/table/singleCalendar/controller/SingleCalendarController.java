@@ -1,7 +1,6 @@
 package com.mentaljava.mentaljavarestapiproject.table.singleCalendar.controller;
 
 import com.mentaljava.mentaljavarestapiproject.common.ResponseDTO;
-import com.mentaljava.mentaljavarestapiproject.table.singleCalendar.dto.RepeatDTO;
 import com.mentaljava.mentaljavarestapiproject.table.singleCalendar.dto.SingleCalendarDTO;
 import com.mentaljava.mentaljavarestapiproject.table.singleCalendar.service.SingleCalendarService;
 import java.util.Calendar;
