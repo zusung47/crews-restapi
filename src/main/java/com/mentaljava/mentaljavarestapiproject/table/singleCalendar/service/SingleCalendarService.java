@@ -41,6 +41,5 @@ public class SingleCalendarService {
     @Transactional
     public CalendarRequest insertSingleCalendar(String userId, CalendarRequest calendarRequest) {
         return null;
-
     }
 }
