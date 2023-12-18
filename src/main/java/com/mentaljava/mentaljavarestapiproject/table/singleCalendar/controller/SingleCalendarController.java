@@ -1,5 +1,6 @@
 package com.mentaljava.mentaljavarestapiproject.table.singleCalendar.controller;
 
+import com.mentaljava.mentaljavarestapiproject.common.ResponseDTO;
 import com.mentaljava.mentaljavarestapiproject.table.singleCalendar.dto.RepeatDTO;
 import com.mentaljava.mentaljavarestapiproject.table.singleCalendar.dto.SingleCalendarDTO;
 import com.mentaljava.mentaljavarestapiproject.table.singleCalendar.service.SingleCalendarService;
@@ -50,7 +51,7 @@ public class SingleCalendarController {
     @PutMapping("/add/{userId}")
     public ResponseEntity<ResponseDTO> addSingleCalendar(
             @PathVariable String userId,
-            @RequestBody SingleCalendarDTO singleCalendarDTO
+            @RequestBody SingleCalendarDTO singleCalendarDTO
             ){
         return ResponseEntity.ok().body(
                 new ResponseDTO(HttpStatus.OK, "싱글캘린더 일정 등록성공",

@@ -59,7 +59,7 @@ public class SingleCalendarService {
         return generatedCalendars;
     }
 
-    private List<SingleCalendarDTO> generateCalendars(SingleCalendarDTO singleCalendarDTO, RepeatDTO repeatDTO) {
+    private List<SingleCalendarDTO> generateCalendars(SingleCalendarDTO singleCalendarDTO) {
 
         return null;
     }

@@ -25,7 +25,7 @@ public class SingleCalendarDTO {
 
     private String title;
 
-     private Date firstDate;
+     private Date firstDate;
 // 시작일
     private Date lastDate;
 //종료일
