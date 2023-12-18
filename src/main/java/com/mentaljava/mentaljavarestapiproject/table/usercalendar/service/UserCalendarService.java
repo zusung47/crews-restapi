@@ -70,6 +70,39 @@ public class UserCalendarService {
                 .collect(Collectors.toList());
     }
 
+    public List<UsercalendarDTO> updateUserCalendarByUserIdWithDrag(User userId, Integer userCalendarId,
+                                                                    UsercalendarDTO usercalendarDTO) {
+        // 유저 ID에 해당하는 유저 캘린더를 가져옵니다.
+        List<UserCalendar> userCalendars = userCalendarRepository.findByUserId(userId);
+
+        // 업데이트된 유저 캘린더를 저장할 리스트를 생성합니다.
+        List<UserCalendar> updatedUserCalendars = new ArrayList<>();
+
+        for (UserCalendar userCalendar : userCalendars) {
+            // 유저 캘린더 ID가 입력받은 userCalendarId와 일치하는 경우, 유저 캘린더를 업데이트합니다.
+            if (userCalendar.getUserCalendarId().equals(userCalendarId)) {
+
+                userCalendar.setStartDate(usercalendarDTO.getStartDate());
+                userCalendar.setEndDate(usercalendarDTO.getEndDate());
+                userCalendar.setTitle(usercalendarDTO.getTitle());
+                userCalendar.setCalendarContent(usercalendarDTO.getCalendarContent());
+                userCalendar.setDeleteStatus(usercalendarDTO.getDeleteStatus());
+                userCalendar.setTime(usercalendarDTO.getTime());
+                userCalendar.setColor(usercalendarDTO.getColor());
+                userCalendar.setBorderColor(usercalendarDTO.getBorderColor());
+                userCalendar.setTextColor(usercalendarDTO.getTextColor());
+
+                // 업데이트된 유저 캘린더를 저장하고, 업데이트된 유저 캘린더 리스트에 추가합니다.
+                updatedUserCalendars.add(userCalendarRepository.save(userCalendar));
+            }
+        }
+
+        // 업데이트된 유저 캘린더 리스트를 반환합니다.
+        return updatedUserCalendars.stream()
+                .map(userCalendar -> modelMapper.map(userCalendar, UsercalendarDTO.class))
+                .collect(Collectors.toList());
+    }
+
 
     public List<UsercalendarDTO> findUserCalendarsByStartDate(Date startDate) {
         List<UserCalendar> userCalendarList = userCalendarRepository.findByStartDate(startDate);

@@ -42,6 +42,7 @@ public class UserCalendarController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "해당 유저 리스트 조회 성공", userCalendarService.findUserCalendarsByUserId(userId)));
 
     }
+
     @PutMapping("/update/{userId}/{userCalendarId}")
     public ResponseEntity<ResponseDTO> updateUserCalendarByUserId(
             @PathVariable User userId,
@@ -61,6 +62,20 @@ public class UserCalendarController {
                 new ResponseDTO(HttpStatus.OK, "유저 캘린더 수정 성공", updatedUsercalendars));
     }
 
+    @PutMapping("/update/drag/{userId}/{userCalendarId}")
+    public ResponseEntity<ResponseDTO> updateUserCalendarByUserIdWithDrag(
+            @PathVariable User userId,
+            @PathVariable Integer userCalendarId,
+            @RequestBody UsercalendarDTO usercalendarDTO) {
+
+        List<UsercalendarDTO> updatedUsercalendars = userCalendarService.updateUserCalendarByUserIdWithDrag(userId, userCalendarId, usercalendarDTO);
+
+        log.info("[UserController] updateUserCalendarByUserId usercalendarDTO ===========> " + updatedUsercalendars);
+
+        // 응답을 반환합니다.
+        return ResponseEntity.ok().body(
+                new ResponseDTO(HttpStatus.OK, "유저 캘린더 드래그 수정 성공", updatedUsercalendars));
+    }
 
     @GetMapping("list/StartDate/{startDate}")
     public ResponseEntity<ResponseDTO> findUserCalendarsByStartDate(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate) {

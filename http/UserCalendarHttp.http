@@ -22,8 +22,24 @@ GET http://localhost:8080/api/v1/usercalendar/list/StartDate/2023-12-03
 ### 날짜별 캘린더 조회(종료일 기준(날짜가 하루 전으로 출력됨))
 GET http://localhost:8080/api/v1/usercalendar/list/EndDate/2023-12-07
 
-### 유저의 캘린더 수정(일정 등록)
+### 유저의 캘린더 수정
 PUT http://localhost:8080/api/v1/usercalendar/update/zusung1/68
+Content-Type: application/json
+
+{
+  "startDate": "2023-12-03",
+  "endDate": "2023-12-07",
+  "title": "레스트 성공?",
+  "calendarContent": " 응 성공",
+  "deleteStatus": 0,
+  "time": "13:30:00",
+  "color": "#000000",
+  "borderColor": "#000000",
+  "textColor": "#DEDEDE"
+}
+
+### 유저의 캘린더 드래그(날짜 변경 only)
+PUT http://localhost:8080/api/v1/usercalendar/update/drag/zusung1/68
 Content-Type: application/json
 
 {
