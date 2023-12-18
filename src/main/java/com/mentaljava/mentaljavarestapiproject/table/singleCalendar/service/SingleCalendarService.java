@@ -48,6 +48,7 @@ public class SingleCalendarService {
         List<SingleCalendarDTO> generatedCalendars = generateCalendars(singleCalendarDTO);
 
         // 생성된 SingleCalendar 데이터를 저장
+        //수정
         for (SingleCalendarDTO generatedCalendar : generatedCalendars) {
 
             SingleCalendar singleCalendar = modelMapper.map(generatedCalendar, SingleCalendar.class);
