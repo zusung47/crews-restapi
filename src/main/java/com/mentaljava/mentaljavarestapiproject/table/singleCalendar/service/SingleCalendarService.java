@@ -54,9 +54,8 @@ public class SingleCalendarService {
 
         // 생성된 SingleCalendar 데이터를 저장
         for (SingleCalendarDTO generatedCalendar : generatedCalendars) {
-            generatedCalendar.setUserId(userDTO);
-            SingleCalendar singleCalendar = modelMapper.map(generatedCalendar, SingleCalendar.class);
 
+            SingleCalendar singleCalendar = modelMapper.map(generatedCalendar, SingleCalendar.class);
             singleCalendarRepository.save(singleCalendar);
         }
 
@@ -66,13 +65,7 @@ public class SingleCalendarService {
     }
 
     private List<SingleCalendarDTO> generateCalendars(SingleCalendarDTO singleCalendarDTO, RepeatDTO repeatDTO) {
-        List<SingleCalendarDTO> generatedCalendars = new ArrayList<>();
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(repeatDTO.getStartDate());
-
-
-
-        return generatedCalendars;
+        return null;
     }
 }
