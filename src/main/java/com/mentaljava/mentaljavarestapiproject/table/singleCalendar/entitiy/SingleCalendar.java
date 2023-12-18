@@ -39,7 +39,7 @@ public class SingleCalendar {
     private Date startDate;
 
     @Column(name = "GROUP_ID")
-    private Integer groupId;
+    private String groupId;
 
     @Column(name = "TITLE")
     private String title;

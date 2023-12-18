@@ -21,7 +21,7 @@ public class SingleCalendarDTO {
 
     private Date startDate;
 
-    private Integer groupId;
+    private String groupId;
 
     private String title;
 
