@@ -25,23 +25,28 @@ public class UserCalendarController {
 
     private final UserCalendarService userCalendarService;
 
-    public UserCalendarController(UserCalendarService userCalendarService) { this.userCalendarService = userCalendarService; }
+    public UserCalendarController(UserCalendarService userCalendarService) {
+        this.userCalendarService = userCalendarService;
+    }
 
     //전체 유저 캘린더 리스트 조회
     @GetMapping("/list")
-    public ResponseEntity<ResponseDTO> selectUserCalendarList(){
+    public ResponseEntity<ResponseDTO> selectUserCalendarList() {
         List<UsercalendarDTO> usercalendarList = userCalendarService.findAllUserCalendarList();
         System.out.println("usercalendarList = " + usercalendarList);
 
         return ResponseEntity.ok().body(
-                new ResponseDTO(HttpStatus.OK,"전체 유저 캘린더 조회 성공",usercalendarList));
+                new ResponseDTO(HttpStatus.OK, "전체 유저 캘린더 조회 성공", usercalendarList));
     }
-    @GetMapping ("/list/{userId}")
+
+    @GetMapping("/list/{userId}")
     public ResponseEntity<ResponseDTO> getUserCalendarsByUserId(@PathVariable User userId) {
 
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "해당 유저 리스트 조회 성공", userCalendarService.findUserCalendarsByUserId(userId)));
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "해당 유저 리스트 조회 성공",
+                userCalendarService.findUserCalendarsByUserId(userId)));
 
     }
+
     @PutMapping("/update/{userId}/{userCalendarId}")
     public ResponseEntity<ResponseDTO> updateUserCalendarByUserId(
             @PathVariable User userId,
@@ -50,9 +55,10 @@ public class UserCalendarController {
 
         Calendar cal = Calendar.getInstance();
         cal.setTime(usercalendarDTO.getEndDate());
-        cal.add(Calendar.DATE,1);
+        cal.add(Calendar.DATE, 1);
         usercalendarDTO.setEndDate(cal.getTime());
-        List<UsercalendarDTO> updatedUsercalendars = userCalendarService.updateUserCalendarByUserId(userId, userCalendarId, usercalendarDTO);
+        List<UsercalendarDTO> updatedUsercalendars = userCalendarService.updateUserCalendarByUserId(userId,
+                userCalendarId, usercalendarDTO);
 
         log.info("[UserController] updateUserCalendarByUserId usercalendarDTO ===========> " + updatedUsercalendars);
 
@@ -63,26 +69,32 @@ public class UserCalendarController {
 
 
     @GetMapping("list/StartDate/{startDate}")
-    public ResponseEntity<ResponseDTO> findUserCalendarsByStartDate(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate) {
+    public ResponseEntity<ResponseDTO> findUserCalendarsByStartDate(
+            @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate) {
         List<UsercalendarDTO> userCalendars = userCalendarService.findUserCalendarsByStartDate(startDate);
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "유저 캘린더 조회 성공", userCalendars));
     }
+
     @GetMapping("list/EndDate/{endDate}")
-    public ResponseEntity<ResponseDTO> findUserCalendarsByEndDate(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+    public ResponseEntity<ResponseDTO> findUserCalendarsByEndDate(
+            @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
         List<UsercalendarDTO> userCalendars = userCalendarService.findUserCalendarsByEndDate(endDate);
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "유저 캘린더 조회 성공", userCalendars));
     }
+
     @PostMapping("/regist/{userId}")
-    public ResponseEntity<ResponseDTO> newCalendar(@PathVariable User userId, @RequestBody UsercalendarDTO usercalendarDTO) {
+    public ResponseEntity<ResponseDTO> newCalendar(@PathVariable User userId,
+                                                   @RequestBody UsercalendarDTO usercalendarDTO) {
 
         Calendar cal = Calendar.getInstance();
         cal.setTime(usercalendarDTO.getEndDate());
-        cal.add(Calendar.DATE,1);
+        cal.add(Calendar.DATE, 1);
         usercalendarDTO.setEndDate(cal.getTime());
         log.info("[UserController] insertusercalnedar usercalendarDTO ===========> " + usercalendarDTO);
 
         return ResponseEntity.ok().body(
-                new ResponseDTO(HttpStatus.OK, "일정 등록 성공", userCalendarService.insertUsercalendar(userId,usercalendarDTO)));
+                new ResponseDTO(HttpStatus.OK, "일정 등록 성공",
+                        userCalendarService.insertUsercalendar(userId, usercalendarDTO)));
 
     }
 
