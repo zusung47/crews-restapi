@@ -87,6 +87,15 @@ public class UserController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "전체 유저 리스트 조회 성공", pagingResponseDTO));
     }
 
+    @PutMapping("update/reportone/{userId}")
+    public ResponseEntity<ResponseDTO> updateReportStatusOne(@PathVariable String userId){
 
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "유저 제재 성공", userService.updateReportStatusOne(userId)));
+    }
 
+    @PutMapping("update/reportzero/{userId}")
+    public ResponseEntity<ResponseDTO> updateReportStatusZero(@PathVariable String userId){
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "유저 반성 성공", userService.updateReportStatusZero(userId)));
+    }
 }

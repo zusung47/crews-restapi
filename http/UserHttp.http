@@ -38,3 +38,6 @@ Content-Type: application/json
   "userId": "sean1007@naver.com",
   "diamond": 1
 }
+
+###
+GET http://localhost:8080/api/v1/user/userlist
