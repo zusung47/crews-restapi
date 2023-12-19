@@ -9,5 +9,9 @@ Content-Type: application/json
   "title": "날짜 테스트123",
   "firstDate": "2023-12-01",
   "lastDate": "2023-12-10",
+  "groupId": "1234",
   "repeatNum": 3
 }
+
+### 싱글캘린더조회
+DELETE http://localhost:8080/api/v1/singleCalendar/delete/sean1007@naver.com/1

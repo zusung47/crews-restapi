@@ -82,4 +82,15 @@ public class SingleCalendarService {
 
         return generatedCalendars;
     }
+
+    public String deleteSingleCalendar(String userId, String groupId) {
+        User user = userRepository.findByUserId(userId);
+        List<SingleCalendar> singleCalendarList = singleCalendarRepository.findByUserIdAndGroupId(user,groupId);
+
+        for(SingleCalendar deletecalendar : singleCalendarList){
+            singleCalendarRepository.delete(deletecalendar);
+
+        }
+        return "삭제성공";
+    }
 }

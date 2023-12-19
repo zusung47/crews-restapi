@@ -91,6 +91,8 @@ public class SecurityConfig {
                 "https://kauth.kakao.com",
                 "https://kapi.kakao.com",
                 "http://localhost:3000"
+//                "http://mental.coffit.today:3000",
+//                "http://mental.coffit.today:8080"
         ));
 
         // 허용할 HTTP 메서드 목록
