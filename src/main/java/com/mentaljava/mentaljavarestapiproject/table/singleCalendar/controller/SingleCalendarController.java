@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -65,6 +66,18 @@ public class SingleCalendarController {
         return ResponseEntity.ok().body(
                 new ResponseDTO(HttpStatus.OK, "싱글캘린더 일정 삭제 성공", singleCalendarService.deleteSingleCalendar(userId,groupId)));
     }
+
+//    @PutMapping("/update/{userId}/{groupId}")
+//    public ResponseEntity<ResponseDTO> updateSingleCalendar(
+//            @PathVariable String userId,
+//            @PathVariable String groupId,
+//            @RequestBody SingleCalendarDTO singleCalendarDTO){
+//
+//        return ResponseEntity.ok().body(
+//                new ResponseDTO(HttpStatus.OK, "싱글캘린더 일정 수정성공",
+//                        singleCalendarService.upateSingleCalendar(userId,groupId,singleCalendarDTO)));
+//
+//    }
 
 
 
