@@ -9,4 +9,5 @@ public interface SingleCalendarRepository extends JpaRepository<SingleCalendar,I
 
     List<SingleCalendar> findByUserId(User user);
 
+    List<SingleCalendar> findByUserIdAndGroupId(User userId, String groupId);
 }

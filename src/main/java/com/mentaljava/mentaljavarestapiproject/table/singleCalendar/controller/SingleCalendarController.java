@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,6 +56,14 @@ public class SingleCalendarController {
         return ResponseEntity.ok().body(
                 new ResponseDTO(HttpStatus.OK, "싱글캘린더 일정 등록성공",
                         singleCalendarService.insertSingleCalendar(userId,singleCalendarDTO)));
+    }
+
+    @DeleteMapping("/delete/{userId}/{groupId}")
+    public ResponseEntity<ResponseDTO> deleteSingleCalendar(
+            @PathVariable String userId,
+            @PathVariable String groupId){
+        return ResponseEntity.ok().body(
+                new ResponseDTO(HttpStatus.OK, "싱글캘린더 일정 삭제 성공", singleCalendarService.deleteSingleCalendar(userId,groupId)));
     }
 
 
