@@ -64,8 +64,10 @@ public class SingleCalendarService {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(singleCalendarDTO.getFirstDate());
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.setTime(singleCalendarDTO.getLastDate());
 
-        for (int i = 0; i < singleCalendarDTO.getRepeatNum(); i++) {
+        while (calendar.getTime().compareTo(calendar2.getTime()) <= 0) {
             SingleCalendarDTO generatedCalendar = new SingleCalendarDTO();
             generatedCalendar.setStartDate(calendar.getTime());
             generatedCalendar.setUserId(userDTO);
@@ -83,6 +85,7 @@ public class SingleCalendarService {
         return generatedCalendars;
     }
 
+
     public String deleteSingleCalendar(String userId, String groupId) {
         User user = userRepository.findByUserId(userId);
         List<SingleCalendar> singleCalendarList = singleCalendarRepository.findByUserIdAndGroupId(user,groupId);
@@ -93,4 +96,8 @@ public class SingleCalendarService {
         }
         return "삭제성공";
     }
+
+//    public List<SingleCalendarDTO> upateSingleCalendar(String userId, String groupId, SingleCalendarDTO singleCalendarDTO) {
+//
+//    }
 }

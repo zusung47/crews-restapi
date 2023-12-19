@@ -9,8 +9,8 @@ Content-Type: application/json
   "title": "날짜 테스트123",
   "firstDate": "2023-12-01",
   "lastDate": "2023-12-10",
-  "groupId": "1234",
-  "repeatNum": 3
+  "groupId": "12324aa",
+  "repeatNum": 2
 }
 
 ### 싱글캘린더조회
