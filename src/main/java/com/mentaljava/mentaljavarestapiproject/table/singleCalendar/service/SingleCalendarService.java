@@ -97,6 +97,20 @@ public class SingleCalendarService {
         return "삭제성공";
     }
 
+    @Transactional
+    public String updateSingCalendar(SingleCalendarDTO singleCalendarDTO) {
+
+        SingleCalendar originalCal = singleCalendarRepository.findBySingleCalendarId(singleCalendarDTO.getSingleCalendarId());
+
+        originalCal.setStartDate(singleCalendarDTO.getStartDate());
+        originalCal.setTitle(singleCalendarDTO.getTitle());
+
+        singleCalendarRepository.save(originalCal);
+
+        return "수정성공";
+
+    }
+
 //    public List<SingleCalendarDTO> upateSingleCalendar(String userId, String groupId, SingleCalendarDTO singleCalendarDTO) {
 //
 //    }

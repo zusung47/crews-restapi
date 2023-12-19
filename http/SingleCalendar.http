@@ -15,3 +15,13 @@ Content-Type: application/json
 
 ### 싱글캘린더조회
 DELETE http://localhost:8080/api/v1/singleCalendar/delete/sean1007@naver.com/1
+
+### 싱글캘린더수정
+PUT http://localhost:8080/api/v1/singleCalendar/update
+Content-Type: application/json
+
+{
+  "singleCalendarId": 6,
+  "title": "수정테스팅",
+  "startDate": "2023-12-04"
+}

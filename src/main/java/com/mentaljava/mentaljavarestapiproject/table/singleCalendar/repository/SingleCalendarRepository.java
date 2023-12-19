@@ -1,5 +1,6 @@
 package com.mentaljava.mentaljavarestapiproject.table.singleCalendar.repository;
 
+import com.mentaljava.mentaljavarestapiproject.table.singleCalendar.dto.SingleCalendarDTO;
 import com.mentaljava.mentaljavarestapiproject.table.singleCalendar.entitiy.SingleCalendar;
 import com.mentaljava.mentaljavarestapiproject.table.user.entity.User;
 import java.util.List;
@@ -9,5 +10,8 @@ public interface SingleCalendarRepository extends JpaRepository<SingleCalendar,I
 
     List<SingleCalendar> findByUserId(User user);
 
-    List<SingleCalendar> findByUserIdAndGroupId(User userId, String groupId);
+    List<SingleCalendar> findByUserIdAndGroupId(User user, String groupId);
+
+
+    SingleCalendar findBySingleCalendarId(Integer singleCalendarId);
 }

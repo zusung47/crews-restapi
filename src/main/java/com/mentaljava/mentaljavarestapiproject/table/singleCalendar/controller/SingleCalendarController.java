@@ -79,6 +79,14 @@ public class SingleCalendarController {
 //
 //    }
 
+    @PutMapping("/update")
+    public ResponseEntity<ResponseDTO> updateSingleCalendar(
+            @RequestBody SingleCalendarDTO singleCalendarDTO){
+        return ResponseEntity.ok().body(
+                new ResponseDTO(HttpStatus.OK, "싱글캘린더 일정 수정 성공",
+                        singleCalendarService.updateSingCalendar(singleCalendarDTO)));
+    }
+
 
 
 }
